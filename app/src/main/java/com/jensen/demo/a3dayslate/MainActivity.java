@@ -39,9 +39,6 @@ public class MainActivity extends AppCompatActivity {
     private EditText enterPassword;
     private EditText enterUsername;
 
-    // Variable to keep track of the user's ID for sign-up
-    String userID;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,10 +62,29 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String userEmail = enterEmail.getText().toString();
+                String userUsername = enterUsername.getText().toString();
                 String userPassword = enterPassword.getText().toString();
-                // Could do password hashing here?
                 // Here, we should check the data with the FireStore DB to check for successful login
+                uAuth.signInWithEmailAndPassword(userEmail, userPassword)
+                        .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // Sign in success, set the current user, and navigate to next activity
+                                    Log.d("TAG", "signInWithEmail:success");
+                                    FirebaseUser user = uAuth.getCurrentUser();
+                                     // -> Navigate to a next activity here!
+                                } else {
+                                    // If sign in fails, display a message to the user.
+                                    Log.w("TAG", "signInWithEmail:failure", task.getException());
+                                    Toast.makeText(MainActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                                }
 
+                            }
+                        });
+                enterEmail.setText("");
+                enterUsername.setText("");
+                enterPassword.setText("");
             }
         });
 
@@ -85,14 +101,12 @@ public class MainActivity extends AppCompatActivity {
                 if(userEmail.length() == 0 || userPassword.length() == 0 || userUsername.length() == 0) {
                     return;
                 }
-
                 // Use FireBase Auth to set up and authenticate a new User!
                 uAuth.createUserWithEmailAndPassword(userEmail, userPassword)
                         .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull final Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    userID = uAuth.getCurrentUser().getUid();
                                     final DocumentReference documentReference = db.collection("users").document(userUsername);
                                     // This code below, checks the database for the username entered, to ensure that it is unique!
                                     documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -118,40 +132,21 @@ public class MainActivity extends AppCompatActivity {
                                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                 @Override
                                                                 public void onSuccess(Void aVoid) {
-                                                                    Log.d("TAG", "User profile is created for " + userID);
+                                                                    Log.d("TAG", "User profile is created");
+                                                                    FirebaseUser user = uAuth.getCurrentUser();
+                                                                    // Navigate to the next activity here!
                                                                 }
                                                             });
                                                 }
                                             }
                                         }
                                     });
-
-                                    /*
-                                    HashMap<String, Object> user = new HashMap<>();
-                                    user.put("email", userEmail);
-
-                                    documentReference
-                                            .set(user)
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    Log.d("TAG", "Failure when trying to sign up user!");
-                                                }
-                                            })
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void aVoid) {
-                                                    Log.d("TAG", "User profile is created for " + userID);
-                                                }
-
-
-                                    });
-                                    */
-
                                 }
                                 else {
                                     // If sign in fails, display a message to the user?
                                     Log.e("TAG", "onComplete: Failed=" + task.getException().getMessage());
+                                    Toast.makeText(MainActivity.this, "Sign-up failed!",
+                                            Toast.LENGTH_SHORT).show();
                                 }
 
                                 // ...
