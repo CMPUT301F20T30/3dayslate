@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 String userUsername = enterUsername.getText().toString();
                 String userPassword = enterPassword.getText().toString();
                 if (userEmail.length() == 0 || userPassword.length() == 0) {
+                    Toast.makeText(MainActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 // Here, we should check the data with the FireStore DB to check for successful login
@@ -96,8 +97,6 @@ public class MainActivity extends AppCompatActivity {
 
         // SignUp button functionality
         signUpButton.setOnClickListener(new View.OnClickListener() {
-            Boolean success = false;
-
             @Override
             public void onClick(View view) {
                 // Get the sign-up data from EditText fields
@@ -106,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 //HashMap<String, Object> user;
                 final String userPassword = enterPassword.getText().toString();
                 if (userEmail.length() == 0 || userPassword.length() == 0 || userUsername.length() == 0) {
+                    Toast.makeText(MainActivity.this, "Sign-up failed.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
                                 Log.d("TAG", "Username is taken!");
-                                return;
+                                Toast.makeText(MainActivity.this, "Username taken.", Toast.LENGTH_SHORT).show();
                             }
                             else {
                                 uAuth.createUserWithEmailAndPassword(userEmail, userPassword)
