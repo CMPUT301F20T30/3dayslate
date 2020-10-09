@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -64,6 +65,10 @@ public class MainActivity extends AppCompatActivity {
                 String userEmail = enterEmail.getText().toString();
                 String userUsername = enterUsername.getText().toString();
                 String userPassword = enterPassword.getText().toString();
+                if (userEmail.length() == 0 || userPassword.length() == 0) {
+                    Toast.makeText(MainActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 // Here, we should check the data with the FireStore DB to check for successful login
                 uAuth.signInWithEmailAndPassword(userEmail, userPassword)
                         .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
@@ -73,7 +78,9 @@ public class MainActivity extends AppCompatActivity {
                                     // Sign in success, set the current user, and navigate to next activity
                                     Log.d("TAG", "signInWithEmail:success");
                                     FirebaseUser user = uAuth.getCurrentUser();
-                                     // -> Navigate to a next activity here!
+                                    Toast.makeText(MainActivity.this, "Signed in as: " + user.getDisplayName(),
+                                            Toast.LENGTH_SHORT).show();
+                                    // -> Navigate to a next activity here!
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Log.w("TAG", "signInWithEmail:failure", task.getException());
@@ -90,34 +97,37 @@ public class MainActivity extends AppCompatActivity {
 
         // SignUp button functionality
         signUpButton.setOnClickListener(new View.OnClickListener() {
-            Boolean success = false;
             @Override
             public void onClick(View view) {
                 // Get the sign-up data from EditText fields
                 final String userEmail = enterEmail.getText().toString();
                 final String userUsername = enterUsername.getText().toString();
                 //HashMap<String, Object> user;
-                String userPassword = enterPassword.getText().toString();
-                if(userEmail.length() == 0 || userPassword.length() == 0 || userUsername.length() == 0) {
+                final String userPassword = enterPassword.getText().toString();
+                if (userEmail.length() == 0 || userPassword.length() == 0 || userUsername.length() == 0) {
+                    Toast.makeText(MainActivity.this, "Sign-up failed.", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
                 // Use FireBase Auth to set up and authenticate a new User!
-                uAuth.createUserWithEmailAndPassword(userEmail, userPassword)
-                        .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull final Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    final DocumentReference documentReference = db.collection("users").document(userUsername);
-                                    // This code below, checks the database for the username entered, to ensure that it is unique!
-                                    documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                            if (task.isSuccessful()) {
-                                                DocumentSnapshot document = task.getResult();
-                                                if (document.exists()) {
-                                                    Log.d("TAG", "Username is taken!");
-                                                }
-                                                else {
+
+                final DocumentReference documentReference = db.collection("users").document(userUsername);
+                // This code below, checks the database for the username entered, to ensure that it is unique!
+                documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                Log.d("TAG", "Username is taken!");
+                                Toast.makeText(MainActivity.this, "Username taken.", Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                uAuth.createUserWithEmailAndPassword(userEmail, userPassword)
+                                        .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                                            @Override
+                                            public void onComplete(@NonNull final Task<AuthResult> task) {
+                                                if (task.isSuccessful()) {
                                                     // Case for if the username is indeed unique! -> Actually add the user to the database!
                                                     HashMap<String, Object> user = new HashMap<>();
                                                     user.put("email", userEmail);
@@ -134,29 +144,41 @@ public class MainActivity extends AppCompatActivity {
                                                                 public void onSuccess(Void aVoid) {
                                                                     Log.d("TAG", "User profile is created");
                                                                     FirebaseUser user = uAuth.getCurrentUser();
-                                                                    // Navigate to the next activity here!
+                                                                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                                                            .setDisplayName(userUsername).build();
+
+                                                                    user.updateProfile(profileUpdates)
+                                                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                @Override
+                                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                                    if (task.isSuccessful()) {
+                                                                                        Log.d("TAG", "User profile updated.");
+                                                                                        // Navigate to the next activity here!
+                                                                                    }
+                                                                                }
+                                                                            });
                                                                 }
                                                             });
+                                                } else {
+                                                    // If sign in fails, display a message to the user?
+                                                    Log.e("TAG", "onComplete: Failed=" + task.getException().getMessage());
+                                                    Toast.makeText(MainActivity.this, "Sign-up failed!",
+                                                            Toast.LENGTH_SHORT).show();
                                                 }
                                             }
-                                        }
-                                    });
-                                }
-                                else {
-                                    // If sign in fails, display a message to the user?
-                                    Log.e("TAG", "onComplete: Failed=" + task.getException().getMessage());
-                                    Toast.makeText(MainActivity.this, "Sign-up failed!",
-                                            Toast.LENGTH_SHORT).show();
-                                }
-
-                                // ...
+                                        });
                             }
-                        });
+                        }
+                        else {
+                            return;
+                        }
+                    }
+                });
                 enterEmail.setText("");
                 enterPassword.setText("");
                 enterUsername.setText("");
             }
-        });
 
+        });
     }
 }
