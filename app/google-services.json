@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "795162923525",
+    "firebase_url": "https://dayslate-fe4bd.firebaseio.com",
+    "project_id": "dayslate-fe4bd",
+    "storage_bucket": "dayslate-fe4bd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:795162923525:android:bc3d421c7049fb2fd6426c",
+        "android_client_info": {
+          "package_name": "com.jensen.demo.a3dayslate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "795162923525-pi1m9v7nu927iqghruc8k0sqmd4j3pfv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDjMh0g5MBiK52yuJOVn-5mboTAph2U4Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "795162923525-pi1m9v7nu927iqghruc8k0sqmd4j3pfv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
