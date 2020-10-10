@@ -3,7 +3,9 @@ package com.jensen.demo.a3dayslate;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
@@ -61,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         // Login button functionality
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 String userEmail = enterEmail.getText().toString();
                 String userUsername = enterUsername.getText().toString();
                 String userPassword = enterPassword.getText().toString();
@@ -81,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
                                     Toast.makeText(MainActivity.this, "Signed in as: " + user.getDisplayName(),
                                             Toast.LENGTH_SHORT).show();
                                     // -> Navigate to a next activity here!
+                                    Intent intent = new Intent(view.getContext(), getBookByISBN.class);
+                                    startActivity(intent);
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Log.w("TAG", "signInWithEmail:failure", task.getException());
