@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                                     Toast.makeText(MainActivity.this, "Signed in as: " + user.getDisplayName(),
                                             Toast.LENGTH_SHORT).show();
                                     // -> Navigate to a next activity here!
-                                    Intent intent = new Intent(view.getContext(), getBookByISBN.class);
+                                    Intent intent = new Intent(view.getContext(), DashboardActivity.class);
                                     startActivity(intent);
                                 } else {
                                     // If sign in fails, display a message to the user.
