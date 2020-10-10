@@ -18,6 +18,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard_activity);
+
         // declare all xml elements
         TextView userDisplay;
         Button bookSearch;
@@ -36,6 +37,11 @@ public class DashboardActivity extends AppCompatActivity {
         scanISBN = findViewById(R.id.scanISBNButton);
         myRequests = findViewById(R.id.myRequestsButton);
 
+        /*
+        once user is actually passed from login
+        set userDisplay text here
+        userDisplay.setText("Welcome " + user.get_username());
+         */
         //on click listener for bookSearch
         bookSearch.setOnClickListener(new View.OnClickListener() {
             @Override
