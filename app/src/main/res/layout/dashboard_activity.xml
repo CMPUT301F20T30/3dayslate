@@ -10,9 +10,9 @@
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="100dp"
-        android:text="USERNAME PLACEHOLDER"
         android:gravity="center"
-        android:textSize="30dp"
+        android:text="USERNAME PLACEHOLDER"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -39,8 +39,8 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:background="#9EE1C9"
-            android:textSize="24dp"
-            android:text="Search for Books" />
+            android:text="Search for Books"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/peopleSearchButton"
@@ -48,8 +48,8 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:background="#C0EFE5"
-            android:textSize="24dp"
-            android:text="SEARCH FOR PEOPLE" />
+            android:text="SEARCH FOR PEOPLE"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/myBooksButton"
@@ -57,8 +57,8 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:background="#9EE1C9"
-            android:textSize="24dp"
-            android:text="My Books" />
+            android:text="My Books"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/borrowedBooksButton"
@@ -66,8 +66,8 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:background="#C0EFE5"
-            android:textSize="24dp"
-            android:text="My Borrowed Books" />
+            android:text="My Borrowed Books"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/myProfileButton"
@@ -75,8 +75,8 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:background="#9EE1C9"
-            android:textSize="24dp"
-            android:text="My Profile" />
+            android:text="My Profile"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/scanISBNButton"
@@ -84,8 +84,8 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:background="#C0EFE5"
-            android:textSize="24dp"
-            android:text="Scan ISBN" />
+            android:text="Scan ISBN"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/myRequestsButton"
@@ -93,8 +93,8 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:background="#9EE1C9"
-            android:textSize="24dp"
-            android:text="My Requests" />
+            android:text="My Requests"
+            android:textSize="18sp" />
     </LinearLayout>
 
 
