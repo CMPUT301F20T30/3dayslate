@@ -1,5 +1,6 @@
 package com.jensen.demo.a3dayslate;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.View;
@@ -86,7 +87,8 @@ public class DashboardActivity extends AppCompatActivity {
         scanISBN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(DashboardActivity.this, getBookByISBN.class);
+                startActivity(intent);
             }
         });
 

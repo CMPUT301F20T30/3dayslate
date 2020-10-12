@@ -3,6 +3,7 @@ package com.jensen.demo.a3dayslate;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.nfc.Tag;
@@ -82,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
                                     Toast.makeText(MainActivity.this, "Signed in as: " + user.getDisplayName(),
                                             Toast.LENGTH_SHORT).show();
                                     // -> Navigate to a next activity here!
-                                    // navigate to dashboard
                                     Intent intent = new Intent(view.getContext(), DashboardActivity.class);
                                     startActivity(intent);
                                 } else {
