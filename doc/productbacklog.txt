@@ -1,0 +1,344 @@
+Books:
+
+[US 01.01.01]
+  Rationale:
+  -Each owner can add to their own collection of books, by passing in a title, author, and ISBN.
+  -As an owner, I want to add a book in my books because the library should be dynamic (able to change) and populated with book information to distinguish individual books
+  Risk level
+  Low
+  -Possibly create a book class object with the necessary fields, e.g., status, title, author, ISBN
+  Size
+  -Small size, a single book does not contain a lot of information
+  -Story point size: 1 hour
+
+
+[US 01.02.01]
+  Rationale:
+  -Use an ISBN to get back a book and it’s description!
+  -Don’t know what this means, might have to make a get request to an API, and receive back a book?
+  -As an owner, I want the book description by scanning it off the book (at least the ISBN), so that I can easily access books in my collection
+  Risk level
+  -HIGH
+  Size
+  -Small size, a single book does not contain a lot of information
+  -Story point size: 5 hours
+
+[US 01.03.01]
+  Rationale:
+  -An aspect of the book class that is relatively easy to set
+  -As an owner or borrower, I want a book to have a status to be one of: available, requested, accepted, or borrowed so that I know what to manage and what is the current situation.
+  Risk level
+  -Low
+  Size
+  -Story point size: 0.5 hour
+
+[US 01.04.01]
+  Rationale:
+  -Each owner should be able to view their own list of books that are owned by them, and view all relevant information associated with each book in that list.
+  -Have to make sure that each owner gets their own list associated with their account, and it will update accordingly depending on the user
+  -As an owner, I want to view a list of all my books, and their descriptions, statuses, and current borrowers so that I don’t have to check individual information on each book one at a time
+  Risk level
+  -Medium
+  Size
+  -Story point size: 2 hour
+
+
+[US 01.05.01]
+  Rationale:
+  -Click the drop down menu, where you have the option to view the owner’s list of all books, filtered by requested, accepted, and borrowed
+  -As an owner, I want to view a list of all my books, filtered by status, so that it is all organized and easy to find. 
+  Risk level
+  -Medium
+  Size
+  -Story point size: 3 hour
+
+
+[US 01.06.01]
+  Rationale:
+  -Each owner should be able to edit a book description of a book in their collection of owned books
+  -As an owner, I want to view and edit a book description in my books in case there is a mistake or new information.
+  Risk level
+  -Low
+  -Can edit existing attributes of a book
+  Size
+  -Minor editing of a book object
+  -Story point size: 1 hour
+
+
+[US 01.07.01]
+  Rationale:
+  -Owners should have an ability to delete a book from their owned books. Might have to make sure that the book being deleted is not being borrowed by anyone before the delete can go through.
+  -As an owner, I want to delete a book in my books because I may not have a certain book in circulation anymore.
+  Risk level
+  -Low
+  Size
+  -Small size, only getting rid of the instance, and checking the status of the book.
+  -Story point size: 1 hour
+
+User profile
+
+[US 02.01.01]
+  Rationale:
+  -Create a user class. Before creation you need to check through users to make sure the username is unique
+  -As an owner or borrower, I want a profile with a unique username and my contact information, so that I can be found and contacted by my fellow users.
+  -Risk level
+  Low
+  Size
+  -Small size, create a user class and verify if it can be made
+  -Story point size: 1.5 hour
+
+
+[US 02.02.01]
+  Rationale:
+  -Edit a user class, ensuring that there is sufficient information and no necessary fields are left blank (ie. phone or email required)
+  -As an owner or borrower, I want to edit the contact information in my profile in case my information changes.
+  Risk level
+  -Low
+  Size
+  -Small size, edit a user class and verify the information is sufficient
+  -Story point size: 1 hour
+
+
+[US 02.03.01]
+  Rationale:
+  -Access information of a user class, if it exists
+  -As an owner or borrower, I want to retrieve and show the profile of a presented username in case I need to contact a specific user regarding a book (or for another reason).
+  Risk level
+  -Medium
+  Size
+  -Medium size, access a user class, or display a DNE message
+  -Story point size: 2 hour
+  
+  
+Searching:
+
+[US 03.01.01]
+  Rationale:
+  -Filter through the list of all books in the system and filter through them based on a keyword entered by the user.
+  -As a borrower, I want to specify a keyword, and search for all books that are not currently accepted or borrowed whose description contains the keyword so I can find a book that is available.
+  Risk level
+  -Low
+  Size
+  -Small size, return a list of books that contain the keyword
+  -Story point size: 2 hour
+
+
+[US 03.02.01]
+  Rationale:
+  -When searching than books should be displayed in such a way that shows the relevant information (description, owner username, status)
+  -As a borrower, I want search results to show each book with its description, owner username, and status so that I have quick access to contact information of the owner of a book I want to request, and am able to learn about the book without reading it.
+  Risk level
+  -Low
+  Size
+  -Small size, need view to show the books
+  -Story point size: 1 hour
+
+
+Requesting:
+
+[US 04.01.01]
+  Rationale:
+  -Create a request for a book object, check if not accepted or borrowed already
+  -As a borrower, I want to request a book that is not currently accepted or borrowed, so that I can get a book I want immediately.
+  Risk level
+  -Medium
+  Size
+  -Medium size, creating instance of a user class for requests, but multiple instances can be attached to one book
+  -Story point size: 3 hour
+
+
+[US 04.02.01]
+  Rationale:
+  -Access information on which books have been requested by a specific user
+  -As a borrower, I want to view a list of books I have requested, each book with its description, owner username, and status so that I know what it is and who to talk to about the book.
+  Risk level
+  -Low
+  Size
+  -Medium size, iterating through requests to see which books have been requested (or possibly keep this info attached to a user instance?)
+  -Story point size: 2 hour
+
+
+[US 04.03.01]
+  Rationale:
+  -create a notification each time an owners book is requested
+  -As an owner, I want to be notified of a request so that I can respond to the request accordingly.
+  Risk level
+  -Medium
+  Size
+  -Medium size, along with each request create a message and send to the owner of the book, with information of the borrower included
+  -Story point size: 3 hour
+
+
+[US 04.04.01]
+  Rationale:
+  -Go through requests and find the ones which contain a specific book for a certain owner
+  -As an owner, I want to view all the requests on one of my books so that I know who has requested the book.
+  Risk level
+  -Low
+  Size
+  -Small size, check that a request has a certain owner and book then return
+  -Story point size: 2 hours
+
+
+Accepting:
+
+[US 05.01.01]
+  Rationale:
+  -Each owner will have a set of incoming requests for their books, and each owner should be able to accept a request to borrow that book. If there are multiple requests for a single book, when one is accepted, other requests for the same book must automatically be declined.
+  -As an owner, I want to accept a request on one of my books. (Any other requests on the book are declined.) So that a user who wants my book can borrow it, and other users are informed they cannot currently borrow said book.
+  Risk level
+  -Medium
+  -We are not fully sure on how this is going to be implemented, or whether or not we need a request class to do this.
+  Size
+  -Story point size: 2  hours could be very small function or require more 
+
+
+[US 05.02.01]
+  Rationale:
+  -Each owner should be able to decline requests from other users to borrow one of their books, which would remove the request from the owner’s incoming requests
+  -As an owner, I want to decline a request on one of my books, because I do not want the person to borrow it. 
+  Risk level
+  -Small
+  Size
+  -Story point size: 0.5  hours, should be fairly simple to implement
+
+
+[US 05.03.01]
+  Rationale:
+  -Borrowers should be notified visually if one of their requests to borrow a book from another owner is accepted.
+  -As a borrower, I want to be notified of an accepted request so that I can confirm the exchange has been completed.
+  Risk level
+  -Medium
+  -Not fully sure on how we are going to implement the notification aspect. E.g. should we send a push notification, or just change the color of something on the UI etc.
+  Size
+  -Story point size: 5 hours, we are unfamiliar with sending things between users and updating profiles as necessary. 
+
+
+[US 05.04.01]
+  Rationale:
+  -Each borrower should be able to view a list of their outgoing requests that have been accepted.
+  -As a borrower, I want to view a list of books I have requested that are accepted, each book with its description, and owner username so that I can contact the owner if there are any issues.
+  Risk level
+  -Low
+  -Similar implementation to filter by book status
+  Size
+  -Story point size: 0.5  hours, should be fairly simple to implement
+  
+  
+Borrowing:
+
+[US 06.01.01]
+  Rationale:
+  -Each owner should be able to hand over a book to another user that requested it, by scanning the book ISBN code and changing the status of the book to borrowed.
+  -As an owner, I want to hand over a book by scanning the book ISBN code and denoting the book as borrowed, so that I can notify the system to change the status of the book. 
+  Risk level
+  -HIGH
+  -Unsure how to implement this and some clarification to what “scanning” entails, and the changes associated with scanning a book.
+  Size
+  -Story point size: ?  hours, dependent on what “scanning” is
+
+
+[US 06.02.01]
+  Rationale:
+  -Each borrower should be able to receive an accepted book, by scanning the book once it is in their possession, to confirm that the book has been borrowed, and complete the transaction.
+  -As a borrower, I want to receive an accepted book by scanning the book ISBN code to confirm I have borrowed it so the owner of the book and the rest of the app users are aware that I am in possession of the book.
+  Risk level
+  -HIGH
+  -Same as the previous, and is dependent on the functionality of scanning.
+  Size
+  -Story point size: ? is dependent on the scanning process in integration with the request process.
+
+
+[US 06.03.01]
+  Rationale:
+  -Each borrower should be able to view a list of books that they are currently borrowing
+  -As a borrower, I want to view a list of books I am borrowing, each book with its description and owner username so that I know what I currently have.
+  Risk level
+  -Low
+  -Similar implementation to other lists in the project
+  Size
+  -Story point size: 0.5  hours, should be fairly simple to implement
+
+
+Returning:
+
+[US 07.01.01]
+  Rationale:
+  -Scanning the book to get ISBN code, change the borrowed book status to available, and remove it from the list of borrowed books
+  First check to confirm return
+  -As a borrower, I want to hand over a book I borrowed by scanning the book ISBN code to denote the book as available so that the book can be borrowed by another user, or taken out of circulation by the owner.
+  Risk level
+  -medium
+  Size
+  -Story point size: 2 hour
+
+
+[US 07.02.01]
+  Rationale:
+  -An owner should be able to receive a returned book from a borrower.
+  -Owner is checking the following:
+  -Input: returned book
+  -Scan the returned the returned book with ISBN, and confirm status is available
+  -As an owner, I want to receive a returned book by scanning the book ISBN code to confirm I have it available so that the app knows the book is free to request again.
+  Risk level
+  -medium
+  Size
+  -Story point size: 2 hour
+
+
+Photographs:
+  [US 08.01.01]
+  Rationale:
+  -Owner can add photo, WHO KNOWS WHERE THOUGH
+  -Ask owner for access to their photos, get them to select a photo, upload the selected photo to the book class
+  -As an owner, I want to optionally attach a photograph to a book of mine, so that other users can see the cover and/or condition of the book. 
+  Risk level
+  -Medium, new territory but not hard
+  Size
+  -Story point size: 3 hour
+
+
+[US 08.02.01]
+  Rationale:
+  -Owner can delete photos, remove it from the book class because there is only one photo to attach
+  -As an owner, I want to delete any attached photograph for a book of mine to remove any old photos of the book.
+  Risk level
+  -medium
+  Size
+  -Story point size: 2 hour
+
+
+[US 08.03.01]
+  Rationale:
+  -See photo depending on implementation
+   -As an owner or borrower, I want to view any attached photograph for a book, so that I can see the cover and condition of the book. 
+  Risk level
+  -Low
+  Size
+  -Story point size: 2 hour
+
+
+Location:
+
+[US 09.01.01]
+  Rationale:
+  -Ask for geo location
+  -Open a map????????
+  -Choose a location from a map
+  -Save information 
+  -As an owner, I want to specify a geo location on a map of where to receive a book when I accept a request on the book so that the borrower knows where I want to hand the book over at.
+  Risk level
+  -High
+  Size
+  -Story point size: 5 hours
+
+
+[US 09.02.01]
+  Rationale:
+  -View the location of where to receive the book
+  -As a borrower, I want to view the geo location of where to receive a book I will be borrowing so that i can access directions via a third party app if necessary or simply so i know where the exchange is happening.
+  Risk level
+  -Medium
+  Size
+  -Story point size: 3 hour
+
