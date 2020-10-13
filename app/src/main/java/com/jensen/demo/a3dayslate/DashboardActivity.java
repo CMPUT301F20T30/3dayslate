@@ -44,10 +44,13 @@ public class DashboardActivity extends AppCompatActivity {
         userDisplay.setText("Welcome " + user.get_username());
          */
         //on click listener for bookSearch
+
         bookSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //start the book search activity
+                Intent intent = new Intent(DashboardActivity.this, BookSearchActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -55,7 +58,9 @@ public class DashboardActivity extends AppCompatActivity {
         peopleSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //start the user search activity
+                Intent intent = new Intent(DashboardActivity.this, UserSearchActivity.class);
+                startActivity(intent);
             }
         });
 

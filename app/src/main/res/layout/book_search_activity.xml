@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="100">
+
+    <LinearLayout
+        android:id="@+id/search_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/book_search_bar"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="75"
+            android:gravity="bottom"
+            android:hint="Search for Books"
+            android:textSize="16sp">
+
+        </EditText>
+
+        <Button
+            android:id="@+id/book_search_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="25"
+            android:text="search"
+            android:textSize="16sp">
+
+        </Button>
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/book_search_listview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="75"
+        android:divider="@color/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/action_linear_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_linear_layout">
+
+    </ListView>
+
+    <LinearLayout
+        android:id="@+id/action_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="15"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+
+        <Button
+            android:id="@+id/view_book_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#C0EFE5"
+            android:text="View"
+            android:textSize="16sp">
+
+        </Button>
+
+        <Button
+            android:id="@+id/request_book_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#9EE1C9"
+            android:text="Request"
+            android:textSize="16sp">
+
+        </Button>
+
+    </LinearLayout>
+</LinearLayout>
