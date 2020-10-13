@@ -28,6 +28,22 @@
         </activity>
 
         <activity
+            android:name=".BorrowedBooksActivity"
+            android:parentActivityName=".DashboardActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DashboardActivity" />
+        </activity>
+
+        <activity
+            android:name=".OwnedBooksActivity"
+            android:parentActivityName=".DashboardActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DashboardActivity" />
+        </activity>
+
+        <activity
             android:name=".UserSearchActivity"
             android:parentActivityName=".DashboardActivity">
             <meta-data

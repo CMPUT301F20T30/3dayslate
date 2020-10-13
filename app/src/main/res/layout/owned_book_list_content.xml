@@ -11,7 +11,7 @@
         android:layout_weight="50">
 
         <TextView
-            android:id="@+id/book_title"
+            android:id="@+id/owned_book_title"
             android:gravity="left"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -22,7 +22,7 @@
         </TextView>
 
         <TextView
-            android:id="@+id/book_author"
+            android:id="@+id/owned_book_author"
             android:gravity="left"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -41,7 +41,7 @@
         >
 
         <TextView
-            android:id="@+id/book_status"
+            android:id="@+id/owned_book_status"
             android:gravity="right"
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -53,19 +53,19 @@
         </TextView>
 
         <TextView
-            android:id="@+id/book_owner"
+            android:id="@+id/owned_book_borrower"
             android:gravity="right"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:text="sample_owner"
+            android:text="sample_borrower"
             android:padding="3dp"
             android:autoSizeTextType="uniform"
             >
         </TextView>
 
         <TextView
-            android:id="@+id/book_isbn"
+            android:id="@+id/owned_book_isbn"
             android:gravity="right"
             android:layout_weight="1"
             android:layout_width="match_parent"
