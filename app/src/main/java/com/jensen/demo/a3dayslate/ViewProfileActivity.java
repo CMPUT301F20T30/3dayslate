@@ -38,7 +38,7 @@ public class ViewProfileActivity extends AppCompatActivity {
         // sets the texts according to users firebase information
         username.setText(currentUser.getDisplayName());
         email.setText(currentUser.getEmail());
-        // NAME????
+        // NAME??
         // PHONE NUMBER??
 
         //on click listener for edit profile button
