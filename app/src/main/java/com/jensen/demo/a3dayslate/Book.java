@@ -4,6 +4,9 @@ import android.media.Image;
 
 import com.google.firebase.firestore.auth.User;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 /* Implements the Book class which will be used in the app to
    hold information regarding a specific book object. Has a partially filled constructor for the
    first instantiation of a book.
@@ -31,10 +34,10 @@ public class Book {
     private statuses currentStatus = statuses.AVAILABLE;
     private String title;
     private String isbn;
-    private String author;
+    private ArrayList<String> authorList;
     //NOTE THAT THIS IS SUBJECT TO CHANGE, I believe we may use the class Drawable to show images in res files or an ImageView
     private Image image;
-    private User owner;
+    private String owner;
     //on creation will always not be considered having a borrower
     private User borrower = null;
 
@@ -44,10 +47,10 @@ public class Book {
 
      */
 
-    public Book(String title, String isbn, String author, User owner) {
+    public Book(String title, String isbn, ArrayList<String> authorList, String owner) {
         this.title = title;
         this.isbn = isbn;
-        this.author = author;
+        this.authorList = authorList;
         this.owner = owner;
     }
 
@@ -81,12 +84,14 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public String getAuthor() {
-        return author;
+    public ArrayList<String> getAuthors() {
+        return authorList;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setAuthors(ArrayList<String> authors) {
+        for(int i = 0; i < authors.size(); i++) {
+            authorList.set(i, authors.get(i));
+        }
     }
 
     public Image getImage() {
@@ -97,11 +102,11 @@ public class Book {
         this.image = image;
     }
 
-    public User getOwner() {
+    public String getOwner() {
         return owner;
     }
 
-    public void setOwner(User owner) {
+    public void setOwner(String owner) {
         this.owner = owner;
     }
 
