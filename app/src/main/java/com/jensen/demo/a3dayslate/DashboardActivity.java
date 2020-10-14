@@ -106,7 +106,7 @@ public class DashboardActivity extends AppCompatActivity {
         myRequests.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                new RequestsFragment().show(getSupportFragmentManager(), "REQUESTS");
             }
         });
 

@@ -35,7 +35,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="#C0EFE5"
+            android:background="@color/colorSecondary"
             android:text="add"
             android:textSize="16sp">
 
@@ -46,7 +46,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="#9EE1C9"
+            android:background="@color/colorPrimary"
             android:text="delete"
             android:textSize="16sp">
 
@@ -57,7 +57,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="#C0EFE5"
+            android:background="@color/colorSecondary"
             android:text="filter"
             android:textSize="16sp">
 
@@ -68,7 +68,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="#9EE1C9"
+            android:background="@color/colorPrimary"
             android:text="edit"
             android:textSize="16sp">
 
