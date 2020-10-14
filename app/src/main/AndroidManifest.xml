@@ -36,6 +36,14 @@
         </activity>
 
         <activity
+            android:name=".ViewProfileActivity"
+            android:parentActivityName=".DashboardActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DashboardActivity" />
+        </activity>
+
+        <activity
             android:name=".OutgoingRequestsActivity"
             android:parentActivityName=".DashboardActivity">
             <meta-data

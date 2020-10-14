@@ -89,7 +89,8 @@ public class DashboardActivity extends AppCompatActivity {
         myProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(DashboardActivity.this, ViewProfileActivity.class);
+                startActivity(intent);
             }
         });
 

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="100">
+
+    <TextView
+        android:id="@+id/view_profile_name"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:textSize="24sp"
+        android:text="Name: name"
+        android:layout_weight="22">
+    </TextView>
+
+    <TextView
+        android:id="@+id/view_profile_username"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:textSize="24sp"
+        android:text="Username: username"
+        android:layout_weight="22">
+    </TextView>
+
+    <TextView
+        android:id="@+id/view_profile_email"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:textSize="24sp"
+        android:text="Username: sample@mail.com"
+        android:layout_weight="22">
+    </TextView>
+
+    <TextView
+        android:id="@+id/view_profile_phone"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:textSize="24sp"
+        android:text="Phone: (780)473-7373"
+        android:layout_weight="22">
+    </TextView>
+
+    <Button
+        android:id="@+id/edit_profile_button"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:textSize="24sp"
+        android:background="@color/colorPrimary"
+        android:text="Edit Profile"
+        android:layout_weight="12">
+    </Button>
+
+</LinearLayout>
