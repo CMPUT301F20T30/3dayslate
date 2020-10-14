@@ -3,7 +3,9 @@ package com.jensen.demo.a3dayslate;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 
-public class RequestsFragment extends DialogFragment implements View.OnClickListener{
+public class RequestsFragment extends DialogFragment{
 
     View view;
 
@@ -35,6 +37,21 @@ public class RequestsFragment extends DialogFragment implements View.OnClickList
         Button incoming = view.findViewById(R.id.incoming_requests_button);
         Button outgoing = view.findViewById(R.id.outgoing_requests_button);
 
+        incoming.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(getActivity(), IncomingRequestsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        outgoing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(getActivity(), OutgoingRequestsActivity.class);
+                startActivity(intent);
+            }
+        });
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         return builder
                 .setView(view)
@@ -42,17 +59,8 @@ public class RequestsFragment extends DialogFragment implements View.OnClickList
                 .setNegativeButton("Cancel", null)
                 .create();
 
+
     }
 
-    @Override
-    public void onClick(View v) {
-            switch(v.getId()){
-                case R.id.incoming_requests_button:
-                    //make incoming requests activity
-                    break;
-                case R.id.outgoing_requests_button:
-                    //make outgoing requests activity
-                    break;
-            }
-    }
+
 }
