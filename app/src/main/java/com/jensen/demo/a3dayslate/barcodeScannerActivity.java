@@ -1,5 +1,6 @@
 package com.jensen.demo.a3dayslate;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -16,6 +17,9 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 public class barcodeScannerActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
     ZXingScannerView scannerView;
+    // Result codes
+    int gotBook = 1;
+    int badResult = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +30,14 @@ public class barcodeScannerActivity extends AppCompatActivity implements ZXingSc
 
     @Override
     public void handleResult(Result result) {
-        getBookByISBN.ISBNResult.setText(result.getText());
-        onBackPressed();
+        //getBookByISBN.ISBNResult.setText(result.getText());
+        Bundle bundle = new Bundle();
+        bundle.putString("ISBN", result.getText().toString());
+        Intent intent = new Intent();
+        intent.putExtra("bundle", bundle);
+        setResult(gotBook, intent);
+        finish();
+        //onBackPressed();
     }
 
     @Override
