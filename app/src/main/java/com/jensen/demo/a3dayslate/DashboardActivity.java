@@ -43,11 +43,15 @@ public class DashboardActivity extends AppCompatActivity {
         set userDisplay text here
         userDisplay.setText("Welcome " + user.get_username());
          */
+
         //on click listener for bookSearch
+
         bookSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //start the book search activity
+                Intent intent = new Intent(DashboardActivity.this, BookSearchActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -55,7 +59,9 @@ public class DashboardActivity extends AppCompatActivity {
         peopleSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //start the user search activity
+                Intent intent = new Intent(DashboardActivity.this, UserSearchActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -63,7 +69,9 @@ public class DashboardActivity extends AppCompatActivity {
         myBooks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //start the owned books activity
+                Intent intent = new Intent(DashboardActivity.this, OwnedBooksActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -71,7 +79,9 @@ public class DashboardActivity extends AppCompatActivity {
         borrowedBooks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //start view borrowed books activity
+                Intent intent = new Intent(DashboardActivity.this, BorrowedBooksActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -79,7 +89,8 @@ public class DashboardActivity extends AppCompatActivity {
         myProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(DashboardActivity.this, ViewProfileActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -96,7 +107,7 @@ public class DashboardActivity extends AppCompatActivity {
         myRequests.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                new RequestsFragment().show(getSupportFragmentManager(), "REQUESTS");
             }
         });
 
