@@ -49,6 +49,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class getBookByISBN extends AppCompatActivity {
@@ -134,11 +135,14 @@ public class getBookByISBN extends AppCompatActivity {
 
                             Book createdBook = new Book(titleText, isbn, authorList, currentUser.getDisplayName());
                             // Add book to the database here!! -----------------------
+                            Log.w("TAG", "JENSEN" + createdBook.getTitle() + createdBook.getIsbn() + createdBook.getAuthors().get(0) + createdBook.getOwner());
+                            addBook(createdBook);
 
                         }
                         // If response not successful, do nothing?
                     }
                 });
+                enter_isbn.setText("");
             }
         });
     }
@@ -190,6 +194,7 @@ public class getBookByISBN extends AppCompatActivity {
                         Book createdBook = new Book(titleText, isbn, authorList, currentUser.getDisplayName());
                         Log.w("TAG", "JENSEN" + createdBook.getTitle() + createdBook.getIsbn() + createdBook.getAuthors().get(0) + createdBook.getOwner());
                         // Add book to the database here!! -----------------
+                        addBook(createdBook);
 
                     }
                     // If response not successful, do nothing?
@@ -198,6 +203,16 @@ public class getBookByISBN extends AppCompatActivity {
         }
     }
 
+    private void addBook(Book book){
+        //Adds book to a specific user
+        HashMap<String, Object> mybook = new HashMap<>();
+        mybook.put("title", book.getTitle());
+        mybook.put("isbn", book.getIsbn());
+        mybook.put("authorList", book.getAuthors());
+        db.collection("users").document(currentUser.getDisplayName()).
+                collection("books").document(book.getIsbn()).set(mybook);
+
+    }//end addBook
 
 
 }
