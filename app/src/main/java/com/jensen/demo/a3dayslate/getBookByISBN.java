@@ -58,6 +58,7 @@ public class getBookByISBN extends AppCompatActivity {
     private Button scan_button;
     private Button enter_button;
     private EditText enter_isbn;
+    private String titleText;
     String bodyText;
 
     // Request codes
@@ -95,69 +96,105 @@ public class getBookByISBN extends AppCompatActivity {
                 String url;
                 isbn = enter_isbn.getText().toString();
                 url = baseURL + isbn; // Get the actual URL for the request
-                Book createdBook = getBook(url, httpClient, isbn);
+                ArrayList<String> authorList = new ArrayList<String>();
 
-                // Store it to the DB and other fun stuff
+                Request request = new Request.Builder()
+                        .url(url)
+                        .build();
 
-            }
-        });
-    }
-    // Access the google books API to get the relevant information for a book based on it's ISBN
-    private Book getBook(String url, OkHttpClient httpClient, String isbn) {
-
-        final String[] titleText = new String[1];
-        final ArrayList<String> authorList = new ArrayList<String>();
-
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
-
-        httpClient.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Request request, IOException e) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    //Log.w("TAG", "ADD BOOK TEST " + titleText[0]);
-                    bodyText = response.body().string();
-                    try {
-                        // This code will be refactored later and does not currently accomplish anything
-                        JSONObject jsonObject = new JSONObject(bodyText);
-                        JSONArray itemsArray = jsonObject.getJSONArray("items");
-                        JSONObject items = itemsArray.getJSONObject(0);
-                        JSONObject volInfo = items.getJSONObject("volumeInfo"); // Contains relevant info about the book
-                        JSONArray authors = volInfo.getJSONArray("authors");
-                        // Actual fields for the book
-                        titleText[0] = volInfo.getString("title"); // Title
-                        // Populate the authors list
-                        for(int i = 0; i < authors.length(); i++) {
-                            authorList.add(authors.getString(i));
-                        }
-                        Log.w("TAG", "ADD BOOK TEST " + titleText[0] + " " + authorList.get(0));
-                    } catch (JSONException e) {
+                // Access the google books API to get the relevant information for a book based on it's ISBN
+                httpClient.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Request request, IOException e) {
                         e.printStackTrace();
                     }
-                }
-                // If response not successful, do nothing?
+
+                    @Override
+                    public void onResponse(Response response) throws IOException {
+                        if (response.isSuccessful()) {
+                            //Log.w("TAG", "ADD BOOK TEST " + titleText[0]);
+                            bodyText = response.body().string();
+                            try {
+                                // This code will be refactored later and does not currently accomplish anything
+                                JSONObject jsonObject = new JSONObject(bodyText);
+                                JSONArray itemsArray = jsonObject.getJSONArray("items");
+                                JSONObject items = itemsArray.getJSONObject(0);
+                                JSONObject volInfo = items.getJSONObject("volumeInfo"); // Contains relevant info about the book
+                                JSONArray authors = volInfo.getJSONArray("authors");
+                                // Actual fields for the book
+                                titleText = volInfo.getString("title"); // Title
+                                // Populate the authors list
+                                for(int i = 0; i < authors.length(); i++) {
+                                    authorList.add(authors.getString(i));
+                                }
+                                Log.w("TAG", "ADD BOOK TEST " + titleText + " " + authorList.get(0));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            Book createdBook = new Book(titleText, isbn, authorList, currentUser.getDisplayName());
+                            // Add book to the database here!! -----------------------
+
+                        }
+                        // If response not successful, do nothing?
+                    }
+                });
             }
         });
-        return new Book(titleText[0], isbn, authorList, currentUser.getDisplayName());
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        // For recieving information from the barcode-scanner
+        // For receiving information from the barcode-scanner
         if(resultCode == scanISBNRequestCode) {
             Bundle bundle = data.getBundleExtra("bundle");
             String isbn = bundle.getString("ISBN");
             String baseURL = "https://www.googleapis.com/books/v1/volumes?q=isbn:";
             String url = baseURL + isbn;
-            Book createdBook = getBook(url, httpClient, isbn);
-            // Store book in DB
+            ArrayList<String> authorList = new ArrayList<String>();
+            //Book createdBook = getBook(url, httpClient, isbn);
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            // Access the google books API to get the relevant information for a book based on it's ISBN
+            httpClient.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Request request, IOException e) {
+                    e.printStackTrace();
+                }
+
+                @Override
+                public void onResponse(Response response) throws IOException {
+                    if (response.isSuccessful()) {
+                        //Log.w("TAG", "ADD BOOK TEST " + titleText[0]);
+                        bodyText = response.body().string();
+                        try {
+                            // This code will be refactored later and does not currently accomplish anything
+                            JSONObject jsonObject = new JSONObject(bodyText);
+                            JSONArray itemsArray = jsonObject.getJSONArray("items");
+                            JSONObject items = itemsArray.getJSONObject(0);
+                            JSONObject volInfo = items.getJSONObject("volumeInfo"); // Contains relevant info about the book
+                            JSONArray authors = volInfo.getJSONArray("authors");
+                            // Actual fields for the book
+                            titleText = volInfo.getString("title"); // Title
+                            // Populate the authors list
+                            for (int i = 0; i < authors.length(); i++) {
+                                authorList.add(authors.getString(i));
+                            }
+                            Log.w("TAG", "ADD BOOK TEST " + titleText + " " + authorList.get(0));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        // Store it to the DB and other fun stuff
+                        Book createdBook = new Book(titleText, isbn, authorList, currentUser.getDisplayName());
+                        Log.w("TAG", "JENSEN" + createdBook.getTitle() + createdBook.getIsbn() + createdBook.getAuthors().get(0) + createdBook.getOwner());
+                        // Add book to the database here!! -----------------
+
+                    }
+                    // If response not successful, do nothing?
+                }
+            });
         }
     }
 
