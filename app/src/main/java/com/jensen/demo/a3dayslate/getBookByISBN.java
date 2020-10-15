@@ -108,6 +108,7 @@ public class getBookByISBN extends AppCompatActivity {
                     @Override
                     public void onFailure(Request request, IOException e) {
                         e.printStackTrace();
+                        return;
                     }
 
                     @Override
@@ -131,6 +132,7 @@ public class getBookByISBN extends AppCompatActivity {
                                 Log.w("TAG", "ADD BOOK TEST " + titleText + " " + authorList.get(0));
                             } catch (JSONException e) {
                                 e.printStackTrace();
+                                return;
                             }
 
                             Book createdBook = new Book(titleText, isbn, authorList, currentUser.getDisplayName());
@@ -152,6 +154,7 @@ public class getBookByISBN extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         // For receiving information from the barcode-scanner
         if(resultCode == scanISBNRequestCode) {
+            boolean valid = true;
             Bundle bundle = data.getBundleExtra("bundle");
             String isbn = bundle.getString("ISBN");
             String baseURL = "https://www.googleapis.com/books/v1/volumes?q=isbn:";
@@ -166,6 +169,7 @@ public class getBookByISBN extends AppCompatActivity {
                 @Override
                 public void onFailure(Request request, IOException e) {
                     e.printStackTrace();
+                    return;
                 }
 
                 @Override
@@ -187,8 +191,9 @@ public class getBookByISBN extends AppCompatActivity {
                                 authorList.add(authors.getString(i));
                             }
                             Log.w("TAG", "ADD BOOK TEST " + titleText + " " + authorList.get(0));
-                        } catch (JSONException e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
+                            return;
                         }
                         // Store it to the DB and other fun stuff
                         Book createdBook = new Book(titleText, isbn, authorList, currentUser.getDisplayName());
