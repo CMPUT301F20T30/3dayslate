@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:textSize="24sp"
-        android:text="Username: username"
+        android:text="Username:"
         android:layout_weight="22">
     </TextView>
 
@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:textSize="24sp"
-        android:text="Username: sample@mail.com"
+        android:text="Email:"
         android:layout_weight="22">
     </TextView>
 
@@ -41,7 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:textSize="24sp"
-        android:text="Phone: (780)473-7373"
+        android:text="Phone:"
         android:layout_weight="22">
     </TextView>
 
