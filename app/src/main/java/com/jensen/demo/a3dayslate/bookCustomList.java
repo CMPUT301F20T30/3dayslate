@@ -59,16 +59,16 @@ public class bookCustomList extends ArrayAdapter<Book> {
 
         //check each Book ENUM individually to set display string
         if (book.getCurrentStatus() == Book.statuses.ACCEPTED) {
-            bookStatus.setText("Accepted"); //HOW TO TURN ENUM TO STRING?
+            bookStatus.setText("Accepted");
         }
         else if (book.getCurrentStatus() == Book.statuses.AVAILABLE) {
-            bookStatus.setText("Available"); //HOW TO TURN ENUM TO STRING?
+            bookStatus.setText("Available");
         }
         else if (book.getCurrentStatus() == Book.statuses.REQUESTED) {
-            bookStatus.setText("Requested"); //HOW TO TURN ENUM TO STRING?
+            bookStatus.setText("Requested");
         }
         else if (book.getCurrentStatus() == Book.statuses.BORROWED) {
-            bookStatus.setText("Borrowed"); //HOW TO TURN ENUM TO STRING?
+            bookStatus.setText("Borrowed");
         }
 
         return view;
