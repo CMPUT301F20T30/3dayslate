@@ -12,7 +12,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class ViewProfileActivity extends AppCompatActivity {
+public class  ViewProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
