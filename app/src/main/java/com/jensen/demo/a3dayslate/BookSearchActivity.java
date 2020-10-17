@@ -42,11 +42,11 @@ public class BookSearchActivity extends AppCompatActivity {
         bookList.setAdapter(bookAdapter);
 
         //a little test
-        ArrayList<String> authors = new ArrayList<>();
+        /*ArrayList<String> authors = new ArrayList<>();
         authors.add("Author1");
         authors.add("Author2");
         Book book1 = new Book("BookTitle", "1234567890", authors, "Barry");
-        bookAdapter.add(book1);
+        bookAdapter.add(book1);*/
         //end test
 
         searchBook.setOnClickListener(new View.OnClickListener() {

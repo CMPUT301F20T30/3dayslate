@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 public class bookCustomList extends ArrayAdapter<Book> {
 
+    //@Author Danny Zaiter
 
     //init context
     private ArrayList<Book> books;
