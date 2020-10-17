@@ -1,4 +1,4 @@
-package com.jensen.demo.a3dayslate;
+ package com.jensen.demo.a3dayslate;
 
 import android.Manifest;
 import android.content.BroadcastReceiver;
