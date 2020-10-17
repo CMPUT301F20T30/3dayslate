@@ -14,7 +14,7 @@ import android.view.View;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-public class barcodeScannerActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
+public class  barcodeScannerActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
     ZXingScannerView scannerView;
     // Result codes
