@@ -22,8 +22,8 @@ public class bookCustomList extends ArrayAdapter<Book> {
     private Context context;
 
     //constructor implementing super construction from ArrayAdapter
-    public bookCustomList(Context context, ArrayList<Book> gears){
-        super(context,0, gears);
+    public bookCustomList(Context context, ArrayList<Book> books){
+        super(context,0, books);
         this.books = books;
         this.context = context;
     }
@@ -51,13 +51,25 @@ public class bookCustomList extends ArrayAdapter<Book> {
         TextView bookISBN = view.findViewById(R.id.book_isbn);
 
 
-        //setting all fields of list view (including joining of authors into string
+        //setting all fields of list view (including joining of authors into string)
         bookTitle.setText(book.getTitle());
-        bookAuthor.setText(String.join(",", book.getAuthors()));
-        bookStatus.setText("STATUS TBD"); //HOW TO TURN ENUM TO STRING?
+        bookAuthor.setText(String.join(", ", book.getAuthors()));
         bookOwner.setText(book.getOwner());
         bookISBN.setText(book.getIsbn());
 
+        //check each Book ENUM individually to set display string
+        if (book.getCurrentStatus() == Book.statuses.ACCEPTED) {
+            bookStatus.setText("Accepted"); //HOW TO TURN ENUM TO STRING?
+        }
+        else if (book.getCurrentStatus() == Book.statuses.AVAILABLE) {
+            bookStatus.setText("Available"); //HOW TO TURN ENUM TO STRING?
+        }
+        else if (book.getCurrentStatus() == Book.statuses.REQUESTED) {
+            bookStatus.setText("Requested"); //HOW TO TURN ENUM TO STRING?
+        }
+        else if (book.getCurrentStatus() == Book.statuses.BORROWED) {
+            bookStatus.setText("Borrowed"); //HOW TO TURN ENUM TO STRING?
+        }
 
         return view;
     }

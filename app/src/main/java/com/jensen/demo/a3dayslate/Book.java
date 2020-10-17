@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 public class Book {
     //enums for statuses
-    private enum statuses{
+    enum statuses{
         AVAILABLE,
         REQUESTED,
         ACCEPTED,

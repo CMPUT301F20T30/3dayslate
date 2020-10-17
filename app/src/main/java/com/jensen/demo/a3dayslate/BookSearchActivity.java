@@ -31,20 +31,23 @@ public class BookSearchActivity extends AppCompatActivity {
         Button searchBook;
         ListView bookList;
 
+        //find view by ID commands
         viewBook = findViewById(R.id.view_book_button);
         requestBook = findViewById(R.id.request_book_button);
         searchBook = findViewById(R.id.book_search_button);
         bookList = findViewById(R.id.book_search_listview);
 
-
-        //TODO make an adapter for this utilizing book_list_content.xml
-
+        //set Book Adapter to custom list view
         bookAdapter = new bookCustomList(this, bookDataList);
         bookList.setAdapter(bookAdapter);
 
         //a little test
-        /*Book book1 = new Book("BookTitle", "1234567890", new ArrayList<>(), "Barry");
-        bookAdapter.add(book1);*/
+        ArrayList<String> authors = new ArrayList<>();
+        authors.add("Author1");
+        authors.add("Author2");
+        Book book1 = new Book("BookTitle", "1234567890", authors, "Barry");
+        bookAdapter.add(book1);
+        //end test
 
         searchBook.setOnClickListener(new View.OnClickListener() {
             @Override
