@@ -47,6 +47,7 @@ android:weightSum="100">
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="75"
+        android:background="#FFFFFF"
         android:divider="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/action_linear_layout"
         app:layout_constraintEnd_toEndOf="parent"

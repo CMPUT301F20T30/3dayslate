@@ -63,17 +63,6 @@ public class Book {
     //on creation will always not be considered having a borrower
     private String borrower = "";
 
-
-    /* gets the aspects of an instance of a Book object
-    @return value of a aspect of gear
-     */
-
-    /**
-     * Gets the current status of the book
-     * @return
-     * Return the book's status as an enum
-     */
-
     public Book(String title, String isbn, ArrayList<String> authorList, String owner) {
         this.title = title;
         this.isbn = isbn;
@@ -81,9 +70,10 @@ public class Book {
         this.owner = owner;
     }
 
-    /**Gets the current Status
-     *
-     * @return currentStatus
+    /**
+     * Gets the current status of the book
+     * @return
+     * Return the book's status as an enum
      */
 
     public statuses getCurrentStatus() {
@@ -95,7 +85,6 @@ public class Book {
      * @param currentStatus
      * This is the status to be set
      */
-
 
     public void setCurrentStatus(statuses currentStatus) {
         this.currentStatus = currentStatus;
@@ -153,7 +142,6 @@ public class Book {
         }
     }
 
-    //not the right image stuff but yeah
     /**
      * Gets the Image of the book
      * @return

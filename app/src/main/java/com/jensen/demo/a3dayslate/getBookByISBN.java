@@ -1,4 +1,4 @@
-package com.jensen.demo.a3dayslate;
+ package com.jensen.demo.a3dayslate;
 
 import android.Manifest;
 import android.content.BroadcastReceiver;
@@ -54,6 +54,20 @@ import java.util.HashMap;
 
 public class getBookByISBN extends AppCompatActivity {
 
+     /*
+       Implements the ability for an owner to add a new book to their collection.
+       Allows the user to accomplish this task by scanning in a barcode with their camera, or entering an ISBN code manually
+
+       Uses the Google books API for mapping an ISBN to a book
+
+       Contains a method to store a newly created book in the database under the owner
+
+       @author: Jensen Khemchandani
+       @see: Rewrite for .java classes that use it
+       @version:1.0.0
+
+   */
+
     private TextView bookText;
     public static TextView ISBNResult; // Temporary public variable
     private Button scan_button;
@@ -70,7 +84,7 @@ public class getBookByISBN extends AppCompatActivity {
     private BarcodeScanner scanner;
 
     // URL Stuff
-    final String baseURL = "https://www.googleapis.com/books/v1/volumes?q=isbn:";
+    final String baseURL = "https://www.googleapis.com/books/v1/volumes?q=ISBN:";
     final OkHttpClient httpClient = new OkHttpClient();
 
     // Firebase instances
@@ -95,6 +109,9 @@ public class getBookByISBN extends AppCompatActivity {
             public void onClick(View view) {
                 String isbn;
                 String url;
+                if(enter_isbn.getText().length() == 0) {
+                    return;
+                }
                 isbn = enter_isbn.getText().toString();
                 url = baseURL + isbn; // Get the actual URL for the request
                 ArrayList<String> authorList = new ArrayList<String>();
@@ -157,7 +174,7 @@ public class getBookByISBN extends AppCompatActivity {
             boolean valid = true;
             Bundle bundle = data.getBundleExtra("bundle");
             String isbn = bundle.getString("ISBN");
-            String baseURL = "https://www.googleapis.com/books/v1/volumes?q=isbn:";
+            String baseURL = "https://www.googleapis.com/books/v1/volumes?q=ISBN:";
             String url = baseURL + isbn;
             ArrayList<String> authorList = new ArrayList<String>();
             //Book createdBook = getBook(url, httpClient, isbn);
