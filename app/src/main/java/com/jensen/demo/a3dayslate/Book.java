@@ -7,20 +7,42 @@ import com.google.firebase.firestore.auth.User;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-/* Implements the Book class which will be used in the app to
+/* Book Class
+
+   Version 1.0.0
+
+   October 17 2020
+
+   Copyright [2020] [Larissa Zhang]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+ */
+
+/** Implements the Book class which will be used in the app to
    hold information regarding a specific book object. Has a partially filled constructor for the
-   first instantiation of a book.
+    first instantiation of a book.
    Has both getter and setter methods for all the aspects.
 
    Enums are for the status of each book as they will always
    remain constant. The impression is that we will use getter
    and setter methods to modify aspects after creation.
 
-   @author: Larissa Zhang
-   @see: Rewrite for .java classes that use it
-   @version:1.0.0
+   @author Larissa Zhang
+   @see for .java classes that use it
+   @version 1.0.0
 
  */
+
 
 public class Book {
     //enums for statuses
@@ -34,14 +56,12 @@ public class Book {
     private statuses currentStatus = statuses.AVAILABLE;
     private String title;
     private String isbn;
-    private ArrayList<String> authorList;
+    private final ArrayList<String> authorList;
     //NOTE THAT THIS IS SUBJECT TO CHANGE, I believe we may use the class Drawable to show images in res files or an ImageView
     private Image image;
     private String owner;
     //on creation will always not be considered having a borrower
-    private User borrower = null;
-
-
+    private String borrower = "";
 
     public Book(String title, String isbn, ArrayList<String> authorList, String owner) {
         this.title = title;
@@ -49,12 +69,6 @@ public class Book {
         this.authorList = authorList;
         this.owner = owner;
     }
-
-    /* gets the aspects of an instance of a Book object
-
-    @return value of a aspect of gear
-
-     */
 
     /**
      * Gets the current status of the book
@@ -75,7 +89,6 @@ public class Book {
     public void setCurrentStatus(statuses currentStatus) {
         this.currentStatus = currentStatus;
     }
-
 
     /**
      * Gets the title of the book
@@ -175,7 +188,7 @@ public class Book {
      * Return the book's borrower as a string containing their username, if there is no borrower, returns null
      */
 
-    public User getBorrower() {
+    public String getBorrower() {
         return borrower;
     }
 
@@ -185,7 +198,7 @@ public class Book {
      * This is the borrower's username to set
      */
 
-    public void setBorrower(User borrower) {
+    public void setBorrower(String borrower) {
         this.borrower = borrower;
     }
 }
