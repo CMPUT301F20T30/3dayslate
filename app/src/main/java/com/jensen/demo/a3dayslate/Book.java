@@ -41,11 +41,7 @@ public class Book {
     //on creation will always not be considered having a borrower
     private User borrower = null;
 
-    /* Creates an instance of Book item
 
-    @params title, isbn, author, owner
-
-     */
 
     public Book(String title, String isbn, ArrayList<String> authorList, String owner) {
         this.title = title;
@@ -60,33 +56,72 @@ public class Book {
 
      */
 
+    /**
+     * Gets the current status of the book
+     * @return
+     * Return the book's status as an enum
+     */
+
     public statuses getCurrentStatus() {
         return currentStatus;
     }
+
+    /**
+     * This sets the current status of the book
+     * @param currentStatus
+     * This is the status to be set
+     */
 
     public void setCurrentStatus(statuses currentStatus) {
         this.currentStatus = currentStatus;
     }
 
+
+    /**
+     * Gets the title of the book
+     * @return
+     * Return the book's title as a string
+     */
+
     public String getTitle() {
         return title;
     }
+
+    /**
+     * This sets the title of the book
+     * @param title
+     * This is the title to be set
+     */
 
     public void setTitle(String title) {
         this.title = title;
     }
 
+    /**
+     * Gets the ISBN of the book
+     * @return
+     * Return the book's ISBN code as a string
+     */
+
     public String getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
+    /**
+     * Gets the Authors of the book
+     * @return
+     * Return the book's author(s) as a String ArrayList
+     */
 
     public ArrayList<String> getAuthors() {
         return authorList;
     }
+
+    /**
+     * This sets the authors of the book
+     * @param authors
+     * This is the ArrayList of authors to set
+     */
 
     public void setAuthors(ArrayList<String> authors) {
         for(int i = 0; i < authors.size(); i++) {
@@ -94,25 +129,61 @@ public class Book {
         }
     }
 
+    /**
+     * Gets the Image of the book
+     * @return
+     * Return the book's image as an Image object
+     */
+
     public Image getImage() {
         return image;
     }
+
+    /**
+     * This sets the image of the book
+     * @param image
+     * This is the Image to set
+     */
 
     public void setImage(Image image) {
         this.image = image;
     }
 
+    /**
+     * Gets the owner of the book
+     * @return
+     * Return the book's owner as a string containing their username
+     */
+
     public String getOwner() {
         return owner;
     }
+
+    /**
+     * This sets the owner of the book
+     * @param owner
+     * This is the owner's username to set
+     */
 
     public void setOwner(String owner) {
         this.owner = owner;
     }
 
+    /**
+     * Gets the current borrower of the book
+     * @return
+     * Return the book's borrower as a string containing their username, if there is no borrower, returns null
+     */
+
     public User getBorrower() {
         return borrower;
     }
+
+    /**
+     * This sets the current borrower of the book
+     * @param borrower
+     * This is the borrower's username to set
+     */
 
     public void setBorrower(User borrower) {
         this.borrower = borrower;

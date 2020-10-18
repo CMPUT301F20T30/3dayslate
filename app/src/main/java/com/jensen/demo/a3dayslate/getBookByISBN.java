@@ -54,6 +54,20 @@ import java.util.HashMap;
 
 public class getBookByISBN extends AppCompatActivity {
 
+     /*
+       Implements the ability for an owner to add a new book to their collection.
+       Allows the user to accomplish this task by scanning in a barcode with their camera, or entering an ISBN code manually
+
+       Uses the Google books API for mapping an ISBN to a book
+
+       Contains a method to store a newly created book in the database under the owner
+
+       @author: Jensen Khemchandani
+       @see: Rewrite for .java classes that use it
+       @version:1.0.0
+
+   */
+
     private TextView bookText;
     public static TextView ISBNResult; // Temporary public variable
     private Button scan_button;
