@@ -70,7 +70,7 @@ public class getBookByISBN extends AppCompatActivity {
     private BarcodeScanner scanner;
 
     // URL Stuff
-    final String baseURL = "https://www.googleapis.com/books/v1/volumes?q=isbn:";
+    final String baseURL = "https://www.googleapis.com/books/v1/volumes?q=ISBN:";
     final OkHttpClient httpClient = new OkHttpClient();
 
     // Firebase instances
@@ -95,6 +95,9 @@ public class getBookByISBN extends AppCompatActivity {
             public void onClick(View view) {
                 String isbn;
                 String url;
+                if(enter_isbn.getText().length() == 0) {
+                    return;
+                }
                 isbn = enter_isbn.getText().toString();
                 url = baseURL + isbn; // Get the actual URL for the request
                 ArrayList<String> authorList = new ArrayList<String>();
@@ -157,7 +160,7 @@ public class getBookByISBN extends AppCompatActivity {
             boolean valid = true;
             Bundle bundle = data.getBundleExtra("bundle");
             String isbn = bundle.getString("ISBN");
-            String baseURL = "https://www.googleapis.com/books/v1/volumes?q=isbn:";
+            String baseURL = "https://www.googleapis.com/books/v1/volumes?q=ISBN:";
             String url = baseURL + isbn;
             ArrayList<String> authorList = new ArrayList<String>();
             //Book createdBook = getBook(url, httpClient, isbn);
