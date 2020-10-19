@@ -1,5 +1,6 @@
 package com.jensen.demo.a3dayslate;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,11 +21,13 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class OwnedBooksActivity extends AppCompatActivity {
 
     private ArrayList<Book>  myBooks = new ArrayList<>();
     private OwnedBooksAdapter booksAdapter;
+    public int itempos = -1; //Used to keep track of last click
 
 
     @Override
@@ -34,7 +37,7 @@ public class OwnedBooksActivity extends AppCompatActivity {
 
 
         //declare xml attributes
-        ListView ownedBooksList;
+        final ListView ownedBooksList;
         Button addBook;
         Button deleteBook;
         Button filterBook;
@@ -89,7 +92,7 @@ public class OwnedBooksActivity extends AppCompatActivity {
         ownedBooksList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                itempos = position;
             }
         });
 
@@ -97,7 +100,8 @@ public class OwnedBooksActivity extends AppCompatActivity {
         addBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(OwnedBooksActivity.this, getBookByISBN.class);
+                startActivity(intent);
             }
         });
 
@@ -105,7 +109,19 @@ public class OwnedBooksActivity extends AppCompatActivity {
         deleteBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if(itempos != -1) {
+                    db.collection("users").document(currentUser.getDisplayName()).
+                            collection("books").
+                            document(myBooks.get(itempos).getIsbn()).delete();
+                    //booksAdapter.notifyDataSetChanged();
+                    for(int i = 0; i < myBooks.size(); i++){
+                        if(myBooks.get(i).getIsbn().equals(myBooks.get(itempos).getIsbn())){
+                            myBooks.remove(i);
+                        }
+                    }
+                    adapter(myBooks, ownedBooksList);
+                    itempos = -1;
+                }
             }
         });
 
