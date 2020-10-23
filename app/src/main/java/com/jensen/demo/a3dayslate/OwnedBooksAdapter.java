@@ -19,6 +19,7 @@ import java.util.ArrayList;
 public class OwnedBooksAdapter extends ArrayAdapter<Book> {
     private Context mContext;
     private int mResource;
+    private String author;
 
     public OwnedBooksAdapter(@NonNull Context context, int resource, ArrayList<Book> books) {
         super(context, resource, books);
@@ -31,11 +32,19 @@ public class OwnedBooksAdapter extends ArrayAdapter<Book> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         String isbn = getItem(position).getIsbn();
         ArrayList<String> authors = getItem(position).getAuthors();
-        String author = authors.get(0);
         Book.statuses status = getItem(position).getCurrentStatus();
         String statusString = status.toString();
         String title = getItem(position).getTitle();
 
+
+        //make a string for all authors
+        for(int i =0; i<authors.size(); i++ ){
+            if(i==0) {
+                author = authors.get(i);
+            }else{
+                author = author + ", " + authors.get(i);
+            }
+        }
         //TODO implement user class so this can be done
         // User borrower = getItem(position).getBorrower();
         // String borrowerName = borrower.getName();

@@ -1,6 +1,7 @@
 package com.jensen.demo.a3dayslate;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,15 +21,20 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class OwnedBooksActivity extends AppCompatActivity {
+/** This activity displays all books owned by the logged in user
+ *  It contains buttons for adding a book, deleting a book, editing a book, and filtering the list (NOT IMPLEMENTED YET)
+ * @ author Eric Weber
+ */
+public class OwnedBooksActivity extends AppCompatActivity implements Serializable {
 
     private ArrayList<Book>  myBooks = new ArrayList<>();
     private OwnedBooksAdapter booksAdapter;
-    public int itempos = -1; //Used to keep track of last click
-
+    private Book clickedBook = null;
+    private int EDIT_BOOK_ACTIVITY =1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,16 +89,12 @@ public class OwnedBooksActivity extends AppCompatActivity {
 
                });
 
-
-
-        //TODO make adapter using owned_book_list_content.xml
-
-
-
         ownedBooksList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                itempos = position;
+
+                clickedBook = (Book)parent.getItemAtPosition(position);
+
             }
         });
 
@@ -109,18 +111,18 @@ public class OwnedBooksActivity extends AppCompatActivity {
         deleteBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(itempos != -1) {
+                if(clickedBook!=null) {
                     db.collection("users").document(currentUser.getDisplayName()).
                             collection("books").
-                            document(myBooks.get(itempos).getIsbn()).delete();
+                            document(clickedBook.getIsbn()).delete();
                     //booksAdapter.notifyDataSetChanged();
-                    for(int i = 0; i < myBooks.size(); i++){
-                        if(myBooks.get(i).getIsbn().equals(myBooks.get(itempos).getIsbn())){
-                            myBooks.remove(i);
-                        }
+
+                    if(clickedBook!=null){
+                        myBooks.remove(clickedBook);
+                        clickedBook = null;
                     }
+
                     adapter(myBooks, ownedBooksList);
-                    itempos = -1;
                 }
             }
         });
@@ -137,11 +139,21 @@ public class OwnedBooksActivity extends AppCompatActivity {
         editBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // if book is clicked then go to edit activity for it
+                if(clickedBook!=null){
+                    Intent intent = new Intent(v.getContext(), EditBookActivity.class);
+                    intent.putExtra("book", (Serializable) clickedBook);
+                    startActivityForResult(intent, EDIT_BOOK_ACTIVITY);
+                }
             }
         });
     }
 
+    /** Sets up the adapter for owned books
+     *
+     * @param books ArrayList of books
+     * @param ownedBooksList listview for books
+     */
     private void adapter(ArrayList<Book> books, ListView ownedBooksList){
         booksAdapter = new OwnedBooksAdapter(this, R.layout.owned_book_list_content, books);
         ownedBooksList.setAdapter(booksAdapter);
@@ -149,4 +161,29 @@ public class OwnedBooksActivity extends AppCompatActivity {
         Log.w("BOOK ARRAYLIST:", myBooks.toString());
     }
 
+    /** Handles returning from activities with results
+     *  Updates ArrayList of owned books with book returned
+     * @param requestCode acitivity result requested
+     * @param resultCode result of activity
+     * @param data data returned from activity
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == EDIT_BOOK_ACTIVITY){
+            if (resultCode == EditBookActivity.RESULT_OK){
+                Book editedBook = (Book)data.getExtras().getSerializable("BOOK");
+                int pos =0;
+                for(int i=0; i< myBooks.size(); i++){
+                    if(myBooks.get(i).equals(clickedBook)){
+
+                        pos = i;
+                    }
+                }
+                myBooks.set(pos, editedBook);
+                booksAdapter.notifyDataSetChanged();
+
+            }
+        }
+    }
 }
