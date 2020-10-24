@@ -4,6 +4,7 @@ import android.media.Image;
 
 import com.google.firebase.firestore.auth.User;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -44,7 +45,7 @@ import java.util.ArrayList;
  */
 
 
-public class Book {
+public class Book implements Serializable {
     //enums for statuses
     protected enum statuses{
         AVAILABLE,
@@ -56,7 +57,8 @@ public class Book {
     private statuses currentStatus = statuses.AVAILABLE;
     private String title;
     private String isbn;
-    private final ArrayList<String> authorList;
+    // private final ArrayList<String> authorList;
+    private ArrayList<String> authorList;
     //NOTE THAT THIS IS SUBJECT TO CHANGE, I believe we may use the class Drawable to show images in res files or an ImageView
     private Image image;
     private String owner;
@@ -137,9 +139,12 @@ public class Book {
      */
 
     public void setAuthors(ArrayList<String> authors) {
+        authorList = authors;
+        /*
         for(int i = 0; i < authors.size(); i++) {
             authorList.set(i, authors.get(i));
         }
+         */
     }
 
     /**
