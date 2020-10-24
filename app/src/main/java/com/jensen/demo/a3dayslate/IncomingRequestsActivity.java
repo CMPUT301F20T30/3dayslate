@@ -24,7 +24,7 @@ public class IncomingRequestsActivity extends AppCompatActivity {
 
         //TODO make adapter using incoming_requests content.xml
 
-        //on click listerne for accept
+        //on click listener for accept
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
