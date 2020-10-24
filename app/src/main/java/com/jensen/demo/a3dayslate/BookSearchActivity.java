@@ -78,6 +78,21 @@ public class BookSearchActivity extends AppCompatActivity {
                                         (ArrayList<String>)document.get("authorList"),
                                         (String)document.get("owner"));
 
+                                String status = (String)document.get("availability");
+
+                                if (status.equals("AVAILABLE")){
+                                    newBook.setCurrentStatus(Book.statuses.AVAILABLE);
+                                }
+                                else if (status.equals("BORROWED")){
+                                    newBook.setCurrentStatus(Book.statuses.BORROWED);
+                                }
+                                else if (status.equals("REQUESTED")){
+                                    newBook.setCurrentStatus(Book.statuses.REQUESTED);
+                                }
+                                else if (status.equals("ACCEPTED")){
+                                    newBook.setCurrentStatus(Book.statuses.ACCEPTED);
+                                }
+
                                 // log new book object
                                 Log.w("BOOK Object:", newBook.getTitle() + " " +newBook.getIsbn() + " " + newBook.getAuthors());
                                 // add book to myBooks
@@ -121,8 +136,10 @@ public class BookSearchActivity extends AppCompatActivity {
                         bookInfo = bookInfo + book.getAuthors().get(j);
                     }
 
-                    if (bookInfo.toLowerCase().contains(keyword)){
+                    if (bookInfo.toLowerCase().contains(keyword)
+                            && (book.getCurrentStatus() == Book.statuses.AVAILABLE || book.getCurrentStatus() == Book.statuses.REQUESTED)){
                         searchDataList.add(book);
+                        Log.d("BOOK ADDED", book.getTitle());
                     }
                 }
                 bookAdapter.notifyDataSetChanged();
