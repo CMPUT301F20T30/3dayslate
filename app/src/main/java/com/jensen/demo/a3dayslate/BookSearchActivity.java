@@ -1,5 +1,6 @@
 package com.jensen.demo.a3dayslate;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,11 +23,14 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class BookSearchActivity extends AppCompatActivity {
+public class BookSearchActivity extends AppCompatActivity implements Serializable{
 
     private bookCustomList bookAdapter;
+    private Book clickedBook = null;
+    private int VIEW_BOOK_ACTIVITY = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -151,7 +155,12 @@ public class BookSearchActivity extends AppCompatActivity {
         viewBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //view clicked book
+                if(clickedBook!=null){
+                    Intent intent = new Intent(v.getContext(), ViewBookActivity.class);
+                    intent.putExtra("book", (Serializable) clickedBook);
+                    startActivityForResult(intent, VIEW_BOOK_ACTIVITY);
+                }
             }
         });
 
@@ -168,9 +177,16 @@ public class BookSearchActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //background colour of latest clicked book should be highlighted #C0EFE5
+
+                clickedBook = (Book)parent.getItemAtPosition(position);
             }
         });
 
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

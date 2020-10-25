@@ -28,6 +28,14 @@
         </activity>
 
         <activity
+            android:name=".ViewBookActivity"
+            android:parentActivityName=".BookSearchActivity">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".OwnedBooksActivity" />
+        </activity>
+
+        <activity
             android:name=".EditBookActivity"
             android:parentActivityName=".OwnedBooksActivity">
             <meta-data
