@@ -87,11 +87,12 @@ public class EditBookActivity extends AppCompatActivity implements Serializable 
                     Log.d("NEWAUTHORS",newAuthors.toString());
                     book.setAuthors(newAuthors);
 
-                    //put changes in database
+                    //put changes in database in all required places
                     db.collection("users").document(currentUser.getDisplayName()).
                             collection("books").document(book.getIsbn())
                             .update("title", newTitle, "authorList", newAuthors);
-
+                    db.collection("books").document(book.getIsbn())
+                            .update("title", newTitle, "authorList", newAuthors);
                     //return to owned books activity
                     Intent returnItemIntent = new Intent();
                     returnItemIntent.putExtra("BOOK", book);
