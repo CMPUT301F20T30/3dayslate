@@ -10,6 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
 public class DashboardActivity extends AppCompatActivity {
@@ -38,11 +41,14 @@ public class DashboardActivity extends AppCompatActivity {
         scanISBN = findViewById(R.id.scanISBNButton);
         myRequests = findViewById(R.id.myRequestsButton);
 
-        /*
-        once user is actually passed from login
-        set userDisplay text here
-        userDisplay.setText("Welcome " + user.get_username());
-         */
+        // gets the current user from the database
+        final FirebaseFirestore db = FirebaseFirestore.getInstance();
+        final FirebaseAuth uAuth = FirebaseAuth.getInstance();
+        final FirebaseUser currentUser = uAuth.getCurrentUser();
+
+        String userString = "Welcome " + currentUser.getDisplayName();
+        userDisplay.setText(userString);
+
 
         //on click listener for bookSearch
 
