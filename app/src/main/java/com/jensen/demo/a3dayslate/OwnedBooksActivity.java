@@ -115,6 +115,7 @@ public class OwnedBooksActivity extends AppCompatActivity implements Serializabl
                     db.collection("users").document(currentUser.getDisplayName()).
                             collection("books").
                             document(clickedBook.getIsbn()).delete();
+                    db.collection("books").document(clickedBook.getIsbn()).delete();
                     //booksAdapter.notifyDataSetChanged();
 
                     if(clickedBook!=null){
