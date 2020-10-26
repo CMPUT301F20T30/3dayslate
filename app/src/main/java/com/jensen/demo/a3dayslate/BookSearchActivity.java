@@ -189,6 +189,7 @@ public class BookSearchActivity extends AppCompatActivity implements Serializabl
                     db.collection("books").document(isbn).set(clickedBook);
                     db.collection("users").document(borrower).collection("outgoingRequests").document(requestID).set(request);
                     db.collection("users").document(owner).collection("incomingRequests").document(requestID).set(request);
+                    bookAdapter.notifyDataSetChanged();
                 }
             }
         });

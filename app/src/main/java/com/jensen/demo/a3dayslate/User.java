@@ -39,7 +39,6 @@ import androidx.recyclerview.widget.RecyclerView;
  *    limitations under the License.
  */
 public class User {
-
     // gets the current user from the data base
     //final FirebaseFirestore db = FirebaseFirestore.getInstance();
     //final FirebaseAuth uAuth = FirebaseAuth.getInstance();

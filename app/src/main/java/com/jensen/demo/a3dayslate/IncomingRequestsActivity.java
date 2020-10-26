@@ -1,11 +1,13 @@
 package com.jensen.demo.a3dayslate;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +22,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class IncomingRequestsActivity extends AppCompatActivity {
 
@@ -27,6 +30,8 @@ public class IncomingRequestsActivity extends AppCompatActivity {
     final FirebaseFirestore db = FirebaseFirestore.getInstance();
     final FirebaseAuth uAuth = FirebaseAuth.getInstance();
     final FirebaseUser currentUser = uAuth.getCurrentUser();
+
+    private Request clickedRequest = null;
 
     ArrayAdapter<Request> requestAdapter;
     ArrayList<Request> requestArrayList = new ArrayList<>();
@@ -66,7 +71,43 @@ public class IncomingRequestsActivity extends AppCompatActivity {
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if(clickedRequest != null) {
+                    String key = clickedRequest.getOwner() + clickedRequest.getRequester() + clickedRequest.getBook().getIsbn();
+                    clickedRequest.setStatus(Book.statuses.ACCEPTED);
+                    clickedRequest.getBook().setCurrentStatus(Book.statuses.ACCEPTED);
+                    db.collection("users").document(clickedRequest.getOwner()).collection("incomingRequests").document(key).set(clickedRequest);
+                    db.collection("users").document(clickedRequest.getRequester()).collection("outgoingRequests").document(key).set(clickedRequest);
+                    db.collection("users").document(clickedRequest.getOwner()).collection("books").document(clickedRequest.getBook().getIsbn()).set(clickedRequest.getBook());
+                    db.collection("books").document(clickedRequest.getBook().getIsbn()).set(clickedRequest.getBook());
+                    // Decline all requests for the same book
+                    String isbn = clickedRequest.getBook().getIsbn();
+                    Iterator<Request> i = requestArrayList.iterator();
+                    while(i.hasNext()) {
+                        Request request = i.next();
+                        if(request != clickedRequest) {
+                            String id = request.getOwner() + request.getRequester() + request.getBook().getIsbn();
+                            // Update the database as necessary
+                            db.collection("users").document(request.getOwner()).collection("incomingRequests").document(id).delete();
+                            db.collection("users").document(request.getRequester()).collection("outgoingRequests").document(id).delete();
+                            i.remove();
+                        }
+                    }
+                    /*
+                    for(Request request : requestArrayList) {
+                        Log.w("INCOMINGTEST", request.getRequester());
+                        if(request != clickedRequest) {
+                            String id = request.getOwner() + request.getRequester() + request.getBook().getIsbn();
+                            // Update the database as necessary
+                            db.collection("users").document(request.getOwner()).collection("incomingRequests").document(id).delete();
+                            db.collection("users").document(request.getRequester()).collection("outgoingRequests").document(id).delete();
+                            requestArrayList.remove(request);
+                        }
+                    }
+                    */
+                    clickedRequest = null;
+                    requestAdapter.notifyDataSetChanged();
+                    // Set a location here somehow -> Google maps
+                }
             }
         });
 
@@ -74,7 +115,16 @@ public class IncomingRequestsActivity extends AppCompatActivity {
         decline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if(clickedRequest != null) {
+                    String key = clickedRequest.getOwner() + clickedRequest.getRequester() + clickedRequest.getBook().getIsbn();
+                    Toast.makeText(IncomingRequestsActivity.this, "Request declined", Toast.LENGTH_SHORT).show();
+                    // Update the database as necessary
+                    db.collection("users").document(clickedRequest.getOwner()).collection("incomingRequests").document(key).delete();
+                    db.collection("users").document(clickedRequest.getRequester()).collection("outgoingRequests").document(key).delete();
+                    requestArrayList.remove(clickedRequest);
+                    clickedRequest = null;
+                    requestAdapter.notifyDataSetChanged();
+                }
             }
         });
 
@@ -82,7 +132,7 @@ public class IncomingRequestsActivity extends AppCompatActivity {
         incomingRequestsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                clickedRequest = (Request) parent.getItemAtPosition(position);
             }
         });
     }
