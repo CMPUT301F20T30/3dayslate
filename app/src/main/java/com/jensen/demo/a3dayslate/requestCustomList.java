@@ -51,10 +51,10 @@ public class requestCustomList extends ArrayAdapter<Request> {
 
         //check each Book ENUM individually to set display string
         if (request.getStatus() == Book.statuses.REQUESTED) {
-            requestStatus.setText("Requested...");
+            requestStatus.setText("Status: Requested...");
         }
         else if (request.getStatus() == Book.statuses.ACCEPTED) {
-            requestStatus.setText("Accepted!");
+            requestStatus.setText("Status: Accepted!");
         }
         return view;
     }

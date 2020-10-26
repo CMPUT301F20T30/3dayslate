@@ -168,7 +168,9 @@ public class BookSearchActivity extends AppCompatActivity implements Serializabl
         requestBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(clickedBook!=null){
 
+                }
             }
         });
 

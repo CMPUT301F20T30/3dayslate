@@ -154,6 +154,20 @@ public class OwnedBooksActivity extends AppCompatActivity implements Serializabl
         filterBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //requestID is owner Username + borrower Username + isbn
+                String borrower = currentUser.getDisplayName();
+                Request request = new Request(borrower, clickedBook);
+                String owner = clickedBook.getOwner();
+                String isbn = clickedBook.getIsbn();
+                String requestID = owner + borrower + isbn;
+                if (clickedBook.getCurrentStatus() != Book.statuses.REQUESTED){
+                    Log.w("Available Larissa","Testing on Available books");
+                    clickedBook.setCurrentStatus(Book.statuses.REQUESTED);
+                    db.collection("users").document(owner).collection("books").document(isbn).set(clickedBook);
+                    //db.collection("books").document(isbn).set(clickedBook);
+                }
+                //db.collection("users").document(borrower).collection("outgoingRequests").document(requestID).set(request);
+                //db.collection("users").document(owner).collection("incomingRequests").document(requestID).set(request);
 
             }
         });
