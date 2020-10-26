@@ -1,6 +1,7 @@
 package com.jensen.demo.a3dayslate;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,6 +22,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class IncomingRequestsActivity extends AppCompatActivity {
 
@@ -77,10 +79,22 @@ public class IncomingRequestsActivity extends AppCompatActivity {
                     db.collection("users").document(clickedRequest.getRequester()).collection("outgoingRequests").document(key).set(clickedRequest);
                     db.collection("users").document(clickedRequest.getOwner()).collection("books").document(clickedRequest.getBook().getIsbn()).set(clickedRequest.getBook());
                     db.collection("books").document(clickedRequest.getBook().getIsbn()).set(clickedRequest.getBook());
-
                     // Decline all requests for the same book
                     String isbn = clickedRequest.getBook().getIsbn();
+                    Iterator<Request> i = requestArrayList.iterator();
+                    while(i.hasNext()) {
+                        Request request = i.next();
+                        if(request != clickedRequest) {
+                            String id = request.getOwner() + request.getRequester() + request.getBook().getIsbn();
+                            // Update the database as necessary
+                            db.collection("users").document(request.getOwner()).collection("incomingRequests").document(id).delete();
+                            db.collection("users").document(request.getRequester()).collection("outgoingRequests").document(id).delete();
+                            i.remove();
+                        }
+                    }
+                    /*
                     for(Request request : requestArrayList) {
+                        Log.w("INCOMINGTEST", request.getRequester());
                         if(request != clickedRequest) {
                             String id = request.getOwner() + request.getRequester() + request.getBook().getIsbn();
                             // Update the database as necessary
@@ -89,6 +103,7 @@ public class IncomingRequestsActivity extends AppCompatActivity {
                             requestArrayList.remove(request);
                         }
                     }
+                    */
                     clickedRequest = null;
                     requestAdapter.notifyDataSetChanged();
                     // Set a location here somehow -> Google maps
