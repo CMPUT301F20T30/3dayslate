@@ -169,7 +169,6 @@ public class BookSearchActivity extends AppCompatActivity implements Serializabl
             @Override
             public void onClick(View v) {
                 if(clickedBook!=null){
-
                 }
             }
         });
