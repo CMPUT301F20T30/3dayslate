@@ -14,6 +14,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+
 public class ViewProfileActivity extends AppCompatActivity implements EditProfileDialog.ProfileDialogListener {
     /*
       Allow user to view their own contact information and edit username and email fields
@@ -28,6 +29,7 @@ public class ViewProfileActivity extends AppCompatActivity implements EditProfil
     TextView email;
     TextView phone;
     Button editProfile;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

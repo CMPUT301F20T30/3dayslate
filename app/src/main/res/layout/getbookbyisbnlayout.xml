@@ -11,34 +11,36 @@
         android:id="@+id/scanISBNButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Scan Code"
+        android:layout_marginTop="28dp"
+        android:text="Scan ISBN Code"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.057"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/ISBNresult"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="36dp"
-        android:text="Testing"
+    <Button
+        android:id="@+id/enterISBNButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="Enter ISBN Code"
         app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="22sp"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.94"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scanISBNButton" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/bookInfo"
-        android:layout_width="240dp"
-        android:layout_height="290dp"
-        android:layout_marginTop="48dp"
-        android:text="TextView"
+    <EditText
+        android:id="@+id/enterISBNCode"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="128dp"
+        android:ems="10"
+        android:hint="Enter ISBN number here..."
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ISBNresult" />
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
