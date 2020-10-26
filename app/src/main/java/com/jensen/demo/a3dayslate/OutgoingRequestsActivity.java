@@ -43,12 +43,12 @@ public class OutgoingRequestsActivity extends AppCompatActivity {
         //declare listView
         ListView outgoingRequestsList;
         outgoingRequestsList = findViewById(R.id.outgoing_requests_listview);
-
+        /*
         Book test_book = new Book("test", "123", new ArrayList<String>(), "Eric");
         Request testReq = new Request("hihihi", test_book);
         testReq.setStatus(Book.statuses.REQUESTED);
         //requestArrayList.add(testReq);
-
+        */
         // Gets the collection reference for the user's outgoing requests
         // Test for adding request to the database
         /*
@@ -81,7 +81,7 @@ public class OutgoingRequestsActivity extends AppCompatActivity {
                         }
                     }
                 });
-        //on item click listener for outgoing request
+        //on item click listener for outgoing request idk if we actually need this
         outgoingRequestsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

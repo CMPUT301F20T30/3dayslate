@@ -46,15 +46,15 @@ public class requestCustomList extends ArrayAdapter<Request> {
 
 
         //setting all fields of list view (including joining of authors into string)
-        bookTitle.setText(request.getBook().getTitle());
-        bookOwner.setText(request.getOwner());
+        bookTitle.setText("Title: " + request.getBook().getTitle());
+        bookOwner.setText("Owner: " + request.getOwner());
 
         //check each Book ENUM individually to set display string
         if (request.getStatus() == Book.statuses.REQUESTED) {
-            requestStatus.setText("Requested");
+            requestStatus.setText("Requested...");
         }
         else if (request.getStatus() == Book.statuses.ACCEPTED) {
-            requestStatus.setText("Accepted");
+            requestStatus.setText("Accepted!");
         }
         return view;
     }
