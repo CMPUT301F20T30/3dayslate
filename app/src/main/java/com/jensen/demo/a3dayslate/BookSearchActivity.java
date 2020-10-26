@@ -78,6 +78,8 @@ public class BookSearchActivity extends AppCompatActivity implements Serializabl
                                 // log book in database
                                 Log.w("BOOK:", document.getId() + "=>" + document.getData());
                                 //make new bookObject
+                                Book newBook = document.toObject(Book.class);
+                                /*
                                 Book newBook = new Book((String)document.get("title"),
                                         (String)document.get("isbn"),
                                         (ArrayList<String>)document.get("authorList"),
@@ -85,7 +87,7 @@ public class BookSearchActivity extends AppCompatActivity implements Serializabl
 
                                 String status = (String)document.get("availability");
 
-                                if (status.equals("AVAILABLE")){
+                                if(status.equals("AVAILABLE")){
                                     newBook.setCurrentStatus(Book.statuses.AVAILABLE);
                                 }
                                 else if (status.equals("BORROWED")){
@@ -101,6 +103,7 @@ public class BookSearchActivity extends AppCompatActivity implements Serializabl
                                 // log new book object
                                 Log.w("BOOK Object:", newBook.getTitle() + " " +newBook.getIsbn() + " " + newBook.getAuthors());
                                 // add book to myBooks
+                                */
                                 bookDataList.add(newBook);
 
                             }
@@ -183,7 +186,6 @@ public class BookSearchActivity extends AppCompatActivity implements Serializabl
                         db.collection("users").document(owner).collection("books").document(isbn).set(clickedBook);
                         db.collection("books").document(isbn).set(clickedBook);
                     }
-                    request.setStatus(Book.statuses.REQUESTED);
                     db.collection("books").document(isbn).set(clickedBook);
                     db.collection("users").document(borrower).collection("outgoingRequests").document(requestID).set(request);
                     db.collection("users").document(owner).collection("incomingRequests").document(requestID).set(request);
@@ -200,8 +202,6 @@ public class BookSearchActivity extends AppCompatActivity implements Serializabl
                 clickedBook = (Book)parent.getItemAtPosition(position);
             }
         });
-
-
     }
 
     @Override

@@ -3,13 +3,34 @@ package com.jensen.demo.a3dayslate;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+
 public class IncomingRequestsActivity extends AppCompatActivity {
+
+    // Firebase instances
+    final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    final FirebaseAuth uAuth = FirebaseAuth.getInstance();
+    final FirebaseUser currentUser = uAuth.getCurrentUser();
+
+    ArrayAdapter<Request> requestAdapter;
+    ArrayList<Request> requestArrayList = new ArrayList<>();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +43,24 @@ public class IncomingRequestsActivity extends AppCompatActivity {
         decline = findViewById(R.id.decline_request_button);
         incomingRequestsList = findViewById(R.id.incoming_requests_listview);
 
-        //TODO make adapter using incoming_requests content.xml
+        db.collection("users").document(currentUser.getDisplayName()).
+                collection("incomingRequests")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                //Log.w("TESTOUTGOING", document.toObject(Request.class).getOwner());
+                                Request newRequest = document.toObject(Request.class);
+                                requestArrayList.add(newRequest);
+                            }
+                            requestAdapter = new IncomingRequestCustomList(IncomingRequestsActivity.this, requestArrayList);
+                            incomingRequestsList.setAdapter(requestAdapter);
+                        }
+                    }
+                });
+
 
         //on click listener for accept
         accept.setOnClickListener(new View.OnClickListener() {

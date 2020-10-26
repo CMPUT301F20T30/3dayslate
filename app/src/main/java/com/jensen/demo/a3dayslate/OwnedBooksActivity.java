@@ -95,10 +95,13 @@ public class OwnedBooksActivity extends AppCompatActivity implements Serializabl
                                // log book in database
                                Log.w("BOOK:", document.getId() + "=>" + document.getData());
                                //make new bookObject
+                               Book newBook = document.toObject(Book.class);
+                               /*
                                Book newBook = new Book((String)document.get("title"), (String)document.get("isbn"), (ArrayList<String>)document.get("authorList"), (String)currentUser.getDisplayName());
                                // log new book object
                                Log.w("BOOK Object:", newBook.getTitle() + " " +newBook.getIsbn() + " " + newBook.getAuthors());
                                // add book to myBooks
+                                */
                                myBooks.add(newBook);
 
                            }

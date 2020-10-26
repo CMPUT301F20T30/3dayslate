@@ -12,19 +12,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 
-public class requestCustomList extends ArrayAdapter<Request> {
+public class IncomingRequestCustomList extends ArrayAdapter<Request> {
     private ArrayList<Request> requests ;
     private Context context;
+
+
     // Constructor
-    public requestCustomList(Context context, ArrayList<Request> requests){
+    public IncomingRequestCustomList(Context context, ArrayList<Request> requests){
         super(context,0, requests);
         this.requests = requests;
         this.context = context;
     }
-
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @NonNull
@@ -35,27 +35,28 @@ public class requestCustomList extends ArrayAdapter<Request> {
 
         //inflate view
         if(view == null){
-            view = LayoutInflater.from(context).inflate(R.layout.outgoing_requests_content,parent,false);
+            view = LayoutInflater.from(context).inflate(R.layout.incoming_requests_content,parent,false);
         }
 
         Request request = requests.get(position);
 
-        TextView bookTitle = view.findViewById(R.id.outgoing_requests_book);
-        TextView bookOwner = view.findViewById(R.id.outgoing_requests_owner);
-        TextView requestStatus= view.findViewById(R.id.outgoing_requests_status);
+        TextView bookTitle = view.findViewById(R.id.incoming_requests_book);
+        TextView bookRequester = view.findViewById(R.id.incoming_requests_requester);
+        TextView requestStatus= view.findViewById(R.id.incoming_requests_status);
 
 
         bookTitle.setText("Title: " + request.getBook().getTitle());
-        bookOwner.setText("Owner: " + request.getOwner());
+        bookRequester.setText("Requester: " + request.getRequester());
 
         if (request.getStatus() == Book.statuses.REQUESTED) {
-            requestStatus.setText("Requested...");
+            requestStatus.setText("Pending...");
         }
         else if (request.getStatus() == Book.statuses.ACCEPTED) {
             requestStatus.setText("Accepted!");
         }
+
         return view;
+
     }
 
 }
-
