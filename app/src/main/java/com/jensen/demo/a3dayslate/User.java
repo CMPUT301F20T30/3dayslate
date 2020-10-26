@@ -41,19 +41,31 @@ import androidx.recyclerview.widget.RecyclerView;
 public class User {
 
     // gets the current user from the data base
-    final FirebaseFirestore db = FirebaseFirestore.getInstance();
-    final FirebaseAuth uAuth = FirebaseAuth.getInstance();
-    final FirebaseUser currentUser = uAuth.getCurrentUser();
+    //final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    //final FirebaseAuth uAuth = FirebaseAuth.getInstance();
+    //final FirebaseUser currentUser = uAuth.getCurrentUser();
+    private String username;
+    private String email;
 
-    public User(){};
+    public User(){
+        //DON'T DELETE THIS DATABASE NEEDS THIS
+    };
 
-    /**
-     * gets the current user signed into the app
-     * @return FirebaseUser
-     */
-    public FirebaseUser getCurrentUser() {
-        // returns the current user as a string
-        return currentUser;
+    public User(String username, String email) {
+        this.username = username;
+        this.email = email;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
 

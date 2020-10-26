@@ -133,10 +133,9 @@ public class MainActivity extends AppCompatActivity {
                                             public void onComplete(@NonNull final Task<AuthResult> task) {
                                                 if (task.isSuccessful()) {
                                                     // Case for if the username is indeed unique! -> Actually add the user to the database!
-                                                    HashMap<String, Object> user = new HashMap<>();
-                                                    user.put("email", userEmail);
+                                                    User dbUser = new User(userUsername, userEmail);
                                                     documentReference
-                                                            .set(user)
+                                                            .set(dbUser)
                                                             .addOnFailureListener(new OnFailureListener() {
                                                                 @Override
                                                                 public void onFailure(@NonNull Exception e) {
@@ -157,7 +156,8 @@ public class MainActivity extends AppCompatActivity {
                                                                                 public void onComplete(@NonNull Task<Void> task) {
                                                                                     if (task.isSuccessful()) {
                                                                                         Log.d("TAG", "User profile updated.");
-                                                                                        // Navigate to the next activity here!
+                                                                                        Intent intent = new Intent(view.getContext(), DashboardActivity.class);
+                                                                                        startActivity(intent);
                                                                                     }
                                                                                 }
                                                                             });
