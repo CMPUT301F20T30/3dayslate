@@ -14,7 +14,7 @@
     </TextView>
 
     <TextView
-        android:id="@+id/incoming_requests_sender"
+        android:id="@+id/incoming_requests_requester"
         android:textSize="16sp"
         android:text="sample_sender"
         android:layout_width="match_parent"

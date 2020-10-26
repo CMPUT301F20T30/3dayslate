@@ -72,6 +72,10 @@ public class Book implements Serializable {
         this.owner = owner;
     }
 
+    public Book() {
+        // Do NOT delete this
+    }
+
     /**
      * Gets the current status of the book
      * @return

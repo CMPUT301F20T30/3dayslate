@@ -227,15 +227,9 @@ public class getBookByISBN extends AppCompatActivity {
 
     private void addBook(Book book){
         //Adds book to a specific user
-        HashMap<String, Object> mybook = new HashMap<>();
-        mybook.put("title", book.getTitle());
-        mybook.put("isbn", book.getIsbn());
-        mybook.put("authorList", book.getAuthors());
-        mybook.put("owner", currentUser.getDisplayName());
-        mybook.put("availability", "AVAILABLE");
         db.collection("users").document(currentUser.getDisplayName()).
-                collection("books").document(book.getIsbn()).set(mybook);
-        db.collection("books").document(book.getIsbn()).set(mybook);
+                collection("books").document(book.getIsbn()).set(book);
+        db.collection("books").document(book.getIsbn()).set(book);
     }//end addBook
 
 

@@ -25,8 +25,6 @@ public class RequestsFragment extends DialogFragment{
 
     }
 
-
-
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
