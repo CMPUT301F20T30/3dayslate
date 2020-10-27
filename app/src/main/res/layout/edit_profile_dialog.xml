@@ -8,12 +8,6 @@
     android:padding = "16dp">
 
     <EditText
-        android:id = "@+id/view_profile_username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Username" />
-
-    <EditText
         android:id="@+id/view_profile_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -42,7 +42,6 @@ public class EditProfileDialog extends AppCompatDialogFragment {
     private TextView phone;
     private Button editProfile;
     private ProfileDialogListener listener;
-    String editUsername;
     String editEmail;
     String editPhoneNum;
     Boolean usernameTaken = false;
@@ -58,7 +57,6 @@ public class EditProfileDialog extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.edit_profile_dialog,null);
 
         // set the ids
-        username = view.findViewById(R.id.view_profile_username);
         email = view.findViewById(R.id.view_profile_email);
         phone = view.findViewById(R.id.view_profile_phone);
         editProfile = view.findViewById(R.id.edit_profile_button);
@@ -73,7 +71,6 @@ public class EditProfileDialog extends AppCompatDialogFragment {
         FirebaseUser firebaseUser = currentUser.getCurrentUser();*/
 
         if (firebaseUser != null) {
-            username.setText(firebaseUser.getDisplayName());
             email.setText(firebaseUser.getEmail());
         } else {
             Log.d("NULL USER","EDIT DIALOG");
@@ -89,55 +86,16 @@ public class EditProfileDialog extends AppCompatDialogFragment {
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                         // get the user input from the text fields
-                        editUsername = username.getText().toString();
+
                         editEmail = email.getText().toString();
                         editPhoneNum = phone.getText().toString();
-
-                        if (editUsername.length() > 0) {
-
-                            // check if the username already exits
-                            final DocumentReference documentReference = db.collection("users").document(editUsername);
-                            documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                    DocumentSnapshot document = task.getResult();
-                                    if (document.exists()) {
-                                        // username is already taken
-                                        Log.d("TAG", "Username is taken!");
-                                        usernameTaken = true;
-                                        editUsername = firebaseUser.getDisplayName();
-
-                                    } else {
-                                        // username is not taken
-                                        // update username in database
-
-                                        // Resources used: https://firebase.google.com/docs/auth/android/manage-users#update_a_users_profile
-                                        // Date accessed: October 21, 2020
-                                        // Date written: October 16, 2020
-                                        // License: Apache 2.0 License
-                                        usernameTaken = false;
-                                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                                .setDisplayName(editUsername)
-                                                .build();
-                                        firebaseUser.updateProfile(profileUpdates)
-                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        Log.i("Username update", "Success");
-                                                    }
-                                                });
-                                    }
-                                }
-                            });
-                        } else {
-                            // empty space for username, set to previous username
-                            editUsername = firebaseUser.getDisplayName();
-                        }
 
                         // update email if not empty line, else set it to previous email
                         if (editEmail.length() > 0) {
                             firebaseUser.updateEmail(email.getText().toString());
                             Log.d("Email update:","Successful");
+                            User newEmail = new User(firebaseUser.getDisplayName(),editEmail);
+                            db.collection("users").document(firebaseUser.getDisplayName()).set(newEmail);
                         } else {
                             editEmail = firebaseUser.getEmail();
                             Log.d("Email set to: ",firebaseUser.getEmail());
@@ -145,7 +103,7 @@ public class EditProfileDialog extends AppCompatDialogFragment {
 
                         // set previous activity fields with new updated fields information
                         Log.d("APPLYING TEXTS","Applied");
-                        listener.applyTexts(editUsername,editEmail,editPhoneNum, usernameTaken);
+                        listener.applyTexts(editEmail,editPhoneNum, usernameTaken);
                     }
                 }).create();
 
@@ -166,6 +124,6 @@ public class EditProfileDialog extends AppCompatDialogFragment {
 
     public interface ProfileDialogListener {
         // sets text of previous activity with updated information
-        void applyTexts(String username, String email, String phoneNumber, boolean usernameTaken);
+        void applyTexts(String email, String phoneNumber, boolean usernameTaken);
     }
 }

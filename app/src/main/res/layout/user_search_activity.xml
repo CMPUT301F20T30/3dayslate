@@ -1,63 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="100">
 
-    <Button
-        android:id="@+id/user_search_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_weight="25"
-        android:text="search"
-        android:textSize="16sp"
-        android:layout_alignParentRight="true">
+    <LinearLayout
+        android:id="@+id/search_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    </Button>
+        <EditText
+            android:id="@+id/user_search_bar"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="75"
+            android:gravity="bottom"
+            android:hint="Search for Books"
+            android:textSize="16sp">
 
-    <EditText
-        android:id="@+id/user_search_bar"
-        android:layout_width="325dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="84dp"
-        android:layout_marginRight="84dp"
-        android:layout_marginStart="2dp"
-        android:layout_weight="75"
-        android:gravity="bottom"
-        android:hint="Search for Users"
-        android:textSize="20dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="2dp">
+        </EditText>
 
-    </EditText>
+        <Button
+            android:id="@+id/user_search_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="25"
+            android:text="search"
+            android:textSize="16sp">
+
+        </Button>
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/user_search_listview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="80"
+        android:background="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/action_linear_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_linear_layout">
+
+    </ListView>
 
     <TextView
-        android:id="@+id/errorMessageView"
+        android:id="@+id/error_message"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="499dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginLeft="-2dp"
-        android:layout_marginStart="-2dp"
-        android:gravity="center"
-        android:text="User not found. Please try again."
-        android:textColor="#ED0202"
-        android:textSize="24sp"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:text="User does not exist."
+        android:textColor="#C72E2E"
         android:visibility="invisible"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="0dp" />
+        />
 
 
-</RelativeLayout>
+</LinearLayout>

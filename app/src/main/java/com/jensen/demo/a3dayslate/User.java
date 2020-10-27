@@ -14,6 +14,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.Serializable;
 import java.lang.ref.Reference;
 import java.util.ArrayList;
 
@@ -38,12 +39,8 @@ import androidx.recyclerview.widget.RecyclerView;
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-public class User {
+public class User implements Serializable {
 
-    // gets the current user from the data base
-    //final FirebaseFirestore db = FirebaseFirestore.getInstance();
-    //final FirebaseAuth uAuth = FirebaseAuth.getInstance();
-    //final FirebaseUser currentUser = uAuth.getCurrentUser();
     private String username;
     private String email;
 

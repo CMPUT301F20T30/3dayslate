@@ -67,7 +67,7 @@ public class BookSearchActivity extends AppCompatActivity implements Serializabl
         bookAdapter = new bookCustomList(this, searchDataList);
         bookList.setAdapter(bookAdapter);
 
-        // query database for all books owned by current user
+        // query database for all books
         db.collection("books")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -79,31 +79,6 @@ public class BookSearchActivity extends AppCompatActivity implements Serializabl
                                 Log.w("BOOK:", document.getId() + "=>" + document.getData());
                                 //make new bookObject
                                 Book newBook = document.toObject(Book.class);
-                                /*
-                                Book newBook = new Book((String)document.get("title"),
-                                        (String)document.get("isbn"),
-                                        (ArrayList<String>)document.get("authorList"),
-                                        (String)document.get("owner"));
-
-                                String status = (String)document.get("availability");
-
-                                if(status.equals("AVAILABLE")){
-                                    newBook.setCurrentStatus(Book.statuses.AVAILABLE);
-                                }
-                                else if (status.equals("BORROWED")){
-                                    newBook.setCurrentStatus(Book.statuses.BORROWED);
-                                }
-                                else if (status.equals("REQUESTED")){
-                                    newBook.setCurrentStatus(Book.statuses.REQUESTED);
-                                }
-                                else if (status.equals("ACCEPTED")){
-                                    newBook.setCurrentStatus(Book.statuses.ACCEPTED);
-                                }
-
-                                // log new book object
-                                Log.w("BOOK Object:", newBook.getTitle() + " " +newBook.getIsbn() + " " + newBook.getAuthors());
-                                // add book to myBooks
-                                */
                                 bookDataList.add(newBook);
 
                             }
