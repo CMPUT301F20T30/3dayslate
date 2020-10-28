@@ -34,7 +34,7 @@ public class UserSearchActivity extends AppCompatActivity {
 
       @author: Anita Ferenc
       @see: Rewrite for .java classes that use it
-      @version:1.0.0
+      @version:1.2.0
     */
 
     @Override
@@ -59,7 +59,6 @@ public class UserSearchActivity extends AppCompatActivity {
         ArrayAdapter userAdapter = new ArrayAdapter<String>(this, R.layout.user_search_content,matchedUserStrings);
         userListView.setAdapter(userAdapter);
 
-
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         db.collection("users")
@@ -69,7 +68,7 @@ public class UserSearchActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                //make new bookObject
+                                //make new userObject
                                 User user = document.toObject(User.class);
                                 allUsers.add(user);
 
@@ -83,52 +82,10 @@ public class UserSearchActivity extends AppCompatActivity {
 
                 });
 
-        //on click listener for search button
-        /*
-        searchUserButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-
-                // if there was an error message, set visibility to invisible
-                errorMessage.setVisibility(View.INVISIBLE);
-
-                // Resources: https://firebase.google.com/docs/firestore/query-data/get-data
-                // Date written: October 16, 2020
-                // Date accessed: October 24,2020
-                // License: Apache 2.0 License
-                DocumentReference docRef = db.collection("users").document(searchUser.getText().toString());
-                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            // collection "user" found
-                            DocumentSnapshot documentSnapshot = task.getResult();
-                            if (documentSnapshot.exists()) {
-                                // user exist
-                                String email = documentSnapshot.getData().get("email").toString(); // get users email
-                                openDisplay(searchUser.getText().toString(), email); // open the DisplayUserSearchActivity
-                            } else {
-                                // user does not exist, display error message
-                                errorMessage.setVisibility(View.VISIBLE);
-                            }
-                        } else {
-                            // error, user collection does not exist
-                            Log.d("Failed", "get failed with ", task.getException());
-                        }
-
-                        // clear the fields
-                        searchUser.setText("");
-
-                    }
-                });
-
-            }
-
-        });
-    }*/
         searchUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // TODO: when click new search user, clear out all the previous displayed users
                 matchedUsers.clear();
                 errorMessage.setVisibility(View.INVISIBLE);
                 String keyword = searchUser.getText().toString().toLowerCase();
@@ -158,8 +115,6 @@ public class UserSearchActivity extends AppCompatActivity {
             }
         });
     }
-
-
 
     public void openDisplay(User user){
         // gets the username, email, and phone number

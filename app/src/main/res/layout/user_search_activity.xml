@@ -25,7 +25,7 @@
             android:layout_height="match_parent"
             android:layout_weight="75"
             android:gravity="bottom"
-            android:hint="Search for Books"
+            android:hint="Search for User"
             android:textSize="16sp">
 
         </EditText>
@@ -61,6 +61,7 @@
         android:layout_height="0dp"
         android:layout_weight="10"
         android:text="User does not exist."
+        android:textSize="30dp"
         android:textColor="#C72E2E"
         android:visibility="invisible"
         />

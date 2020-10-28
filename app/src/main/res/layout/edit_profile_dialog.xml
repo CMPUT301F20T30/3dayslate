@@ -11,14 +11,14 @@
         android:id="@+id/view_profile_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
+        android:layout_centerHorizontal="true"
         android:hint="Email" />
 
     <EditText
         android:id="@+id/view_profile_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="135dp"
+        android:layout_marginTop="40dp"
         android:hint="Phone number" />
 
 

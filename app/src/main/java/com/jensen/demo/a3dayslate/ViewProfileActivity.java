@@ -46,6 +46,8 @@ public class ViewProfileActivity extends AppCompatActivity implements EditProfil
         final FirebaseAuth uAuth = FirebaseAuth.getInstance();
         final FirebaseUser currentUser = uAuth.getCurrentUser();
 
+
+
         if (currentUser != null) {
             // sets the texts according to users firebase information
             username.setText("Username: " + currentUser.getDisplayName());
@@ -62,13 +64,14 @@ public class ViewProfileActivity extends AppCompatActivity implements EditProfil
             public void onClick(View v) {
                 // creates new dialog when edit profile button clicked
                 EditProfileDialog editProfileDialog = new EditProfileDialog();
+                editProfileDialog.setContext(ViewProfileActivity.this);
                 editProfileDialog.show(getSupportFragmentManager(), "edit profile dialog");
             }
         });
     }
 
     @Override
-    public void applyTexts(String editEmail, String editPhoneNumb, boolean usernameTaken) {
+    public void applyTexts(String editEmail, String editPhoneNumb) {
         // set the text fields with updated information from the dialog
         email.setText("Email: "+editEmail);
         phone.setText("Phone Number: "+ editPhoneNumb);
