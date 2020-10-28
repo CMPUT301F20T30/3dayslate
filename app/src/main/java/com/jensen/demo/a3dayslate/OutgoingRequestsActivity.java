@@ -1,5 +1,6 @@
 package com.jensen.demo.a3dayslate;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -34,6 +36,7 @@ public class OutgoingRequestsActivity extends AppCompatActivity {
 
     ArrayAdapter<Request> requestAdapter;
     ArrayList<Request> requestArrayList = new ArrayList<>();
+    Request selectedRequest;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -82,10 +85,17 @@ public class OutgoingRequestsActivity extends AppCompatActivity {
                     }
                 });
         //on item click listener for outgoing request idk if we actually need this
-        outgoingRequestsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        outgoingRequestsList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedRequest = (Request) adapterView.getItemAtPosition(i);
+                if(selectedRequest != null && selectedRequest.getStatus() == Book.statuses.ACCEPTED) {
+                    // Start a location activity
+                    Intent intent = new Intent(OutgoingRequestsActivity.this, ReviewLocationActivity.class);
+                    intent.putExtra("LOCATION", (Serializable) selectedRequest.getLocation());
+                    startActivity(intent);
+                }
+                return true;
             }
         });
     }
