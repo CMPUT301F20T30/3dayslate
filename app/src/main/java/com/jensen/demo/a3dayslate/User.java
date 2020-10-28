@@ -39,10 +39,6 @@ import androidx.recyclerview.widget.RecyclerView;
  *    limitations under the License.
  */
 public class User {
-    // gets the current user from the data base
-    //final FirebaseFirestore db = FirebaseFirestore.getInstance();
-    //final FirebaseAuth uAuth = FirebaseAuth.getInstance();
-    //final FirebaseUser currentUser = uAuth.getCurrentUser();
     private String username;
     private String email;
 
@@ -51,19 +47,23 @@ public class User {
     };
 
     public User(String username, String email) {
+        // gets username and email and sets it to username and email variables
         this.username = username;
         this.email = email;
     }
 
     public String getUsername() {
+        // returns username
         return username;
     }
 
     public String getEmail() {
+        // returns email
         return email;
     }
 
     public void setEmail(String email) {
+        // gets email input and sets the email
         this.email = email;
     }
 }

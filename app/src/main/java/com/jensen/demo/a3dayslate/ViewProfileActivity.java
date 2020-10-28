@@ -30,7 +30,6 @@ public class ViewProfileActivity extends AppCompatActivity implements EditProfil
     TextView phone;
     Button editProfile;
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
