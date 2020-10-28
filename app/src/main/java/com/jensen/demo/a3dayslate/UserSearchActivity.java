@@ -29,7 +29,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 
 public class UserSearchActivity extends AppCompatActivity {
-    /*
+    /**
       Allows a user to search for other users
 
       @author: Anita Ferenc
