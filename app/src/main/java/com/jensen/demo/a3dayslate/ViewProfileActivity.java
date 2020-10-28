@@ -68,17 +68,8 @@ public class ViewProfileActivity extends AppCompatActivity implements EditProfil
     }
 
     @Override
-    public void applyTexts(String editUsername, String editEmail, String editPhoneNumb, boolean usernameTaken) {
-        if (usernameTaken == true){
-            // username was taken, make toast message
-            Log.d("VIEW PROFILE","Username take");
-            Toast.makeText(ViewProfileActivity.this, "Username Taken",Toast.LENGTH_SHORT).show();
-        } else {
-            Log.d("BOOL", "False");
-        }
-
+    public void applyTexts(String editEmail, String editPhoneNumb, boolean usernameTaken) {
         // set the text fields with updated information from the dialog
-        username.setText("Username: "+editUsername);
         email.setText("Email: "+editEmail);
         phone.setText("Phone Number: "+ editPhoneNumb);
     }

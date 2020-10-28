@@ -44,6 +44,14 @@
         </activity>
 
         <activity
+            android:name=".DisplayUserSearchActivity"
+            android:parentActivityName=".UserSearchActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".UserSearchActivity" />
+        </activity>
+
+        <activity
             android:name=".IncomingRequestsActivity"
             android:parentActivityName=".DashboardActivity">
             <meta-data
