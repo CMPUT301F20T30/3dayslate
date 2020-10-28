@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -51,12 +52,16 @@ import java.util.HashMap;
  *  It contains buttons for adding a book, deleting a book, editing a book, and filtering the list (NOT IMPLEMENTED YET)
  * @ author Eric Weber
  */
-public class OwnedBooksActivity extends AppCompatActivity implements Serializable {
+public class OwnedBooksActivity extends AppCompatActivity implements Serializable, FilterFragment.OnFilterFragmentInteraction{
 
-    private ArrayList<Book>  myBooks = new ArrayList<>();
+    private final ArrayList<Book>  myBooks = new ArrayList<>();
+    private ArrayList<Book>  displayedBooks = new ArrayList<>();
     private OwnedBooksAdapter booksAdapter;
     private Book clickedBook = null;
     private int EDIT_BOOK_ACTIVITY =1;
+    private int filteringMode = 0;
+    ListView ownedBooksList;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,7 +70,7 @@ public class OwnedBooksActivity extends AppCompatActivity implements Serializabl
 
 
         //declare xml attributes
-        final ListView ownedBooksList;
+        //final ListView ownedBooksList;
         Button addBook;
         Button deleteBook;
         Button filterBook;
@@ -109,7 +114,7 @@ public class OwnedBooksActivity extends AppCompatActivity implements Serializabl
                            Log.w("BOOK:", "Error getting documents");
                        }
                        Log.w("BOOK ARRAYLIST:", myBooks.toString());
-                       adapter(myBooks, ownedBooksList);
+                       adapter(ownedBooksList);
                    }
 
                });
@@ -148,7 +153,7 @@ public class OwnedBooksActivity extends AppCompatActivity implements Serializabl
                         clickedBook = null;
                     }
 
-                    adapter(myBooks, ownedBooksList);
+                    adapter(ownedBooksList);
                 }
             }
         });
@@ -157,7 +162,7 @@ public class OwnedBooksActivity extends AppCompatActivity implements Serializabl
         filterBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                new FilterFragment().show(getSupportFragmentManager(), "FILTER BOOKS");
             }
         });
 
@@ -176,15 +181,38 @@ public class OwnedBooksActivity extends AppCompatActivity implements Serializabl
     }
 
     /** Sets up the adapter for owned books
-     *
-     * @param books ArrayList of books
      * @param ownedBooksList listview for books
      */
-    private void adapter(ArrayList<Book> books, ListView ownedBooksList){
-        booksAdapter = new OwnedBooksAdapter(this, R.layout.owned_book_list_content, books);
+    private void adapter(ListView ownedBooksList){
+
+        Log.w("BOOK ARRAYLIST A1:", myBooks.toString());
+        displayedBooks.clear();
+        Log.w("BOOK ARRAYLIST A2:", myBooks.toString());
+
+        if(filteringMode == 0){
+            displayedBooks.addAll(myBooks);
+        }else if(filteringMode == 1){
+            for(Book aBook: myBooks){
+                if(aBook.getCurrentStatus()== Book.statuses.AVAILABLE) displayedBooks.add(aBook);
+            }
+        }else if(filteringMode == 2){
+            for(Book aBook: myBooks){
+                if(aBook.getCurrentStatus()== Book.statuses.REQUESTED) displayedBooks.add(aBook);
+            }
+        }else if(filteringMode == 3){
+            for(Book aBook: myBooks){
+                if(aBook.getCurrentStatus()== Book.statuses.ACCEPTED) displayedBooks.add(aBook);
+            }
+        }else if(filteringMode == 4){
+            for(Book aBook: myBooks){
+                if(aBook.getCurrentStatus()== Book.statuses.BORROWED) displayedBooks.add(aBook);
+            }
+        }
+        Log.w("DISPLAYED", displayedBooks.toString());
+
+        booksAdapter = new OwnedBooksAdapter(this, R.layout.owned_book_list_content, displayedBooks);
         ownedBooksList.setAdapter(booksAdapter);
-        myBooks = books;
-        Log.w("BOOK ARRAYLIST:", myBooks.toString());
+
     }
 
     /** Handles returning from activities with results
@@ -212,4 +240,17 @@ public class OwnedBooksActivity extends AppCompatActivity implements Serializabl
             }
         }
     }
+
+    /** Overrides filter fragment interface
+     *
+     * @param mode int representing how books are to be filtered
+     */
+    @Override
+    public void onFilterFragmentButtonClicked(int mode){
+        filteringMode = mode;
+        Log.w("FILTERING MODE", String.valueOf(filteringMode));
+        Log.w("FILTER MYBOOKS", myBooks.toString());
+        adapter(ownedBooksList);
+    }
+
 }
