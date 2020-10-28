@@ -5,7 +5,7 @@ public class Request {
     private String requester;
     private Book book;
     private Book.statuses status;
-    // Add location later
+    private ExchangeLocation location;
 
     public Request(String requester, Book book) {
         this.book = book;
@@ -40,5 +40,13 @@ public class Request {
 
     public void setStatus(Book.statuses status) {
         this.status = status;
+    }
+
+    public ExchangeLocation getLocation() {
+        return location;
+    }
+
+    public void setLocation(ExchangeLocation location) {
+        this.location = location;
     }
 }
