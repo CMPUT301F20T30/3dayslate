@@ -30,7 +30,6 @@ public class ViewProfileActivity extends AppCompatActivity implements EditProfil
     TextView phone;
     Button editProfile;
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +45,8 @@ public class ViewProfileActivity extends AppCompatActivity implements EditProfil
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
         final FirebaseAuth uAuth = FirebaseAuth.getInstance();
         final FirebaseUser currentUser = uAuth.getCurrentUser();
+
+
 
         if (currentUser != null) {
             // sets the texts according to users firebase information
@@ -63,23 +64,15 @@ public class ViewProfileActivity extends AppCompatActivity implements EditProfil
             public void onClick(View v) {
                 // creates new dialog when edit profile button clicked
                 EditProfileDialog editProfileDialog = new EditProfileDialog();
+                editProfileDialog.setContext(ViewProfileActivity.this);
                 editProfileDialog.show(getSupportFragmentManager(), "edit profile dialog");
             }
         });
     }
 
     @Override
-    public void applyTexts(String editUsername, String editEmail, String editPhoneNumb, boolean usernameTaken) {
-        if (usernameTaken == true){
-            // username was taken, make toast message
-            Log.d("VIEW PROFILE","Username take");
-            Toast.makeText(ViewProfileActivity.this, "Username Taken",Toast.LENGTH_SHORT).show();
-        } else {
-            Log.d("BOOL", "False");
-        }
-
+    public void applyTexts(String editEmail, String editPhoneNumb) {
         // set the text fields with updated information from the dialog
-        username.setText("Username: "+editUsername);
         email.setText("Email: "+editEmail);
         phone.setText("Phone Number: "+ editPhoneNumb);
     }

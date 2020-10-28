@@ -12,14 +12,20 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.EmailAuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -42,10 +48,15 @@ public class EditProfileDialog extends AppCompatDialogFragment {
     private TextView phone;
     private Button editProfile;
     private ProfileDialogListener listener;
-    String editUsername;
     String editEmail;
     String editPhoneNum;
     Boolean usernameTaken = false;
+    Context context;
+
+    public void setContext(Context context){
+        // gets the context of the View Profile Activity
+        this.context = context;
+    }
 
     @NonNull
     @Override
@@ -58,26 +69,17 @@ public class EditProfileDialog extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.edit_profile_dialog,null);
 
         // set the ids
-        username = view.findViewById(R.id.view_profile_username);
         email = view.findViewById(R.id.view_profile_email);
         phone = view.findViewById(R.id.view_profile_phone);
         editProfile = view.findViewById(R.id.edit_profile_button);
 
-
+        // get current user signed in
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
         final FirebaseAuth uAuth = FirebaseAuth.getInstance();
         final FirebaseUser firebaseUser = uAuth.getCurrentUser();
 
-        // set the fields with the previous information
-       /* User currentUser = new User();
-        FirebaseUser firebaseUser = currentUser.getCurrentUser();*/
-
-        if (firebaseUser != null) {
-            username.setText(firebaseUser.getDisplayName());
-            email.setText(firebaseUser.getEmail());
-        } else {
-            Log.d("NULL USER","EDIT DIALOG");
-        }
+        // set the email text field to current users email
+        email.setText(firebaseUser.getEmail());
 
         return builder
                 .setView(view)
@@ -89,67 +91,47 @@ public class EditProfileDialog extends AppCompatDialogFragment {
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                         // get the user input from the text fields
-                        editUsername = username.getText().toString();
                         editEmail = email.getText().toString();
                         editPhoneNum = phone.getText().toString();
 
-                        if (editUsername.length() > 0) {
-
-                            // check if the username already exits
-                            final DocumentReference documentReference = db.collection("users").document(editUsername);
-                            documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                    DocumentSnapshot document = task.getResult();
-                                    if (document.exists()) {
-                                        // username is already taken
-                                        Log.d("TAG", "Username is taken!");
-                                        usernameTaken = true;
-                                        editUsername = firebaseUser.getDisplayName();
-
-                                    } else {
-                                        // username is not taken
-                                        // update username in database
-
-                                        // Resources used: https://firebase.google.com/docs/auth/android/manage-users#update_a_users_profile
-                                        // Date accessed: October 21, 2020
-                                        // Date written: October 16, 2020
-                                        // License: Apache 2.0 License
-                                        usernameTaken = false;
-                                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                                .setDisplayName(editUsername)
-                                                .build();
-                                        firebaseUser.updateProfile(profileUpdates)
-                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        Log.i("Username update", "Success");
-                                                    }
-                                                });
-                                    }
-                                }
-                            });
-                        } else {
-                            // empty space for username, set to previous username
-                            editUsername = firebaseUser.getDisplayName();
-                        }
-
                         // update email if not empty line, else set it to previous email
                         if (editEmail.length() > 0) {
-                            firebaseUser.updateEmail(email.getText().toString());
-                            Log.d("Email update:","Successful");
+
+                            firebaseUser.updateEmail(email.getText().toString())
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d("Email update:","Successful");
+                                            Toast.makeText(context, "Successful sign in", Toast.LENGTH_SHORT ).show();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            editEmail = firebaseUser.getEmail();
+                                            Log.d("Email update:","Unsuccessful");
+                                            Log.d("Unsuccessful:", editEmail);
+                                            Toast.makeText(context, "Invalid email or taken email", Toast.LENGTH_SHORT ).show();
+                                        }
+                                    });
+
+                            // update the database
+                            User newEmail = new User(firebaseUser.getDisplayName(),editEmail);
+                            db.collection("users").document(firebaseUser.getDisplayName()).set(newEmail);
                         } else {
+                            Toast.makeText(context, "Empty email field", Toast.LENGTH_SHORT ).show();
                             editEmail = firebaseUser.getEmail();
-                            Log.d("Email set to: ",firebaseUser.getEmail());
                         }
 
                         // set previous activity fields with new updated fields information
-                        Log.d("APPLYING TEXTS","Applied");
-                        listener.applyTexts(editUsername,editEmail,editPhoneNum, usernameTaken);
+                        try {
+                            TimeUnit.SECONDS.sleep(1);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        listener.applyTexts(firebaseUser.getEmail(),editPhoneNum);
                     }
                 }).create();
-
-
     }
 
     @Override
@@ -160,12 +142,11 @@ public class EditProfileDialog extends AppCompatDialogFragment {
             listener = (ProfileDialogListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + "must implement ProfileDialogListener");
-
         }
     }
 
     public interface ProfileDialogListener {
         // sets text of previous activity with updated information
-        void applyTexts(String username, String email, String phoneNumber, boolean usernameTaken);
+        void applyTexts(String email, String phoneNumber);
     }
 }

@@ -28,11 +28,12 @@ public class DisplayUserSearchActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
 
         // get the string extras from the UserSearchActivity
-        String username = extras.getString("username"); //username of user searched
-        String email = extras.getString("email"); // email of user searched
+        User user = (User) extras.getSerializable("user");
+        //String username = extras.getString("username"); //username of user searched
+        //String email = extras.getString("email"); // email of user searched
 
         // set the fields with the searched user information
-        usernameField.setText(username);
-        emailField.setText(email);
+        usernameField.setText(user.getUsername());
+        emailField.setText(user.getEmail());
     }
 }
