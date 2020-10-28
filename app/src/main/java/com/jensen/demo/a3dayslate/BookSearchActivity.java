@@ -32,6 +32,13 @@ public class BookSearchActivity extends AppCompatActivity implements Serializabl
     private Book clickedBook = null;
     private int VIEW_BOOK_ACTIVITY = 0;
 
+    //declare all xml elements
+    Button viewBook;
+    Button requestBook;
+    Button searchBook;
+    ListView bookList;
+    EditText searchBar;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,12 +56,6 @@ public class BookSearchActivity extends AppCompatActivity implements Serializabl
         ArrayList<Book> bookDataList = new ArrayList<>();
         ArrayList<Book> searchDataList = new ArrayList<>();
 
-        //declare all xml elements
-        Button viewBook;
-        Button requestBook;
-        Button searchBook;
-        ListView bookList;
-        EditText searchBar;
 
         //find view by ID commands
         viewBook = findViewById(R.id.view_book_button);
