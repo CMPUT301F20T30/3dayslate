@@ -17,6 +17,15 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class DashboardActivity extends AppCompatActivity {
 
+    TextView userDisplay;
+    Button bookSearch;
+    Button peopleSearch;
+    Button myBooks;
+    Button borrowedBooks;
+    Button myProfile;
+    Button scanISBN;
+    Button myRequests;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
@@ -24,14 +33,7 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.dashboard_activity);
 
         // declare all xml elements
-        TextView userDisplay;
-        Button bookSearch;
-        Button peopleSearch;
-        Button myBooks;
-        Button borrowedBooks;
-        Button myProfile;
-        Button scanISBN;
-        Button myRequests;
+
         userDisplay = findViewById(R.id.usernameDisplay);
         bookSearch = findViewById(R.id.bookSearchButton);
         peopleSearch = findViewById(R.id.peopleSearchButton);
