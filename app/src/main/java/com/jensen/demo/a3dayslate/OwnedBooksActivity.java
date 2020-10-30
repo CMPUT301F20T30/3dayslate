@@ -1,5 +1,6 @@
 package com.jensen.demo.a3dayslate;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -59,6 +60,7 @@ public class OwnedBooksActivity extends AppCompatActivity implements Serializabl
     private OwnedBooksAdapter booksAdapter;
     private Book clickedBook = null;
     private int EDIT_BOOK_ACTIVITY =1;
+    private int ADD_BOOK =2;
     private int filteringMode = 0;
     ListView ownedBooksList;
 
@@ -67,8 +69,6 @@ public class OwnedBooksActivity extends AppCompatActivity implements Serializabl
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.owned_books_activity);
-
-
         //declare xml attributes
         //final ListView ownedBooksList;
         Button addBook;
@@ -133,7 +133,7 @@ public class OwnedBooksActivity extends AppCompatActivity implements Serializabl
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(OwnedBooksActivity.this, getBookByISBN.class);
-                startActivity(intent);
+                startActivityForResult(intent, ADD_BOOK);
             }
         });
 
@@ -224,20 +224,22 @@ public class OwnedBooksActivity extends AppCompatActivity implements Serializabl
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == EDIT_BOOK_ACTIVITY){
-            if (resultCode == EditBookActivity.RESULT_OK){
-                Book editedBook = (Book)data.getExtras().getSerializable("BOOK");
-                int pos =0;
-                for(int i=0; i< myBooks.size(); i++){
-                    if(myBooks.get(i).equals(clickedBook)){
+        if(requestCode == EDIT_BOOK_ACTIVITY) {
+            if (resultCode == EditBookActivity.RESULT_OK) {
+                Book editedBook = (Book) data.getExtras().getSerializable("BOOK");
+                int pos = 0;
+                for (int i = 0; i < myBooks.size(); i++) {
+                    if (myBooks.get(i).equals(clickedBook)) {
 
                         pos = i;
                     }
                 }
                 myBooks.set(pos, editedBook);
-                booksAdapter.notifyDataSetChanged();
-
+                adapter(ownedBooksList);
             }
+        }
+        if(requestCode == ADD_BOOK){
+            this.recreate();
         }
     }
 
