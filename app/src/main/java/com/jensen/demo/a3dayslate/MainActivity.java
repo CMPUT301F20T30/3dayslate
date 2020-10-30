@@ -27,6 +27,9 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.HashMap;
 import java.util.regex.Pattern;
@@ -42,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText enterPassword;
     private EditText enterUsername;
 
+    //String deviceToken;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Connect to the FireBase Auth server
         final FirebaseAuth uAuth = FirebaseAuth.getInstance();
+
 
         // Map buttons and EditText fields to XML
         loginButton = findViewById(R.id.login_button);
