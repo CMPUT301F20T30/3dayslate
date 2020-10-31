@@ -20,6 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".IncomingRequestsBooks"></activity>
         <activity
             android:name=".ReviewLocationActivity"
             android:parentActivityName=".OutgoingRequestsActivity">
@@ -151,7 +152,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
     </application>
 
 </manifest>
