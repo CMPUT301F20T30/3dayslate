@@ -96,6 +96,7 @@ public class IncomingRequestsActivity extends AppCompatActivity {
             }
         });
 
+        //TODO need to fix issue with declining an accepted request
         //on click listener for decline button
         decline.setOnClickListener(new View.OnClickListener() {
             @Override

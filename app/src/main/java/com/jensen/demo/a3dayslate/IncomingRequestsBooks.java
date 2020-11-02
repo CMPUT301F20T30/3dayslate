@@ -21,6 +21,38 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
+/* IncomingRequestsBook Class
+
+   Version 1.0.0
+
+   October 31 2020
+
+   Copyright [2020] [Larissa Zhang]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+ */
+
+/**A redirect activity within Incoming requests that
+ * allows for a owner to look for requests by book. When
+ * book is tapped, will send specific book to IncomingRequestsActivity
+ * to show individual requests.
+ *
+ * @author Larissa Zhang
+ * @see RequestsFragment
+ * @see IncomingRequestsActivity
+ * @version 1.0.0
+ */
+
 public class IncomingRequestsBooks extends AppCompatActivity {
 
     final FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -40,7 +72,7 @@ public class IncomingRequestsBooks extends AppCompatActivity {
         ArrayAdapter reqBooksAdapter = new ArrayAdapter<String>(this, R.layout.incoming_request_book_content,titleBooks);
 
         listBooks.setAdapter(reqBooksAdapter);
-        //going through all requests to get the books requested
+        //going through all requests to get the book that have requests
         db.collection("users").document(currentUser.getDisplayName()).
                 collection("incomingRequests")
                 .get()
