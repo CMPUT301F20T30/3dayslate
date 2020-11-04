@@ -58,6 +58,9 @@ public class IncomingRequestsActivity extends AppCompatActivity {
         decline = findViewById(R.id.decline_request_button);
         incomingRequestsList = findViewById(R.id.incoming_requests_listview);
 
+        Intent intent = getIntent();
+        Book requestedBook = (Book) intent.getSerializableExtra("book");
+
         db.collection("users").document(currentUser.getDisplayName()).
                 collection("incomingRequests")
                 .get()
@@ -68,7 +71,11 @@ public class IncomingRequestsActivity extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 //Log.w("TESTOUTGOING", document.toObject(Request.class).getOwner());
                                 Request newRequest = document.toObject(Request.class);
-                                requestArrayList.add(newRequest);
+                                Log.d("REQUESTED BOOK",newRequest.getBook().getIsbn() + requestedBook.getIsbn());
+                                if (newRequest.getBook().getIsbn().equals(requestedBook.getIsbn())){
+                                    requestArrayList.add(newRequest);
+                                    Log.d("DID IT WORK", "Added request");
+                                }
                             }
                             requestAdapter = new IncomingRequestCustomList(IncomingRequestsActivity.this, requestArrayList);
                             incomingRequestsList.setAdapter(requestAdapter);
@@ -89,6 +96,7 @@ public class IncomingRequestsActivity extends AppCompatActivity {
             }
         });
 
+        //TODO need to fix issue with declining an accepted request
         //on click listener for decline button
         decline.setOnClickListener(new View.OnClickListener() {
             @Override
