@@ -33,7 +33,25 @@ import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 public class EditProfileDialog extends AppCompatDialogFragment {
-    /*
+    /* EditProfileDialog
+
+   Version 1.0.0
+
+   November 3 2020
+
+   Copyright [2020] [Anita Ferenc]
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+       http://www.apache.org/licenses/LICENSE-2.0
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+   */
+
+    /**
       A dialog that gets input from the user to change their contact information
       and saves changes information to the database
 
@@ -69,7 +87,7 @@ public class EditProfileDialog extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.edit_profile_dialog,null);
 
         // set the ids
-        email = view.findViewById(R.id.view_profile_email);
+        email = view.findViewById(R.id.view_profile_edit_email);
         phone = view.findViewById(R.id.view_profile_phone);
         editProfile = view.findViewById(R.id.edit_profile_button);
 
@@ -102,7 +120,7 @@ public class EditProfileDialog extends AppCompatDialogFragment {
                                         @Override
                                         public void onSuccess(Void aVoid) {
                                             Log.d("Email update:","Successful");
-                                            Toast.makeText(context, "Successful sign in", Toast.LENGTH_SHORT ).show();
+                                            Toast.makeText(context, "Successfully changed email", Toast.LENGTH_SHORT ).show();
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
@@ -123,12 +141,13 @@ public class EditProfileDialog extends AppCompatDialogFragment {
                             editEmail = firebaseUser.getEmail();
                         }
 
-                        // set previous activity fields with new updated fields information
+                        // wait for the database to have time to update information
                         try {
                             TimeUnit.SECONDS.sleep(1);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+                        // set previous activity fields with new updated fields information
                         listener.applyTexts(firebaseUser.getEmail(),editPhoneNum);
                     }
                 }).create();

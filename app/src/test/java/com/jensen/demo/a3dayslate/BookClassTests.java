@@ -19,14 +19,14 @@ public class BookClassTests {
     }
 
     @Test
-    void TestGetStatus(){
+    public void TestGetStatus(){
         Book book = MockBook();
         Book.statuses status = book.getCurrentStatus();
         assertEquals(Book.statuses.AVAILABLE,status);
     }
 
     @Test
-    void TestSetStatus(){
+    public void TestSetStatus(){
         Book book = MockBook();
         book.setCurrentStatus(Book.statuses.BORROWED);
         Book.statuses status = book.getCurrentStatus();
@@ -34,14 +34,14 @@ public class BookClassTests {
     }
 
     @Test
-    void TestGetTitle(){
+    public void TestGetTitle(){
         Book book = MockBook();
         String title = book.getTitle();
         assertEquals("test",title);
     }
 
     @Test
-    void TestSetTitle(){
+    public void TestSetTitle(){
         Book book = MockBook();
         book.setTitle("No");
         String title = book.getTitle();
@@ -49,14 +49,14 @@ public class BookClassTests {
     }
 
     @Test
-    void TestGetISBN(){
+    public void TestGetISBN(){
         Book book = MockBook();
         String isbn = book.getIsbn();
         assertEquals("9780801417443",isbn);
     }
 
     @Test
-    void TestGetAuthors(){
+    public void TestGetAuthors(){
         Book book = MockBook();
         ArrayList<String> testAuthors = MockAuthor();
         ArrayList<String> authors = book.getAuthors();
@@ -66,7 +66,7 @@ public class BookClassTests {
     }
 
     @Test
-    void TestSetAuthors(){
+    public void TestSetAuthors(){
         Book book = MockBook();
         ArrayList<String> authors = new ArrayList<String>();
         ArrayList<String> bookAuthors = book.getAuthors();
@@ -78,14 +78,14 @@ public class BookClassTests {
     }
 
     @Test
-    void TestGetOwner(){
+    public void TestGetOwner(){
         Book book = MockBook();
         String owner = book.getOwner();
         assertEquals("Owner",owner);
     }
 
     @Test
-    void TestSetOwner(){
+    public void TestSetOwner(){
         Book book = MockBook();
         String owner = "new owner";
         book.setOwner(owner);
@@ -93,14 +93,14 @@ public class BookClassTests {
     }
 
     @Test
-    void TestGetBorrower(){
+    public void TestGetBorrower(){
         Book book = MockBook();
         String borrower = book.getBorrower();
         assertEquals("",borrower);
     }
 
     @Test
-    void TestSetBorrower(){
+    public void TestSetBorrower(){
         Book book = MockBook();
         String borrower = "borrower";
         book.setBorrower(borrower);

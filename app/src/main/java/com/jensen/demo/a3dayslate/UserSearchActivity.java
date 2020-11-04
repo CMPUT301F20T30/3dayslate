@@ -29,6 +29,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 
 public class UserSearchActivity extends AppCompatActivity {
+    /* UserSearchActivity
+
+   Version 1.2.0
+
+   November 3 2020
+
+   Copyright [2020] [Anita Ferenc]
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+       http://www.apache.org/licenses/LICENSE-2.0
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+   */
+
     /**
       Allows a user to search for other users
 
@@ -37,30 +55,34 @@ public class UserSearchActivity extends AppCompatActivity {
       @version:1.2.0
     */
 
+    //declare xml attributes
+    Button searchUserButton;
+    TextView searchUser;
+    TextView errorMessage;
+    ArrayList<User> allUsers;
+    ArrayList<User> matchedUsers ;
+    ArrayList<String> matchedUserStrings;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_search_activity);
 
-        //declare xml attributes
-        Button searchUserButton;
-        TextView searchUser;
-        TextView errorMessage;
+        // setting up the ids for xml elements
         searchUser = (TextView) findViewById(R.id.user_search_bar);
         searchUserButton = findViewById(R.id.user_search_button);
         errorMessage = findViewById(R.id.error_message);
         ListView userListView = findViewById(R.id.user_search_listview);
 
-
-        ArrayList<User> allUsers = new ArrayList<User>();
-        ArrayList<User> matchedUsers = new ArrayList<User>();
-        ArrayList<String> matchedUserStrings = new ArrayList<String>();
+         allUsers = new ArrayList<User>(); // contains all the users in the database
+         matchedUsers = new ArrayList<User>(); // contains User objects that match search word
+         matchedUserStrings = new ArrayList<String>(); // contains usernames of users that match search word
 
         ArrayAdapter userAdapter = new ArrayAdapter<String>(this, R.layout.user_search_content,matchedUserStrings);
         userListView.setAdapter(userAdapter);
 
+        // Query database to find all the users
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
-
         db.collection("users")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -71,47 +93,49 @@ public class UserSearchActivity extends AppCompatActivity {
                                 //make new userObject
                                 User user = document.toObject(User.class);
                                 allUsers.add(user);
-
                             }
                         } else {
                             Log.w("Users:", "Error getting documents");
                         }
                         Log.w("Users:", allUsers.toString());
-
                     }
-
                 });
 
         searchUserButton.setOnClickListener(new View.OnClickListener() {
+            // when search button is clicked
             @Override
             public void onClick(View v) {
-                // TODO: when click new search user, clear out all the previous displayed users
+                // clear lists from previous search
+                matchedUserStrings.clear();
                 matchedUsers.clear();
-                errorMessage.setVisibility(View.INVISIBLE);
+
+                errorMessage.setVisibility(View.INVISIBLE); // ensure error message is not displayed
                 String keyword = searchUser.getText().toString().toLowerCase();
 
-
                 for (int i=0; i < allUsers.size(); i++){
-
+                    // go through every user in all user list
                     User user = allUsers.get(i);
-
                     if (user.getUsername().toLowerCase().contains(keyword)){
+                        // if the user in allUser matches the search word
                         matchedUsers.add(user);
                         matchedUserStrings.add(user.getUsername());
                         Log.d("User ADDED", user.getUsername());
                     }
                 }
                 if (matchedUsers.size() == 0){
+                    // there were no matches
                     errorMessage.setVisibility(View.VISIBLE);
                 }
+
                 userAdapter.notifyDataSetChanged();
             }
         });
         userListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            // when a user is clicked to see more information about user
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 User user = matchedUsers.get(position);
-                openDisplay(user);
+                openDisplay(user); // open DisplayUserActivity
             }
         });
     }

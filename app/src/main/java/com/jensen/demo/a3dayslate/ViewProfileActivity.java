@@ -16,7 +16,25 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 public class ViewProfileActivity extends AppCompatActivity implements EditProfileDialog.ProfileDialogListener {
-    /*
+    /* ViewProfileActivity
+
+   Version 1.0.0
+
+   November 3 2020
+
+   Copyright [2020] [Anita Ferenc]
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+       http://www.apache.org/licenses/LICENSE-2.0
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+   */
+
+    /**
       Allow user to view their own contact information and edit username and email fields
 
       @author: Anita Ferenc
@@ -29,6 +47,7 @@ public class ViewProfileActivity extends AppCompatActivity implements EditProfil
     TextView email;
     TextView phone;
     Button editProfile;
+    FirebaseUser currentUser;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,9 +63,7 @@ public class ViewProfileActivity extends AppCompatActivity implements EditProfil
         // gets the current user from the database
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
         final FirebaseAuth uAuth = FirebaseAuth.getInstance();
-        final FirebaseUser currentUser = uAuth.getCurrentUser();
-
-
+        currentUser = uAuth.getCurrentUser();
 
         if (currentUser != null) {
             // sets the texts according to users firebase information
