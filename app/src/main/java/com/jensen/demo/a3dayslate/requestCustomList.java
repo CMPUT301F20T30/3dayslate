@@ -52,7 +52,7 @@ public class requestCustomList extends ArrayAdapter<Request> {
             requestStatus.setText("Requested...");
         }
         else if (request.getStatus() == Book.statuses.ACCEPTED) {
-            requestStatus.setText("Accepted!");
+            requestStatus.setText("Accepted! -> Long tap to see location!");
         }
         return view;
     }

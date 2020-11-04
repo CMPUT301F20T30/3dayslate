@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jensen.demo.a3dayslate">
-
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the "MyLocation" functionality.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
-  
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,12 +21,37 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".IncomingRequestsBooks"></activity>
+        <activity
+            android:name=".ReviewLocationActivity"
+            android:parentActivityName=".OutgoingRequestsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".OutgoingRequestsActivity" />
+        </activity>
+        <activity
+            android:name=".LocationActivity"
+            android:parentActivityName=".IncomingRequestsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".IncomingRequestsActivity" />
+        </activity>
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCOw6ZFM3DAtxgfuq9BM5dzEIihLXCrGas" />
 
         <activity
             android:name=".barcodeScannerActivity"
             android:label="@string/title_activity_barcode_scanner"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".BookSearchActivity"
             android:parentActivityName=".DashboardActivity"
@@ -27,7 +60,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".DashboardActivity" />
         </activity>
-
         <activity
             android:name=".ViewBookActivity"
             android:parentActivityName=".BookSearchActivity">
@@ -42,7 +74,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".OwnedBooksActivity" />
         </activity>
-
         <activity
             android:name=".DisplayUserSearchActivity"
             android:parentActivityName=".UserSearchActivity">
@@ -50,7 +81,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".UserSearchActivity" />
         </activity>
-
         <activity
             android:name=".IncomingRequestsActivity"
             android:parentActivityName=".DashboardActivity">
@@ -115,9 +145,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".DashboardActivity" />
         </activity>
-    </application>
-    <uses-permission android:name="android.permission.INTERNET" />
 
-    <uses-permission android:name="android.permission.CAMERA" />
+        <service
+            android:name=".notificationService"
+            android:permission="com.google.android.c2dm.permission.SEND"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+            </intent-filter>
+        </service>
+    </application>
 
 </manifest>

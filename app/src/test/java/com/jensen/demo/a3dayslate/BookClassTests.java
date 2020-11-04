@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+//TODO need to do image testing when applicable
+
 public class BookClassTests {
     private ArrayList<String> MockAuthor(){
         ArrayList<String> testAuthor = new ArrayList<String>();
