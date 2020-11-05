@@ -26,6 +26,32 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/* BookSearchActivity
+
+   Version 1.0.0
+
+   October 17 2020
+
+   Copyright [2020] [Danny Zaiter, Eric Weber]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+ */
+
+/**
+ * Book Search Activity allows for the searching of books in order to view their
+ * information or make a request to borrow, the books are filtered through a keyword
+ * search implemented in this Activity
+ */
 public class BookSearchActivity extends AppCompatActivity implements Serializable{
 
     private bookCustomList bookAdapter;
@@ -39,6 +65,11 @@ public class BookSearchActivity extends AppCompatActivity implements Serializabl
     ListView bookList;
     EditText searchBar;
 
+    /**
+     * This method begins the activity
+     * @param savedInstanceState
+     *        Bundle
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +103,10 @@ public class BookSearchActivity extends AppCompatActivity implements Serializabl
         db.collection("books")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    /**
+                     * This method pulls all books from the DB into the search
+                     * @param task
+                     */
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
@@ -95,15 +130,12 @@ public class BookSearchActivity extends AppCompatActivity implements Serializabl
 
                 });
 
-        //a little test
-        /*ArrayList<String> authors = new ArrayList<>();
-        authors.add("Author1");
-        authors.add("Author2");
-        Book book1 = new Book("BookTitle", "1234567890", authors, "Barry");
-        bookAdapter.add(book1);*/
-        //end test
-
         searchBook.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This method initializes a new search with a keyword specified in the search bar
+             * @param v
+             *        The activity's View
+             */
             @Override
             public void onClick(View v) {
 
@@ -133,6 +165,12 @@ public class BookSearchActivity extends AppCompatActivity implements Serializabl
 
         //on click listener for view book button
         viewBook.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This method opens the ViewBookActivity for a selected book,
+             * or does nothing if no book is selected after a click on the viewBook button
+             * @param v
+             *        The activity's View
+             */
             @Override
             public void onClick(View v) {
                 //view clicked book
@@ -146,6 +184,12 @@ public class BookSearchActivity extends AppCompatActivity implements Serializabl
 
         //on click listener for request book button
         requestBook.setOnClickListener(new View.OnClickListener() {
+            /**
+             * This method initializes a Request object for a selected book
+             * and modifies the DB accordingly after a click on the requestBook button
+             * @param v
+             *        The activity's View
+             */
             @Override
             public void onClick(View v) {
                 if(clickedBook!=null){
@@ -170,8 +214,20 @@ public class BookSearchActivity extends AppCompatActivity implements Serializabl
             }
         });
 
+
         //on item click listener for list of books
         bookList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            /**
+             * This method facilitates the selection of a Book object via a click on the ListView
+             * @param parent
+             *        The parent AdapterView
+             * @param view
+             *        The activity's View
+             * @param position
+             *        The position of the item
+             * @param id
+             *        The ID of the item
+             */
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //background colour of latest clicked book should be highlighted #C0EFE5
