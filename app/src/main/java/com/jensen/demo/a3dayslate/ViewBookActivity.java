@@ -41,7 +41,10 @@ public class ViewBookActivity extends AppCompatActivity implements Serializable 
     private Book book;
     private String authorString;
 
-
+    /** sets up activity
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
