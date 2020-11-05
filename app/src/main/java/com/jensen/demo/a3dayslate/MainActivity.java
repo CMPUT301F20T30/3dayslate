@@ -32,6 +32,36 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
+/* MainActivity (LoginSignupActivity)
+
+   Version 1.0.0
+
+   November 5 2020
+
+   Copyright [2020] [Jensen Khemchandani]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+ */
+
+/**
+ * This is the startup activity of the app
+ * Prompts the user to enter their login information and/or sign up for a new account
+ * This activity interfaces with both Firestore and Firebase Auth databases for authentication
+ * All activity and information inside the app will be associated with the logged in user's data
+ * @author Jensen Khemchandani
+ * @version 1.0.0
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     // Declare buttons for login screen
@@ -45,6 +75,13 @@ public class MainActivity extends AppCompatActivity {
 
     //String deviceToken;
 
+    /**
+     * Sets up the login/signup screen with all of the buttons and the text fields
+     * Also sets up the connection to the FireStore database and FireBase Auth service
+     * to ensure proper authentication
+     * @param savedInstanceState
+     * The bundle object passed into the activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
