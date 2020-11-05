@@ -23,12 +23,13 @@
 
         <TextView
             android:id="@+id/owned_book_author"
-            android:gravity="left"
+            android:gravity="bottom"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:text="sample_author"
+            android:textSize="20sp"
             android:padding="3dp"
-            android:autoSizeTextType="uniform"
+
             >
         </TextView>
     </LinearLayout>
