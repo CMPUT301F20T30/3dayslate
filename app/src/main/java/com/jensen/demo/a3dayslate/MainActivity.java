@@ -3,7 +3,9 @@ package com.jensen.demo.a3dayslate;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +28,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
@@ -40,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText enterPassword;
     private EditText enterUsername;
 
+    //String deviceToken;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         // Connect to the FireBase Auth server
         final FirebaseAuth uAuth = FirebaseAuth.getInstance();
 
+
         // Map buttons and EditText fields to XML
         loginButton = findViewById(R.id.login_button);
         signUpButton = findViewById(R.id.signup_button);
@@ -61,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         // Login button functionality
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 String userEmail = enterEmail.getText().toString();
                 String userUsername = enterUsername.getText().toString();
                 String userPassword = enterPassword.getText().toString();
@@ -81,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
                                     Toast.makeText(MainActivity.this, "Signed in as: " + user.getDisplayName(),
                                             Toast.LENGTH_SHORT).show();
                                     // -> Navigate to a next activity here!
+                                    Intent intent = new Intent(view.getContext(), DashboardActivity.class);
+                                    startActivity(intent);
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Log.w("TAG", "signInWithEmail:failure", task.getException());
@@ -129,10 +137,9 @@ public class MainActivity extends AppCompatActivity {
                                             public void onComplete(@NonNull final Task<AuthResult> task) {
                                                 if (task.isSuccessful()) {
                                                     // Case for if the username is indeed unique! -> Actually add the user to the database!
-                                                    HashMap<String, Object> user = new HashMap<>();
-                                                    user.put("email", userEmail);
+                                                    User dbUser = new User(userUsername, userEmail);
                                                     documentReference
-                                                            .set(user)
+                                                            .set(dbUser)
                                                             .addOnFailureListener(new OnFailureListener() {
                                                                 @Override
                                                                 public void onFailure(@NonNull Exception e) {
@@ -153,7 +160,8 @@ public class MainActivity extends AppCompatActivity {
                                                                                 public void onComplete(@NonNull Task<Void> task) {
                                                                                     if (task.isSuccessful()) {
                                                                                         Log.d("TAG", "User profile updated.");
-                                                                                        // Navigate to the next activity here!
+                                                                                        Intent intent = new Intent(view.getContext(), DashboardActivity.class);
+                                                                                        startActivity(intent);
                                                                                     }
                                                                                 }
                                                                             });

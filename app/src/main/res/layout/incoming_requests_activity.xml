@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="100">
+
+    <TextView
+        android:id="@+id/incoming_requests_banner"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:textSize="32sp"
+        android:text="Incoming Requests"
+        android:gravity="center">
+
+    </TextView>
+
+    <ListView
+        android:id="@+id/incoming_requests_listview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="80">
+
+    </ListView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/accept_request_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textSize="16sp"
+            android:text="Accept"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary">
+        </Button>
+
+        <Button
+            android:id="@+id/decline_request_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textSize="16sp"
+            android:text="Decline"
+            android:layout_weight="1"
+            android:background="#C72E2E">
+        </Button>
+
+    </LinearLayout>
+</LinearLayout>
