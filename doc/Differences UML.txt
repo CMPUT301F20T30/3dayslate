@@ -1,0 +1,11 @@
+Differences between pt. 2 UML and pt. 3
+
+- Added boundary classes for the Request activities (Users can view their incoming/outgoing requests)
+- Added boundary classes for viewing and editing owned books
+- Added Fragments for selecting windows to open in the UML
+- Added Boundary classes for viewing and editing a user's profile
+- Added boundary classes for searching for users and books
+- Added some control classes for listView adapters for the main activities
+- Made some of the classes implement Serializable, so they can be transfered between activites
+- Updated current and new classes with some buttons and extra functionality that we added
+- Added references to the FireStore db instance

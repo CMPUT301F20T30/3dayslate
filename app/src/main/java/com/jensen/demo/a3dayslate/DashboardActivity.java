@@ -10,9 +10,25 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
+import java.util.HashMap;
+import java.util.Map;
 
 public class DashboardActivity extends AppCompatActivity {
+    TextView userDisplay;
+    Button bookSearch;
+    Button peopleSearch;
+    Button myBooks;
+    Button borrowedBooks;
+    Button myProfile;
+    Button scanISBN;
+    Button myRequests;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -21,14 +37,7 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.dashboard_activity);
 
         // declare all xml elements
-        TextView userDisplay;
-        Button bookSearch;
-        Button peopleSearch;
-        Button myBooks;
-        Button borrowedBooks;
-        Button myProfile;
-        Button scanISBN;
-        Button myRequests;
+
         userDisplay = findViewById(R.id.usernameDisplay);
         bookSearch = findViewById(R.id.bookSearchButton);
         peopleSearch = findViewById(R.id.peopleSearchButton);
@@ -38,11 +47,23 @@ public class DashboardActivity extends AppCompatActivity {
         scanISBN = findViewById(R.id.scanISBNButton);
         myRequests = findViewById(R.id.myRequestsButton);
 
-        /*
-        once user is actually passed from login
-        set userDisplay text here
-        userDisplay.setText("Welcome " + user.get_username());
-         */
+        // gets the current user from the database
+        final FirebaseFirestore db = FirebaseFirestore.getInstance();
+        final FirebaseAuth uAuth = FirebaseAuth.getInstance();
+        final FirebaseUser currentUser = uAuth.getCurrentUser();
+
+        // Device ID storage
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(DashboardActivity.this,  new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                Map<String, Object> token = new HashMap<>();
+                token.put("deviceToken", instanceIdResult.getToken());
+                db.collection("users").document(currentUser.getDisplayName()).collection("device-token").document("token").set(token);
+            }
+        });
+
+        String userString = "Welcome " + currentUser.getDisplayName();
+        userDisplay.setText(userString);
 
         //on click listener for bookSearch
 
@@ -98,7 +119,7 @@ public class DashboardActivity extends AppCompatActivity {
         scanISBN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DashboardActivity.this, getBookByISBN.class);
+                Intent intent = new Intent(DashboardActivity.this, GetBookByISBN.class);
                 startActivity(intent);
             }
         });

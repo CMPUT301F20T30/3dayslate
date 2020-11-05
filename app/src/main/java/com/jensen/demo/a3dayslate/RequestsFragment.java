@@ -25,8 +25,6 @@ public class RequestsFragment extends DialogFragment{
 
     }
 
-
-
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -40,7 +38,8 @@ public class RequestsFragment extends DialogFragment{
         incoming.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(getActivity(), IncomingRequestsActivity.class);
+                //Intent intent= new Intent(getActivity(), IncomingRequestsActivity.class);
+                Intent intent= new Intent(getActivity(), IncomingRequestsBooks.class);
                 startActivity(intent);
             }
         });

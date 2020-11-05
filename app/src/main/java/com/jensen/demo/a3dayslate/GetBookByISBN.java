@@ -1,43 +1,20 @@
-package com.jensen.demo.a3dayslate;
+ package com.jensen.demo.a3dayslate;
 
-import android.Manifest;
-import android.content.BroadcastReceiver;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.SparseArray;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import com.androidnetworking.AndroidNetworking;
-import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.JSONArrayRequestListener;
-import com.google.android.gms.common.api.PendingResults;
-import com.google.android.gms.vision.CameraSource;
-import com.google.android.gms.vision.Detector;
-import com.google.android.gms.vision.barcode.Barcode;
-import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.mlkit.vision.barcode.BarcodeScanner;
-import com.google.mlkit.vision.barcode.BarcodeScannerOptions;
-import com.google.mlkit.vision.barcode.BarcodeScanning;
-import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -49,10 +26,23 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
-public class getBookByISBN extends AppCompatActivity {
+ public class GetBookByISBN extends AppCompatActivity {
+
+     /*
+       Implements the ability for an owner to add a new book to their collection.
+       Allows the user to accomplish this task by scanning in a barcode with their camera, or entering an ISBN code manually
+
+       Uses the Google books API for mapping an ISBN to a book
+
+       Contains a method to store a newly created book in the database under the owner
+
+       @author: Jensen Khemchandani
+       @see: Rewrite for .java classes that use it
+       @version:1.0.0
+
+   */
 
     private TextView bookText;
     public static TextView ISBNResult; // Temporary public variable
@@ -70,7 +60,7 @@ public class getBookByISBN extends AppCompatActivity {
     private BarcodeScanner scanner;
 
     // URL Stuff
-    final String baseURL = "https://www.googleapis.com/books/v1/volumes?q=isbn:";
+    final String baseURL = "https://www.googleapis.com/books/v1/volumes?q=ISBN:";
     final OkHttpClient httpClient = new OkHttpClient();
 
     // Firebase instances
@@ -87,7 +77,7 @@ public class getBookByISBN extends AppCompatActivity {
         scan_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(new Intent(getApplicationContext(), barcodeScannerActivity.class), scanISBNRequestCode);
+                startActivityForResult(new Intent(getApplicationContext(), BarcodeScannerActivity.class), scanISBNRequestCode);
             }
         });
         enter_button.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +85,9 @@ public class getBookByISBN extends AppCompatActivity {
             public void onClick(View view) {
                 String isbn;
                 String url;
+                if(enter_isbn.getText().length() == 0) {
+                    return;
+                }
                 isbn = enter_isbn.getText().toString();
                 url = baseURL + isbn; // Get the actual URL for the request
                 ArrayList<String> authorList = new ArrayList<String>();
@@ -157,7 +150,7 @@ public class getBookByISBN extends AppCompatActivity {
             boolean valid = true;
             Bundle bundle = data.getBundleExtra("bundle");
             String isbn = bundle.getString("ISBN");
-            String baseURL = "https://www.googleapis.com/books/v1/volumes?q=isbn:";
+            String baseURL = "https://www.googleapis.com/books/v1/volumes?q=ISBN:";
             String url = baseURL + isbn;
             ArrayList<String> authorList = new ArrayList<String>();
             //Book createdBook = getBook(url, httpClient, isbn);
@@ -210,13 +203,9 @@ public class getBookByISBN extends AppCompatActivity {
 
     private void addBook(Book book){
         //Adds book to a specific user
-        HashMap<String, Object> mybook = new HashMap<>();
-        mybook.put("title", book.getTitle());
-        mybook.put("isbn", book.getIsbn());
-        mybook.put("authorList", book.getAuthors());
         db.collection("users").document(currentUser.getDisplayName()).
-                collection("books").document(book.getIsbn()).set(mybook);
-
+                collection("books").document(book.getIsbn()).set(book);
+        db.collection("books").document(book.getIsbn()).set(book);
     }//end addBook
 
 
