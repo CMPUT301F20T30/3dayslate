@@ -1,9 +1,7 @@
 package com.jensen.demo.a3dayslate;
 
-import android.app.Notification;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,12 +29,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
@@ -44,7 +39,7 @@ import okhttp3.Response;
 
 public class BookSearchActivity extends AppCompatActivity implements Serializable{
 
-    private bookCustomList bookAdapter;
+    private BookCustomList bookAdapter;
     private Book clickedBook = null;
     private int VIEW_BOOK_ACTIVITY = 0;
 
@@ -80,7 +75,7 @@ public class BookSearchActivity extends AppCompatActivity implements Serializabl
         searchBar = findViewById(R.id.book_search_bar);
 
         //set Book Adapter to custom list view
-        bookAdapter = new bookCustomList(this, searchDataList);
+        bookAdapter = new BookCustomList(this, searchDataList);
         bookList.setAdapter(bookAdapter);
 
         // query database for all books
@@ -165,6 +160,7 @@ public class BookSearchActivity extends AppCompatActivity implements Serializabl
             public void onClick(View v) {
                 if(clickedBook!=null){
                     //requestID is owner Username + borrower Username + isbn
+                    Toast.makeText(BookSearchActivity.this, "A request has been sent to the owner", Toast.LENGTH_SHORT).show();
                     String borrower = currentUser.getDisplayName();
                     Request request = new Request(borrower, clickedBook);
                     String owner = clickedBook.getOwner();

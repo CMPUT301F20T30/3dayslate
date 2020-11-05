@@ -39,7 +39,6 @@ import java.util.ArrayList;
    and setter methods to modify aspects after creation.
 
    @author Larissa Zhang
-   @see for .java classes that use it
    @version 1.0.0
 
  */
@@ -65,6 +64,14 @@ public class Book implements Serializable {
     //on creation will always not be considered having a borrower
     private String borrower = "";
 
+    /** Constructs a book object given parameters
+     *
+     * @param title
+     * @param isbn
+     * @param authorList
+     * @param owner
+     */
+
     public Book(String title, String isbn, ArrayList<String> authorList, String owner) {
         this.title = title;
         this.isbn = isbn;
@@ -74,6 +81,8 @@ public class Book implements Serializable {
 
     public Book() {
         // Do NOT delete this
+        // Needed to be able to do methods such as toObject() from the database
+        // and to put objects directly into the database
     }
 
     /**

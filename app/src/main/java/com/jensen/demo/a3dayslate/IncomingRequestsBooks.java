@@ -59,6 +59,12 @@ public class IncomingRequestsBooks extends AppCompatActivity {
     final FirebaseAuth uAuth = FirebaseAuth.getInstance();
     final FirebaseUser currentUser = uAuth.getCurrentUser();
 
+    /** Creates a listview that shows all the books that
+     * have requests for the current user.
+     *
+     * @param savedInstanceState
+     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +102,7 @@ public class IncomingRequestsBooks extends AppCompatActivity {
                     }
                 });
         //when item clicked will take selected book to next activity
+
         listBooks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

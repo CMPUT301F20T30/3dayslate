@@ -126,6 +126,7 @@ public class IncomingRequestsActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Toast.makeText(IncomingRequestsActivity.this, "A notification has been sent to the borrower", Toast.LENGTH_SHORT).show();
         if(requestCode == LOCATION_ACTIVITY_CODE){
             if (resultCode == LocationActivity.RESULT_OK){
                 String key = clickedRequest.getOwner() + clickedRequest.getRequester() + clickedRequest.getBook().getIsbn();

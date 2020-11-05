@@ -16,6 +16,8 @@ public class Request {
 
     public Request() {
         // Do NOT delete this
+        // Needed to be able to do methods such as toObject() from the database
+        // and to put objects directly into the database
     }
 
     public String getOwner() {

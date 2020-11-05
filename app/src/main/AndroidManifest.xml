@@ -21,7 +21,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".IncomingRequestsBooks"></activity>
+        <activity android:name=".IncomingRequestsBooks">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DashboardActivity" />
+        </activity>
         <activity
             android:name=".ReviewLocationActivity"
             android:parentActivityName=".OutgoingRequestsActivity">
@@ -49,7 +53,7 @@
             android:value="AIzaSyCOw6ZFM3DAtxgfuq9BM5dzEIihLXCrGas" />
 
         <activity
-            android:name=".barcodeScannerActivity"
+            android:name=".BarcodeScannerActivity"
             android:label="@string/title_activity_barcode_scanner"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -86,7 +90,7 @@
             android:parentActivityName=".DashboardActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DashboardActivity" />
+                android:value=".IncomingRequestsBooks" />
         </activity>
         <activity
             android:name=".ViewProfileActivity"
@@ -139,7 +143,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".getBookByISBN"
+            android:name=".GetBookByISBN"
             android:parentActivityName=".DashboardActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -147,7 +151,7 @@
         </activity>
 
         <service
-            android:name=".notificationService"
+            android:name=".NotificationService"
             android:permission="com.google.android.c2dm.permission.SEND"
             android:exported="false">
             <intent-filter>

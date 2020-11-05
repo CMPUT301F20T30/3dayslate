@@ -28,7 +28,7 @@ import java.util.Map;
 import java.util.Random;
 
 
-public class notificationService extends FirebaseMessagingService {
+public class NotificationService extends FirebaseMessagingService {
     private String channel_id = "my_channel";
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {

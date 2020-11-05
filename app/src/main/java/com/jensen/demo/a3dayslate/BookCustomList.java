@@ -14,7 +14,7 @@ import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
 
-public class bookCustomList extends ArrayAdapter<Book> {
+public class BookCustomList extends ArrayAdapter<Book> {
 
     //@Author Danny Zaiter
 
@@ -23,7 +23,7 @@ public class bookCustomList extends ArrayAdapter<Book> {
     private Context context;
 
     //constructor implementing super construction from ArrayAdapter
-    public bookCustomList(Context context, ArrayList<Book> books){
+    public BookCustomList(Context context, ArrayList<Book> books){
         super(context,0, books);
         this.books = books;
         this.context = context;

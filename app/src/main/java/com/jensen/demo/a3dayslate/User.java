@@ -49,7 +49,9 @@ public class User implements Serializable {
     private String email;
 
     public User(){
-        //DON'T DELETE THIS DATABASE NEEDS THIS
+        //DON'T DELETE THIS
+        // Needed to be able to do methods such as toObject() from the database
+        // and to put objects directly into the database
     };
 
     public User(String username, String email) {

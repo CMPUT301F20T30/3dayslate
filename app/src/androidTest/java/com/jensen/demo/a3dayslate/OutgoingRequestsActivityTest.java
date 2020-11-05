@@ -25,6 +25,10 @@ public class OutgoingRequestsActivityTest {
         solo = new Solo(InstrumentationRegistry.getInstrumentation(),rule.getActivity());
     }
 
+    /**Tests that the activity shows the current requests it has made
+     * to other books owned by other users
+     */
+
     //interacts with the test user from IncomingRequestBooksTest.java
 
     @Test
@@ -47,6 +51,10 @@ public class OutgoingRequestsActivityTest {
         assertTrue(solo.waitForText("Snow White and the Seven Dwarfs",1,2000));
         assertTrue(solo.waitForText("Accepted! -> Long tap to see location!",1,2000));
     }
+
+    /**Tests that an accepted request can be clicked and view the location
+     * that the owner has sent the borrower
+     */
 
     @Test
     public void checkAcceptedRequest(){
@@ -71,6 +79,10 @@ public class OutgoingRequestsActivityTest {
         solo.waitForActivity(ReviewLocationActivity.class,1000);
         solo.assertCurrentActivity("Did not get location from request",ReviewLocationActivity.class);
     }
+
+    /**Ensures that unaccepted requests are only there to display
+     * the request.
+     */
 
     @Test
     public void checkRegularRequest(){
