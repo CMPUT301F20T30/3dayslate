@@ -63,6 +63,13 @@ public class UserSearchActivity extends AppCompatActivity {
     ArrayList<User> matchedUsers ;
     ArrayList<String> matchedUserStrings;
 
+    /**
+     * Allows the current user to search for other users
+     * If searched user exists, they will be displayed in list view
+     * If click on listview, another activity will open to display clicked user
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,6 +147,11 @@ public class UserSearchActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Opens new activity to display the user clicked
+     * @param user
+     * User is the user object that was clicked from the listview
+     */
     public void openDisplay(User user){
         // gets the username, email, and phone number
         // starts DisplayUserSearchActivity

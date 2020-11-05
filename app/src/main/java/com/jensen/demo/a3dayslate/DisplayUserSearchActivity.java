@@ -40,6 +40,10 @@ public class DisplayUserSearchActivity extends AppCompatActivity {
     TextView emailField;
     User user;
 
+    /**
+     * Shows the information of the user searched
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

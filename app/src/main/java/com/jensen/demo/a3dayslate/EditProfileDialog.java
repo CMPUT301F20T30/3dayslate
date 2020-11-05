@@ -71,11 +71,21 @@ public class EditProfileDialog extends AppCompatDialogFragment {
     Boolean usernameTaken = false;
     Context context;
 
+    /**
+     * Gets the context of the activity that calls method
+     * @param context
+     */
     public void setContext(Context context){
         // gets the context of the View Profile Activity
         this.context = context;
     }
 
+    /**
+     * opens dialog to edit current user information
+     * @param savedInstanceState
+     * @return
+     * returns a dialog
+     */
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -153,6 +163,10 @@ public class EditProfileDialog extends AppCompatDialogFragment {
                 }).create();
     }
 
+    /**
+     * sets the listener for the dialog
+     * @param context
+     */
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -164,6 +178,9 @@ public class EditProfileDialog extends AppCompatDialogFragment {
         }
     }
 
+    /**
+     * Interface to send information back to ViewProfileActivity
+     */
     public interface ProfileDialogListener {
         // sets text of previous activity with updated information
         void applyTexts(String email, String phoneNumber);
