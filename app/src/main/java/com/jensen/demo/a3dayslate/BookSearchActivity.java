@@ -259,10 +259,28 @@ public class BookSearchActivity extends AppCompatActivity implements Serializabl
         });
     }
 
+    /**
+     * Handles data sent to the activity from another activity
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+    /**
+     * This method sends a notification to a book owner, upon requesting a book that was searched
+     * Sends all of the relevant data needed for the owner to see who requested, and what was requested
+     * @param db
+     * This is the Firestore database reference to use
+     * @param owner
+     * This is the username of the owner of the book that is being requested
+     * @param currentUser
+     * This is the current user that is making the request
+     */
 
     public void sendNotificationToOwner(FirebaseFirestore db, String owner, String currentUser) {
         db.collection("users").document(owner).collection("device-token").document("token").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
