@@ -156,8 +156,8 @@ public class DashboardActivityTest {
         solo.waitForActivity(DashboardActivity.class);
         solo.assertCurrentActivity("NOT DASHBOARD", DashboardActivity.class);
         solo.clickOnButton("Scan ISBN");
-        solo.waitForActivity(getBookByISBN.class);
-        solo.assertCurrentActivity("NOT SCAN ISBN", getBookByISBN.class);
+        solo.waitForActivity(GetBookByISBN.class);
+        solo.assertCurrentActivity("NOT SCAN ISBN", GetBookByISBN.class);
     }
 
     /**
@@ -174,8 +174,8 @@ public class DashboardActivityTest {
         solo.clickOnButton("My Requests");
         solo.sleep(1000);
         solo.clickOnButton("Incoming Requests");
-        solo.waitForActivity(IncomingRequestsActivity.class);
-        solo.assertCurrentActivity("NOT INCOMING REQUESTS", IncomingRequestsActivity.class);
+        solo.waitForActivity(IncomingRequestsBooks.class);
+        solo.assertCurrentActivity("NOT INCOMING REQUESTS", IncomingRequestsBooks.class);
     }
 
     /**

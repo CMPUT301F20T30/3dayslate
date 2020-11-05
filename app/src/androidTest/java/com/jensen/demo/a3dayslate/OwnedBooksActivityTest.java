@@ -1,6 +1,5 @@
 package com.jensen.demo.a3dayslate;
 
-import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -90,8 +89,8 @@ public class OwnedBooksActivityTest {
         solo.waitForActivity(OwnedBooksActivity.class);
         solo.assertCurrentActivity("NOT OWNED BOOKS", OwnedBooksActivity.class);
         solo.clickOnButton("add");
-        solo.waitForActivity(getBookByISBN.class);
-        solo.assertCurrentActivity("NOT GET BOOK BY ISBN", getBookByISBN.class);
+        solo.waitForActivity(GetBookByISBN.class);
+        solo.assertCurrentActivity("NOT GET BOOK BY ISBN", GetBookByISBN.class);
     }
 
     /**
@@ -228,7 +227,7 @@ public class OwnedBooksActivityTest {
 
         //add the book back
         solo.clickOnButton("add");
-        solo.waitForActivity(getBookByISBN.class);
+        solo.waitForActivity(GetBookByISBN.class);
         solo.enterText((EditText)solo.getView(R.id.enterISBNCode), "9781787125933");
         solo.clickOnButton("Enter ISBN Code");
         solo.sendKey(KeyEvent.KEYCODE_BACK);

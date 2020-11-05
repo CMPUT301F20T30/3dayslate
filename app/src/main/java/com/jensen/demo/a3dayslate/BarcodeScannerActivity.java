@@ -14,19 +14,17 @@ import android.view.View;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-    /**
-       Barcode Scanner Activity
-
-       Implements the Barcode scanner activity which will be used in the app to
-       scan ISBN codes from the User's camera.
-
-       Contains the basic methods to open the camera, attach it to a view, and scan/return an ISBN code
-
-       @author: Jensen Khemchandani
-       @version:1.0.0
-   */
-
-public class  barcodeScannerActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
+/**
+ * Barcode Scanner Activity
+ * Implements the Barcode scanner activity which will be used in the app to
+ * scan ISBN codes from the User's camera.
+ *
+ * Contains the basic methods to open the camera, attach it to a view, and scan/return an ISBN code
+ *
+ * @author: Jensen Khemchandani
+ * @version:1.0.0
+ */
+public class BarcodeScannerActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
     ZXingScannerView scannerView;
     // Result codes
     int gotBook = 1;

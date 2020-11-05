@@ -1,15 +1,12 @@
 package com.jensen.demo.a3dayslate;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,7 +22,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 /* OwnedBooksActivity
@@ -132,7 +128,7 @@ public class OwnedBooksActivity extends AppCompatActivity implements Serializabl
         addBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(OwnedBooksActivity.this, getBookByISBN.class);
+                Intent intent = new Intent(OwnedBooksActivity.this, GetBookByISBN.class);
                 startActivityForResult(intent, ADD_BOOK);
             }
         });

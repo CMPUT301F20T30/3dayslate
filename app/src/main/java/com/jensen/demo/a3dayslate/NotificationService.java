@@ -27,9 +27,41 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+/* NotificationService
 
-public class notificationService extends FirebaseMessagingService {
+   Version 1.0.0
+
+   November 5 2020
+
+   Copyright [2020] [Jensen Khemchandani]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+ */
+
+/**
+ * This class is the notification service for the app
+ * Extends from the FirebaseMessagingService to handle messages received by the device through Firebase
+ * Creates and listens for notifications on a single channel -> used for requesting books
+ * @author Jensen Khemchandani
+ * @version 1.0.0
+ */
+public class NotificationService extends FirebaseMessagingService {
     private String channel_id = "my_channel";
+    /**
+     * Handles a message when one is recieved
+     * @param remoteMessage
+     * Contains the message received from the server along with the data associated with it
+     */
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
@@ -54,6 +86,11 @@ public class notificationService extends FirebaseMessagingService {
         }
     }
 
+    /**
+     * Creates a notification channel to route messages for retrieval
+     * @param notificationManager
+     * Contains a NotificationManager instance to handle and create the channel
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void createNotificationChannel(NotificationManager notificationManager) {
         String channelName = "ChannelName";

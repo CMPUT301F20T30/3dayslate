@@ -15,11 +15,11 @@ import androidx.annotation.RequiresApi;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 
-public class requestCustomList extends ArrayAdapter<Request> {
+public class RequestCustomList extends ArrayAdapter<Request> {
     private ArrayList<Request> requests ;
     private Context context;
     // Constructor
-    public requestCustomList(Context context, ArrayList<Request> requests){
+    public RequestCustomList(Context context, ArrayList<Request> requests){
         super(context,0, requests);
         this.requests = requests;
         this.context = context;

@@ -2,7 +2,6 @@ package com.jensen.demo.a3dayslate;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,19 +15,42 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
+
+/* OutgoingRequestsActivity
+
+   Version 1.0.0
+
+   November 5 2020
+
+   Copyright [2020] [Jensen Khemchandani]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+ */
+
+/**
+ * This activity grabs all of the outgoing requests associated with a user in the database, and displays them on the screen
+ * This activity also provides the user with options to view existing requests' location and their statuses
+ * @author Jensen Khemchandani
+ * @version 1.0.0
+ */
 
 public class OutgoingRequestsActivity extends AppCompatActivity {
-
     // Firebase instances
     final FirebaseFirestore db = FirebaseFirestore.getInstance();
     final FirebaseAuth uAuth = FirebaseAuth.getInstance();
@@ -38,6 +60,11 @@ public class OutgoingRequestsActivity extends AppCompatActivity {
     ArrayList<Request> requestArrayList = new ArrayList<>();
     Request selectedRequest;
 
+    /**
+     * This method sets up all of the buttons and listeners for the UI
+     * @param savedInstanceState
+     */
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,21 +73,6 @@ public class OutgoingRequestsActivity extends AppCompatActivity {
         //declare listView
         ListView outgoingRequestsList;
         outgoingRequestsList = findViewById(R.id.outgoing_requests_listview);
-        /*
-        Book test_book = new Book("test", "123", new ArrayList<String>(), "Eric");
-        Request testReq = new Request("hihihi", test_book);
-        testReq.setStatus(Book.statuses.REQUESTED);
-        //requestArrayList.add(testReq);
-        */
-        // Gets the collection reference for the user's outgoing requests
-        // Test for adding request to the database
-        /*
-        HashMap<String, Object> myRequest = new HashMap<>();
-        myRequest.put("requester", "hihihi");
-        myRequest.put("book", test_book);
-        */
-        //db.collection("users").document(currentUser.getDisplayName()).collection("outgoingRequests").document("TEST").set(testReq);
-
 
         //set Request Adapter to custom list view
 
@@ -79,11 +91,12 @@ public class OutgoingRequestsActivity extends AppCompatActivity {
                                 Request newRequest = document.toObject(Request.class);
                                 requestArrayList.add(newRequest);
                             }
-                            requestAdapter = new requestCustomList(OutgoingRequestsActivity.this, requestArrayList);
+                            requestAdapter = new RequestCustomList(OutgoingRequestsActivity.this, requestArrayList);
                             outgoingRequestsList.setAdapter(requestAdapter);
                         }
                     }
                 });
+
         //on item click listener for outgoing request idk if we actually need this
         outgoingRequestsList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override

@@ -29,6 +29,10 @@ public class IncomingRequestBooksTest {
     //interacts with the test user from OutgoingRequestsActivityTest
     //book isbns for ref 9780545079273 9780721406480
 
+    /**Tests that books that have requests actually are displayed
+     *
+     */
+
     @Test
     public void checkList(){
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
@@ -45,6 +49,10 @@ public class IncomingRequestBooksTest {
         assertTrue(solo.waitForText("Lost in the Storm",1,2000));
         assertTrue(solo.waitForText("Snow White and the Seven Dwarfs",1,2000));
     }
+
+    /**Test to make sure that tapping on a book will go to the
+     * next activity
+     */
 
     @Test
     public void checkTap(){

@@ -78,7 +78,7 @@ public class ViewProfileTest {
         solo.waitForActivity(DashboardActivity.class);
         solo.clickOnButton("My Profile");
 
-        //Asserts that the current activity is the MainActivity. Otherwise, show “Wrong Activity”
+        //Asserts that the current activity is the MainActivity. Otherwise, show "Wrong Activity"
         solo.assertCurrentActivity("Wrong Activity", ViewProfileActivity.class);
 
         ViewProfileActivity activity = (ViewProfileActivity) solo.getCurrentActivity();

@@ -34,6 +34,27 @@ import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+/* IncomingRequestsActivity
+
+   Version 1.0.0
+
+   November 5 2020
+
+   Copyright [2020] [Jensen Khemchandani]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+ */
+
 /**
  * This activity grabs all of the incoming requests associated with a user in the database, and displays them on the screen
  * This activity also provides the user with options to accept/deny incoming requests
@@ -149,6 +170,7 @@ public class IncomingRequestsActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Toast.makeText(IncomingRequestsActivity.this, "A notification has been sent to the borrower", Toast.LENGTH_SHORT).show();
         if(requestCode == LOCATION_ACTIVITY_CODE){
             if (resultCode == LocationActivity.RESULT_OK){
                 String key = clickedRequest.getOwner() + clickedRequest.getRequester() + clickedRequest.getBook().getIsbn();

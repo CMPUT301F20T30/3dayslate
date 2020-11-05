@@ -14,7 +14,33 @@ import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
 
-public class bookCustomList extends ArrayAdapter<Book> {
+/* bookCustomList
+
+   Version 1.0.0
+
+   October 17 2020
+
+   Copyright [2020] [Danny Zaiter]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+ */
+
+/**
+ * This class is an extension of an ArrayAdapter which is used to implement the
+ * BookSearchActivity class, it stores an ArrayList of Books and defines the format
+ * in which they are displayed (using R.layout.book_list_content XML)
+ */
+public class BookCustomList extends ArrayAdapter<Book> {
 
     //@Author Danny Zaiter
 
@@ -22,13 +48,32 @@ public class bookCustomList extends ArrayAdapter<Book> {
     private ArrayList<Book> books;
     private Context context;
 
+    /**
+     * This method is a generic constructor used to create a bookCustomList object
+     * @param context
+     *        The necessary context to be passed in
+     * @param books
+     *        The ArrayList of Book objects to be displayed
+     */
     //constructor implementing super construction from ArrayAdapter
-    public bookCustomList(Context context, ArrayList<Book> books){
+    public BookCustomList(Context context, ArrayList<Book> books){
         super(context,0, books);
         this.books = books;
         this.context = context;
     }
 
+    /**
+     * This method returns the defined View object
+     *
+     * @param position
+     *        The position of the item
+     * @param convertView
+     *        In this case NULL, to be inflated
+     * @param parent
+     *        parent of the View object used to match dimensions
+     *
+     * @return a View Object
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @NonNull
     @Override
