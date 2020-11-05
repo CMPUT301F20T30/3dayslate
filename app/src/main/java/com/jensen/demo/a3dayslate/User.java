@@ -41,7 +41,9 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 
 /**
- * Creates a user object with the user's username and email
+ * Implements the User class which will be user in the app to create a user with
+ * the users email and username.
+ * Has getter for email and username and setter for email.
  */
 public class User implements Serializable {
 
@@ -54,22 +56,42 @@ public class User implements Serializable {
         // and to put objects directly into the database
     };
 
+    /**
+     * Creates a user object with username and email parameters
+     * @param username
+     * @param email
+     */
     public User(String username, String email) {
         // gets username and email and sets it to username and email variables
         this.username = username;
         this.email = email;
     }
 
+    /**
+     * Returns the set username
+     * @return
+     * Returns username as a string
+     */
     public String getUsername() {
         // returns username
         return username;
     }
 
+    /**
+     * returns the set emails
+     * @return
+     * returns email as a string
+     */
     public String getEmail() {
         // returns email
         return email;
     }
 
+    /**
+     * sets the email for the user
+     * @param email
+     * gets email input as a string
+     */
     public void setEmail(String email) {
         // gets email input and sets the email
         this.email = email;

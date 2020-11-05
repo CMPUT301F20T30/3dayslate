@@ -49,6 +49,11 @@ public class ViewProfileActivity extends AppCompatActivity implements EditProfil
     Button editProfile;
     FirebaseUser currentUser;
 
+    /**
+     * Sets the information of the xml elements with the current user information
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +92,13 @@ public class ViewProfileActivity extends AppCompatActivity implements EditProfil
         });
     }
 
+    /**
+     * Gets the updated information from EditProfilDialog
+     * @param editEmail
+     * @param editPhoneNumb
+     * editEmail is the changed email from the user
+     * editPhoneNumb is the changed phone number of the user
+     */
     @Override
     public void applyTexts(String editEmail, String editPhoneNumb) {
         // set the text fields with updated information from the dialog
