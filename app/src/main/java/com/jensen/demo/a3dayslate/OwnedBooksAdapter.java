@@ -15,18 +15,54 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+/* OwnedBooksAdapter
 
+   Version 1.0.0
+
+   October 17 2020
+
+   Copyright [2020] [Eric Weber]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+ */
+
+/**
+ * Adapter for use with the OwnedBooksActivity
+ */
 public class OwnedBooksAdapter extends ArrayAdapter<Book> {
     private Context mContext;
     private int mResource;
     private String author;
 
+    /**Constructor for adapter
+     *
+     * @param context
+     * @param resource
+     * @param books
+     */
     public OwnedBooksAdapter(@NonNull Context context, int resource, ArrayList<Book> books) {
         super(context, resource, books);
         this.mContext = context;
         mResource = resource;
     }
 
+    /** gets the view for the apdapter
+     *
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return convertedView
+     */
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
