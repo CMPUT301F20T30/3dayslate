@@ -57,6 +57,10 @@ public class EditBookActivity extends AppCompatActivity implements Serializable 
     final FirebaseAuth uAuth = FirebaseAuth.getInstance();
     final FirebaseUser currentUser = uAuth.getCurrentUser();
 
+    /** Sets up activity upon creation
+     * including all buttons and editTexts
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

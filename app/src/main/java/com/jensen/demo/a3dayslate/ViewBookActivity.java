@@ -47,8 +47,8 @@ public class ViewBookActivity extends AppCompatActivity implements Serializable 
     TextView isbn;
     TextView owner;
 
-    /** sets up activity
-     *
+    /** sets up activity upon creation
+     * including
      * @param savedInstanceState
      */
     @Override
