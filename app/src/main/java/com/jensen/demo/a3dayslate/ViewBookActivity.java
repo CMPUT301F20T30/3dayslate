@@ -41,6 +41,12 @@ public class ViewBookActivity extends AppCompatActivity implements Serializable 
     private Book book;
     private String authorString;
 
+    //declare xml attributes
+    TextView viewTitle;
+    TextView viewAuthor;
+    TextView isbn;
+    TextView owner;
+
     /** sets up activity
      *
      * @param savedInstanceState
@@ -50,11 +56,7 @@ public class ViewBookActivity extends AppCompatActivity implements Serializable 
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_book_activity);
-        //declare xml attributes
-        TextView viewTitle;
-        TextView viewAuthor;
-        TextView isbn;
-        TextView owner;
+
 
         viewTitle = findViewById(R.id.view_book_title);
         viewAuthor = findViewById(R.id.view_book_author);
