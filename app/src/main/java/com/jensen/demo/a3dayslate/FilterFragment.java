@@ -49,10 +49,17 @@ public class FilterFragment extends DialogFragment {
     View view;
     private OnFilterFragmentInteraction interaction;
 
+    /**
+     * Interface for handling result when button clicked
+     */
     public interface OnFilterFragmentInteraction {
         void onFilterFragmentButtonClicked(int filterMode);
     }
 
+    /** Attaches fragment to activity
+     *
+     * @param context
+     */
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -65,7 +72,10 @@ public class FilterFragment extends DialogFragment {
     }
 
 
-
+    /** Sets up buttons in filter
+     *
+     * @param savedInstanceState
+     */
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {

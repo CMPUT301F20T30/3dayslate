@@ -27,22 +27,19 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
+ /**
+  * Implements the ability for an owner to add a new book to their collection.
+  *   Allows the user to accomplish this task by scanning in a barcode with their camera, or entering an ISBN code manually
+  *
+  *   Uses the Google books API for mapping an ISBN to a book
+  *
+  *
+  *   Contains a method to store a newly created book in the database under the owner
+  *
+  *   @author: Jensen Khemchandani
+  *   @version:1.0.0
+  */
  public class GetBookByISBN extends AppCompatActivity {
-
-     /*
-       Implements the ability for an owner to add a new book to their collection.
-       Allows the user to accomplish this task by scanning in a barcode with their camera, or entering an ISBN code manually
-
-       Uses the Google books API for mapping an ISBN to a book
-
-       Contains a method to store a newly created book in the database under the owner
-
-       @author: Jensen Khemchandani
-       @see: Rewrite for .java classes that use it
-       @version:1.0.0
-
-   */
 
     private TextView bookText;
     public static TextView ISBNResult; // Temporary public variable
@@ -67,6 +64,12 @@ import java.util.ArrayList;
     final FirebaseFirestore db = FirebaseFirestore.getInstance();
     final FirebaseAuth uAuth = FirebaseAuth.getInstance();
     final FirebaseUser currentUser = uAuth.getCurrentUser();
+
+     /**
+      * When the activity is opened, creates buttons and listeners for scanning ISBN codes, and manually entering them.
+      * @param savedInstanceState
+      * This is the bundle object passed into the activity
+      */
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -142,6 +145,15 @@ import java.util.ArrayList;
         });
     }
 
+     /**
+      * This method gets the ISBN from the scanner activity, and processes it through the Google Books API
+      * @param requestCode
+      * This is the request code specifying the action to take in this method
+      * @param resultCode
+      * This is the result code specifying action to take in this method
+      * @param data
+      * This is the data Intent passed over from the Barcode scanner activity
+      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -201,12 +213,18 @@ import java.util.ArrayList;
         }
     }
 
+     /**
+      * Updates the database with a new Book object
+      * @param book
+      */
     private void addBook(Book book){
         //Adds book to a specific user
         db.collection("users").document(currentUser.getDisplayName()).
                 collection("books").document(book.getIsbn()).set(book);
         db.collection("books").document(book.getIsbn()).set(book);
-    }//end addBook
+    }
+
+
 
 
 }
