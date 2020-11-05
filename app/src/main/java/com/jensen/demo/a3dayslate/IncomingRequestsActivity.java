@@ -34,6 +34,14 @@ import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+/**
+ * This activity grabs all of the incoming requests associated with a user in the database, and displays them on the screen
+ * This activity also provides the user with options to accept/deny incoming requests
+ @author Jensen Khemchandani
+ @see for .java classes that use it
+ @version 1.0.0
+ */
+
 public class IncomingRequestsActivity extends AppCompatActivity {
 
     // Firebase instances
@@ -45,7 +53,11 @@ public class IncomingRequestsActivity extends AppCompatActivity {
 
     ArrayAdapter<Request> requestAdapter;
     ArrayList<Request> requestArrayList = new ArrayList<>();
-
+    /**
+     * This method sets up all of the buttons and listeners for the UI (Accepting/denying requests  and setting up the ListView)
+     * @param savedInstanceState
+     * The bundle contains a Book object from the previous IncomingRequestsBooks activity
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,6 +135,17 @@ public class IncomingRequestsActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * This method gets a Location object from the ExchangeLocation method, and processes it/adds it to the database
+     * Also, sends a notification to the borrower if a location was successfully chosen
+     * @param requestCode
+     * This is the request code specifying the action to take in this method
+     * @param resultCode
+     * This is the result code specifying action to take in this method
+     * @param data
+     * This is the data Intent passed over from the Location activity
+     */
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -159,6 +182,18 @@ public class IncomingRequestsActivity extends AppCompatActivity {
             }
         }
     }
+
+    /**
+     * This method takes information about both users involved a request, and sends a notification to the borrower' device regarding an accepted request
+     * @param db
+     * This is the database reference to store the new info in
+     * @param owner
+     * This is the Owner of the book involved in the request
+     * @param borrower
+     * This is the borrower of the book involved in the request
+     * @param book
+     * This is the book object involved in the request
+     */
     public void sendNotificationToBorrower(FirebaseFirestore db, String owner, String borrower, Book book) {
         db.collection("users").document(borrower).collection("device-token").document("token").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -169,7 +204,7 @@ public class IncomingRequestsActivity extends AppCompatActivity {
                     Log.w("RC", token);
                     String json = "{\"to\":\"" + token + "\",\"notification\":{\"title\":\"Request Accepted\",\"body\":\"For: " + book.getTitle() + "\"}}";
                     Log.w("RC", json);
-                    String apiKey = "key=AAAAuSNnUgU:APA91bEe66HTssr9aKZtPmsIL_14Nw-PpIj6Hp_ULBA5rpezXbWEIRr4uujh6nIt0m2JcDd4CBPjYuQMOIGqVf5TKa2Q23EoUQNhcUg1850iFqvq9V7I3Lr8Uax2_bRSfE6cd4ydMTXI";
+                    String apiKey = "key=AAAAuSNnUgU:APA91bEe66HTssr9aKZtPmsIL_14Nw-PpIj6Hp_ULBA5rpezXbWEIRr4uujh6nIt0m2JcDd4CBPjYuQMOIGqVf5TKa2Q23EoUQNhcUg1850iFqvq9V7I3Lr8Uax2_bRSfE6cd4ydMTXI"; // Environment variable?
                     OkHttpClient client = new OkHttpClient();
                     RequestBody body = RequestBody.create(MediaType.parse("application/json"),json);
                     Log.w("RC", body.toString());
