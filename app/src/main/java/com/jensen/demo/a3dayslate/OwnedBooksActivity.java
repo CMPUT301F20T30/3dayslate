@@ -60,7 +60,11 @@ public class OwnedBooksActivity extends AppCompatActivity implements Serializabl
     private int filteringMode = 0;
     ListView ownedBooksList;
 
-
+    /**
+     *  Sets up activity on creation including all buttons
+     *  and listView
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
