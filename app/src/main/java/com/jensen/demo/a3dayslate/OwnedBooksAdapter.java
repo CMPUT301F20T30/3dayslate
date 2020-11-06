@@ -71,7 +71,10 @@ public class OwnedBooksAdapter extends ArrayAdapter<Book> {
         Book.statuses status = getItem(position).getCurrentStatus();
         String statusString = status.toString();
         String title = getItem(position).getTitle();
-
+        String borrowerName = getItem(position).getBorrower();
+        if(borrowerName.equals("")){
+            borrowerName = "No Borrower";
+        }
 
         //make a string for all authors
         for(int i =0; i<authors.size(); i++ ){
@@ -93,14 +96,14 @@ public class OwnedBooksAdapter extends ArrayAdapter<Book> {
         TextView bookAuthor = convertView.findViewById(R.id.owned_book_author);
         TextView bookStatus = convertView.findViewById(R.id.owned_book_status);
         TextView bookIsbn = convertView.findViewById(R.id.owned_book_isbn);
-        //TextView bookBorrower = convertView.findViewById(R.id.owned_book_borrower)
+        TextView bookBorrower = convertView.findViewById(R.id.owned_book_borrower);
 
         //set textViews
         bookTitle.setText(title);
         bookAuthor.setText(author);
         bookStatus.setText(statusString);
         bookIsbn.setText(isbn);
-        //bookBorrower.setText(borrowerName)
+        bookBorrower.setText(borrowerName);
 
 
 
