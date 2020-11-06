@@ -2,7 +2,6 @@ package com.jensen.demo.a3dayslate;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -34,7 +33,9 @@ import java.util.ArrayList;
 
 /** View Book Activity allows for the viewing of information of 1 (one) book
  *  it displays the book owner, isbn, title, author(s)
- *
+ * @author Eric Weber
+ * @version 1.0.0
+ * @see OwnedBooksActivity
  */
 public class ViewBookActivity extends AppCompatActivity implements Serializable {
 

@@ -54,7 +54,7 @@ import java.util.ArrayList;
   *   Uses the Google books API for mapping an ISBN to a book
   *   Contains a method to store a newly created book in the database under the owner
   *   @author: Jensen Khemchandani
-  *   @version:1.0.0
+  *   @version 1.0.0
   */
  public class GetBookByISBN extends AppCompatActivity {
 

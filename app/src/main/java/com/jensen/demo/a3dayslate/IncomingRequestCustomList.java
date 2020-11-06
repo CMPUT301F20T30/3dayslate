@@ -38,6 +38,9 @@ import java.util.ArrayList;
 /**
  * This class allows us to make a custom display for each Request object in our IncomingRequestsActivity
  * Also attaches the listview to the ArrayList of Requests
+ * @author Jensen Khemchandani
+ * @version 1.0.0
+ * @see IncomingRequestsActivity
  */
 
 public class IncomingRequestCustomList extends ArrayAdapter<Request> {

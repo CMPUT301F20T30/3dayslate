@@ -1,25 +1,6 @@
 package com.jensen.demo.a3dayslate;
 
-import android.util.Log;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
-
 import java.io.Serializable;
-import java.lang.ref.Reference;
-import java.util.ArrayList;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 /*
  * User Class
@@ -44,6 +25,8 @@ import androidx.recyclerview.widget.RecyclerView;
  * Implements the User class which will be user in the app to create a user with
  * the users email and username.
  * Has getter for email and username and setter for email.
+ * @author Anita Ferenc
+ * @version 1.0.0
  */
 public class User implements Serializable {
 

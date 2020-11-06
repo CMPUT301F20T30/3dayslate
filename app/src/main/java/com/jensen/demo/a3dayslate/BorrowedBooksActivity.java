@@ -8,6 +8,8 @@ import android.widget.ListView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+//activity that has not been worked on yet
+
 public class BorrowedBooksActivity extends AppCompatActivity {
 
     @Override

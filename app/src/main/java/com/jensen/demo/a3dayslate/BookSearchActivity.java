@@ -62,6 +62,8 @@ import okhttp3.Response;
  * Book Search Activity allows for the searching of books in order to view their
  * information or make a request to borrow, the books are filtered through a keyword
  * search implemented in this Activity
+ * @author Danny Zaiter
+ * @author Eric Weber
  */
 public class BookSearchActivity extends AppCompatActivity implements Serializable{
 

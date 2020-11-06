@@ -33,10 +33,6 @@ import java.io.Serializable;
 
  */
 
-/**
- * Constructs ExchangeLocation instances
- */
-
 public class ExchangeLocation implements Serializable {
     private double latitude;
     private double longitude;
@@ -50,6 +46,10 @@ public class ExchangeLocation implements Serializable {
         // Needed to be able to do methods such as toObject() from the database
         // and to put objects directly into the database
     }
+
+    /**
+     * Constructs ExchangeLocation instances
+     */
 
     public ExchangeLocation(double latitude, double longitude) {
         this.latitude = latitude;

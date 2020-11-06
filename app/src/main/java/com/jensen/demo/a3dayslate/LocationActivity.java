@@ -4,10 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +17,6 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 /* LocationActivity
@@ -49,6 +46,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
  * Uses the Google Maps API and functionality with the MapView and GoogleMap objects
  * @author Jensen Khemchandani
  * @version 1.0.0
+ * @see IncomingRequestsActivity
  */
 
 public class LocationActivity extends AppCompatActivity implements OnMapReadyCallback {

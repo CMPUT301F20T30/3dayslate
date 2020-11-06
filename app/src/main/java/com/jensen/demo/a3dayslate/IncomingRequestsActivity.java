@@ -59,8 +59,8 @@ import okhttp3.Response;
  * This activity grabs all of the incoming requests associated with a user in the database, and displays them on the screen
  * This activity also provides the user with options to accept/deny incoming requests
  @author Jensen Khemchandani
- @see for .java classes that use it
  @version 1.0.0
+ @see IncomingRequestsBooks
  */
 
 public class IncomingRequestsActivity extends AppCompatActivity {

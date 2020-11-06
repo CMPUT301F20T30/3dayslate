@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,8 +34,7 @@ import androidx.appcompat.app.AppCompatActivity;
  Allow user to view their own contact information and edit username and email fields
 
  @author: Anita Ferenc
- @see: Rewrite for .java classes that use it
- @version:1.0.0
+ @version 1.0.0
  */
 public class ViewProfileActivity extends AppCompatActivity implements EditProfileDialog.ProfileDialogListener {
    
