@@ -31,6 +31,7 @@ import androidx.appcompat.app.AppCompatActivity;
    See the License for the specific language governing permissions and
    limitations under the License.
    */
+public class ViewProfileActivity extends AppCompatActivity implements EditProfileDialog.ProfileDialogListener {
 
 /**
  Allow user to view their own contact information and edit username and email fields
@@ -46,7 +47,6 @@ public class ViewProfileActivity extends AppCompatActivity implements EditProfil
     //declare xml elements
     TextView username;
     TextView email;
-    TextView phone;
     Button editProfile;
     FirebaseUser currentUser;
 
@@ -63,7 +63,6 @@ public class ViewProfileActivity extends AppCompatActivity implements EditProfil
         // get ids of xml elements
         username = findViewById(R.id.view_profile_username);
         email = findViewById(R.id.view_profile_email);
-        phone = findViewById(R.id.view_profile_phone);
         editProfile = findViewById(R.id.edit_profile_button);
 
         // gets the current user from the database
@@ -96,14 +95,12 @@ public class ViewProfileActivity extends AppCompatActivity implements EditProfil
     /**
      * Gets the updated information from EditProfilDialog
      * @param editEmail
-     * @param editPhoneNumb
      * editEmail is the changed email from the user
      * editPhoneNumb is the changed phone number of the user
      */
     @Override
-    public void applyTexts(String editEmail, String editPhoneNumb) {
+    public void applyTexts(String editEmail) {
         // set the text fields with updated information from the dialog
         email.setText("Email: "+editEmail);
-        phone.setText("Phone Number: "+ editPhoneNumb);
     }
 }
