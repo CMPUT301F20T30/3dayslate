@@ -77,7 +77,7 @@ public class Book implements Serializable {
     }
 
     /**
-     * Empty constructor
+     * Empty constructor for books
      */
 
     public Book() {

@@ -2,14 +2,11 @@ package com.jensen.demo.a3dayslate;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
 
-public class DisplayUserSearchActivity extends AppCompatActivity {
-    /* DisplayUserSearchActivity Activity
+/* DisplayUserSearchActivity Activity
 
    Version 1.0.0
 
@@ -27,13 +24,15 @@ public class DisplayUserSearchActivity extends AppCompatActivity {
    limitations under the License.
    */
 
-    /**
-      Displays the profile of the searched user
+/**
+ Displays the profile of the searched user
 
-      @author: Anita Ferenc
-      @see: Rewrite for .java classes that use it
-      @version:1.0.0
-    */
+ @author: Anita Ferenc
+ @see: Rewrite for .java classes that use it
+ @version:1.0.0
+ */
+
+public class DisplayUserSearchActivity extends AppCompatActivity {
 
     // declaring xml elements
     TextView usernameField;

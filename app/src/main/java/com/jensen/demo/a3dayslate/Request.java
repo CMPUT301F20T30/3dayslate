@@ -58,7 +58,7 @@ public class Request {
     }
 
     /**
-     * Empty constructor
+     * Empty constructor for Requests
      */
 
     public Request() {
