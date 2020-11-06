@@ -67,8 +67,6 @@ public class EditProfileDialog extends AppCompatDialogFragment {
     private Button editProfile;
     private ProfileDialogListener listener;
     String editEmail;
-    String editPhoneNum;
-    Boolean usernameTaken = false;
     Context context;
 
     /**
@@ -98,7 +96,6 @@ public class EditProfileDialog extends AppCompatDialogFragment {
 
         // set the ids
         email = view.findViewById(R.id.view_profile_edit_email);
-        phone = view.findViewById(R.id.view_profile_phone);
         editProfile = view.findViewById(R.id.edit_profile_button);
 
         // get current user signed in
@@ -120,7 +117,6 @@ public class EditProfileDialog extends AppCompatDialogFragment {
 
                         // get the user input from the text fields
                         editEmail = email.getText().toString();
-                        editPhoneNum = phone.getText().toString();
 
                         // update email if not empty line, else set it to previous email
                         if (editEmail.length() > 0) {
@@ -158,7 +154,7 @@ public class EditProfileDialog extends AppCompatDialogFragment {
                             e.printStackTrace();
                         }
                         // set previous activity fields with new updated fields information
-                        listener.applyTexts(firebaseUser.getEmail(),editPhoneNum);
+                        listener.applyTexts(firebaseUser.getEmail());
                     }
                 }).create();
     }
@@ -183,6 +179,6 @@ public class EditProfileDialog extends AppCompatDialogFragment {
      */
     public interface ProfileDialogListener {
         // sets text of previous activity with updated information
-        void applyTexts(String email, String phoneNumber);
+        void applyTexts(String email);
     }
 }

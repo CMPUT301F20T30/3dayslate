@@ -27,9 +27,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
-
-public class UserSearchActivity extends AppCompatActivity {
-    /* UserSearchActivity
+/* UserSearchActivity
 
    Version 1.2.0
 
@@ -47,13 +45,14 @@ public class UserSearchActivity extends AppCompatActivity {
    limitations under the License.
    */
 
-    /**
-      Allows a user to search for other users
+/**
+ Allows a user to search for other users
 
-      @author: Anita Ferenc
-      @see: Rewrite for .java classes that use it
-      @version:1.2.0
-    */
+ @author: Anita Ferenc
+ @see: Rewrite for .java classes that use it
+ @version:1.2.0
+ */
+public class UserSearchActivity extends AppCompatActivity {
 
     //declare xml attributes
     Button searchUserButton;
