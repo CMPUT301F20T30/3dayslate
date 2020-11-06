@@ -41,9 +41,6 @@ public class ViewProfileActivity extends AppCompatActivity implements EditProfil
  @version:1.0.0
  */
 
-
-public class ViewProfileActivity extends AppCompatActivity implements EditProfileDialog.ProfileDialogListener {
-
     //declare xml elements
     TextView username;
     TextView email;
