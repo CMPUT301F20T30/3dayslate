@@ -105,8 +105,6 @@ public class OwnedBooksAdapter extends ArrayAdapter<Book> {
         bookIsbn.setText(isbn);
         bookBorrower.setText(borrowerName);
 
-
-
         return convertView;
     }
 }
