@@ -33,13 +33,16 @@ import androidx.appcompat.app.AppCompatActivity;
    */
 public class ViewProfileActivity extends AppCompatActivity implements EditProfileDialog.ProfileDialogListener {
 
-    /**
-      Allow user to view their own contact information and edit username and email fields
+/**
+ Allow user to view their own contact information and edit username and email fields
 
-      @author: Anita Ferenc
-      @see: Rewrite for .java classes that use it
-      @version:1.0.0
-    */
+ @author: Anita Ferenc
+ @see: Rewrite for .java classes that use it
+ @version:1.0.0
+ */
+
+
+public class ViewProfileActivity extends AppCompatActivity implements EditProfileDialog.ProfileDialogListener {
 
     //declare xml elements
     TextView username;

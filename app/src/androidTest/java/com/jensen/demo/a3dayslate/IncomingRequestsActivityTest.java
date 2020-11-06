@@ -16,23 +16,49 @@ import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+/* IncomingRequestsActivityTest Class
+
+   Version 1.0.0
+
+   October 31 2020
+
+   Copyright [2020] [Larissa Zhang]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+ */
+
+/**Testing class that goes through the activty
+ *  IncomingRequestsActivityTest using robotium
+ *
+ */
+
 public class IncomingRequestsActivityTest {
     private Solo solo;
     @Rule
     public ActivityTestRule<MainActivity> rule =
             new ActivityTestRule<>(MainActivity.class, true, true);
 
+    /**Method that runs before all tests and gets solo instance
+     *
+     * @throws Exception
+     */
     @Before
     public void setUp() throws Exception{
         solo = new Solo(InstrumentationRegistry.getInstrumentation(),rule.getActivity());
     }
 
-    //tests may fail because requests and books for test users must be set up properly before testing in database
-    //TODO need to try to find a solution for this
     //testing partner (requests the books) is test@buddyforincoming.act and password is 123456
     //book isbns in order 9780743253338 9781484732748 9781894810647
-
-    //TODO get notifs and locations tested correctly
 
     /**Ensures that all requests made under one book are only for
      * the specific book.
@@ -52,8 +78,10 @@ public class IncomingRequestsActivityTest {
         solo.clickOnButton("Incoming Requests");
         solo.waitForDialogToClose(200);
         solo.waitForActivity(IncomingRequestsBooks.class);
+
+        //checks the current books with reqs
         assertTrue(solo.waitForText("Williams-Sonoma Collection: Asian",1,2000));
-        assertTrue(solo.waitForText("The Trials of Apollo Book One The Hidden Oracle",1,2000));
+        //assertTrue(solo.waitForText("The Trials of Apollo Book One The Hidden Oracle",1,2000));
         //assertTrue(solo.waitForText("Complete Englishsmart",1,2000));
         solo.clickInList(1);
         solo.assertCurrentActivity("Did not change",IncomingRequestsActivity.class);
@@ -62,19 +90,44 @@ public class IncomingRequestsActivityTest {
         assertTrue(solo.waitForText("Title: Williams-Sonoma Collection: Asian",1,2000));
         assertTrue(solo.waitForText("Requester: buddytesterincoming",1,2000));
         assertTrue(solo.waitForText("Pending...",1,2000));
-        solo.clickOnActionBarItem(1);
+        solo.goBack();
     }
 
-
-    //TODO fix how to test location as it currently fails
-    //needs to be manually set up each time
-
-    /**Tests that the owner can accept any requests and can choose
-     * a location to fulfill request
+    /**Tests that location from mapview was not selected
+     * and request status does not change
      */
 
-    //@Test
-    public void checkAcceptReq(){
+    @Test
+    public void checkLocationAccept(){
+        //adds the book to the test owner
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.enterText((EditText)solo.getView(R.id.enter_email), "test@incomingreqsactivity.act");
+        solo.enterText((EditText)solo.getView(R.id.enter_password), "123456");
+        solo.clickOnButton("Login");
+        solo.waitForActivity(DashboardActivity.class,10000);
+        solo.assertCurrentActivity("Wrong Activity", DashboardActivity.class);
+        solo.clickOnButton("Scan ISBN");
+        solo.enterText((EditText)solo.getView(R.id.enterISBNCode), "9781484732748");
+        solo.clickOnButton("Enter ISBN Code");
+        solo.goBack();
+        solo.goBack();
+
+        //requests the book with the test borrower
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.enterText((EditText)solo.getView(R.id.enter_email), "test@buddyforincoming.act");
+        solo.enterText((EditText)solo.getView(R.id.enter_password), "123456");
+        solo.clickOnButton("Login");
+        solo.waitForActivity(DashboardActivity.class,10000);
+        solo.clickOnButton("Search for Books");
+        solo.waitForActivity(BookSearchActivity.class);
+        solo.enterText((EditText)solo.getView(R.id.book_search_bar),"The Trials of Apollo Book One The Hidden Oracle");
+        solo.clickOnButton("search");
+        solo.clickInList(1);
+        solo.clickOnButton("Request");
+        solo.goBack();
+        solo.goBack();
+
+        //checks the actual request accepting
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@incomingreqsactivity.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "123456");
@@ -86,10 +139,9 @@ public class IncomingRequestsActivityTest {
         solo.clickOnButton("Incoming Requests");
         solo.waitForDialogToClose(200);
         solo.waitForActivity(IncomingRequestsBooks.class);
-        //should have three books requested
-        assertTrue(solo.waitForText("Williams-Sonoma Collection: Asian",1,2000));
+
+        //checks the current books with reqs
         assertTrue(solo.waitForText("The Trials of Apollo Book One The Hidden Oracle",1,2000));
-        assertTrue(solo.waitForText("Complete Englishsmart",1,2000));
         solo.clickInList(2);
         solo.assertCurrentActivity("Did not change",IncomingRequestsActivity.class);
         assertTrue(solo.waitForText("Incoming Requests",1,2000));
@@ -102,20 +154,51 @@ public class IncomingRequestsActivityTest {
         solo.clickOnButton("Accept");
         solo.waitForActivity(LocationActivity.class);
         solo.assertCurrentActivity("Did not go to location", LocationActivity.class);
-
+        //do not select location
         solo.clickOnButton("Select Location");
-        solo.waitForActivity(IncomingRequestsActivity.class);
-        assertTrue(solo.waitForText("Accepted!",1,2000));
+        solo.assertCurrentActivity("No location selected",LocationActivity.class);
+        solo.goBack();
+        assertTrue(solo.waitForText("Title: The Trials of Apollo Book One The Hidden Oracle",1,2000));
+        assertTrue(solo.waitForText("Requester: buddytesterincoming",1,2000));
+        assertTrue(solo.waitForText("Pending...",1,2000));
     }
 
-    //needs to be manually set up each time
-
-    /**Tests that the owner can delete any request made to them
-     *
+    /**Tests that the owner can accept any requests and can choose
+     * a location to fulfill request. Sets up book and also sets up
+     * the request to appear with the testing buddy
      */
 
-    //@Test
-    public void checkDelete(){
+    @Test
+    public void checkAcceptReq(){
+        //adds the book to the test owner
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.enterText((EditText)solo.getView(R.id.enter_email), "test@incomingreqsactivity.act");
+        solo.enterText((EditText)solo.getView(R.id.enter_password), "123456");
+        solo.clickOnButton("Login");
+        solo.waitForActivity(DashboardActivity.class,10000);
+        solo.assertCurrentActivity("Wrong Activity", DashboardActivity.class);
+        solo.clickOnButton("Scan ISBN");
+        solo.enterText((EditText)solo.getView(R.id.enterISBNCode), "9781484732748");
+        solo.clickOnButton("Enter ISBN Code");
+        solo.goBack();
+        solo.goBack();
+
+        //requests the book with the test borrower
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.enterText((EditText)solo.getView(R.id.enter_email), "test@buddyforincoming.act");
+        solo.enterText((EditText)solo.getView(R.id.enter_password), "123456");
+        solo.clickOnButton("Login");
+        solo.waitForActivity(DashboardActivity.class,10000);
+        solo.clickOnButton("Search for Books");
+        solo.waitForActivity(BookSearchActivity.class);
+        solo.enterText((EditText)solo.getView(R.id.book_search_bar),"The Trials of Apollo Book One The Hidden Oracle");
+        solo.clickOnButton("search");
+        solo.clickInList(1);
+        solo.clickOnButton("Request");
+        solo.goBack();
+        solo.goBack();
+
+        //checks the actual request accepting
         solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@incomingreqsactivity.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "123456");
@@ -127,8 +210,87 @@ public class IncomingRequestsActivityTest {
         solo.clickOnButton("Incoming Requests");
         solo.waitForDialogToClose(200);
         solo.waitForActivity(IncomingRequestsBooks.class);
-        assertTrue(solo.waitForText("Williams-Sonoma Collection: Asian",1,2000));
+
+        //checks the current books with reqs
         assertTrue(solo.waitForText("The Trials of Apollo Book One The Hidden Oracle",1,2000));
+        solo.clickInList(2);
+        solo.assertCurrentActivity("Did not change",IncomingRequestsActivity.class);
+        assertTrue(solo.waitForText("Incoming Requests",1,2000));
+        //only one requester
+        assertTrue(solo.waitForText("Title: The Trials of Apollo Book One The Hidden Oracle",1,2000));
+        assertTrue(solo.waitForText("Requester: buddytesterincoming",1,2000));
+        assertTrue(solo.waitForText("Pending...",1,2000));
+        //select item and accept req
+        solo.clickInList(1);
+        solo.clickOnButton("Accept");
+        solo.waitForActivity(LocationActivity.class);
+        solo.assertCurrentActivity("Did not go to location", LocationActivity.class);
+        MapView mapView= (MapView) solo.getView(R.id.locationView);
+        solo.clickOnView(mapView);
+        solo.clickOnButton("Select Location");
+        solo.waitForActivity(IncomingRequestsActivity.class);
+        assertTrue(solo.waitForText("Accepted!",1,2000));
+
+        //deletes the book so that it can be redone
+        solo.goBack();
+        solo.goBack();
+        solo.goBack();
+        solo.clickOnButton("My Books");
+        solo.waitForActivity(OwnedBooksActivity.class);
+        solo.clickInList(2);
+        solo.clickOnButton("delete");
+    }
+
+    //needs to be manually set up each time
+
+    /**Tests that the owner can delete any request made to them
+     *
+     */
+
+    @Test
+    public void checkDelete(){
+        //adds the book to the test owner
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.enterText((EditText)solo.getView(R.id.enter_email), "test@incomingreqsactivity.act");
+        solo.enterText((EditText)solo.getView(R.id.enter_password), "123456");
+        solo.clickOnButton("Login");
+        solo.waitForActivity(DashboardActivity.class,10000);
+        solo.assertCurrentActivity("Wrong Activity", DashboardActivity.class);
+        solo.clickOnButton("Scan ISBN");
+        solo.enterText((EditText)solo.getView(R.id.enterISBNCode), "9781894810647");
+        solo.clickOnButton("Enter ISBN Code");
+        solo.goBack();
+        solo.goBack();
+
+        //requests the book with the test borrower
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.enterText((EditText)solo.getView(R.id.enter_email), "test@buddyforincoming.act");
+        solo.enterText((EditText)solo.getView(R.id.enter_password), "123456");
+        solo.clickOnButton("Login");
+        solo.waitForActivity(DashboardActivity.class,10000);
+        solo.clickOnButton("Search for Books");
+        solo.waitForActivity(BookSearchActivity.class);
+        solo.enterText((EditText)solo.getView(R.id.book_search_bar),"Complete Englishsmart");
+        solo.clickOnButton("search");
+        solo.clickInList(1);
+        solo.clickOnButton("Request");
+        solo.goBack();
+        solo.goBack();
+
+        //checks the deletion of a request
+        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.enterText((EditText)solo.getView(R.id.enter_email), "test@incomingreqsactivity.act");
+        solo.enterText((EditText)solo.getView(R.id.enter_password), "123456");
+        solo.clickOnButton("Login");
+        solo.waitForActivity(DashboardActivity.class,10000);
+        solo.assertCurrentActivity("Wrong Activity (Dashboard)", DashboardActivity.class);
+        solo.clickOnButton("My Requests");
+        solo.waitForFragmentByTag("REQUESTS");
+        solo.clickOnButton("Incoming Requests");
+        solo.waitForDialogToClose(200);
+        solo.waitForActivity(IncomingRequestsBooks.class);
+
+        //checks the current books with reqs
         assertTrue(solo.waitForText("Complete Englishsmart",1,2000));
         solo.clickInList(3);
         solo.assertCurrentActivity("Did not change",IncomingRequestsActivity.class);
@@ -142,8 +304,21 @@ public class IncomingRequestsActivityTest {
         assertFalse(solo.searchText("Title: Complete Englishsmart"));
         assertFalse(solo.searchText("Requester: buddytesterincoming"));
         assertFalse(solo.searchText("Pending..."));
-        
+
+        //deletes the book so that it can be redone
+        solo.goBack();
+        solo.goBack();
+        solo.goBack();
+        solo.clickOnButton("My Books");
+        solo.waitForActivity(OwnedBooksActivity.class);
+        solo.clickInList(2);
+        solo.clickOnButton("delete");
     }
+
+    /** Runs after each test to close down active activities
+     *
+     * @throws Exception
+     */
 
     @After
     public void tearDown() throws Exception{

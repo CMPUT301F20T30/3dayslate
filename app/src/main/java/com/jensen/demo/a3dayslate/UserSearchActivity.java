@@ -27,6 +27,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+
 /* UserSearchActivity
 
    Version 1.2.0
@@ -52,6 +53,7 @@ import java.util.ArrayList;
  @see: Rewrite for .java classes that use it
  @version:1.2.0
  */
+
 public class UserSearchActivity extends AppCompatActivity {
 
     //declare xml attributes

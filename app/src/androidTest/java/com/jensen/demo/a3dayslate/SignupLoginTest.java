@@ -21,14 +21,38 @@ import static org.junit.Assert.assertTrue;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+/* SignupLoginTest
 
-/** Test class for the sign up / login
- *
+   Version 1.0.0
+
+   November 5 2020
+
+   Copyright [2020] [Houston Le]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+ */
+
+
+/**
+ * Test class for the sign up / login
  */
 public class SignupLoginTest {
     private Solo solo;
 
-
+    /**
+     * Sets up the tests
+     * @throws Exception
+     */
     @Rule
     public ActivityTestRule<MainActivity> rule =
             new ActivityTestRule<>(MainActivity.class, true, true);
@@ -38,8 +62,8 @@ public class SignupLoginTest {
         solo = new Solo(InstrumentationRegistry.getInstrumentation(),rule.getActivity());
     }
 
-    /**Tests that the dashboard activity is the first activity gone to after logging in
-     *
+    /**
+     * Tests that the dashboard activity is the first activity gone to after logging in
      */
     @Test
     public void checkLoginToDashboard(){
@@ -70,7 +94,7 @@ public class SignupLoginTest {
     @Test
     public void checknonexistentemail(){
         solo.assertCurrentActivity("WRONG ACTIVITY", MainActivity.class);
-        solo.enterText((EditText)solo.getView(R.id.enter_email), "thisshitdoesnotexist");
+        solo.enterText((EditText)solo.getView(R.id.enter_email), "thisdoesnotexist");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "thisshouldfail");
         solo.clickOnButton("Login");
         solo.waitForActivity(DashboardActivity.class);
@@ -84,7 +108,7 @@ public class SignupLoginTest {
     public void checkemailindatabase(){
         solo.assertCurrentActivity("WRONG ACTIVITY", MainActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@dashboard.act");
-        solo.enterText((EditText)solo.getView(R.id.enter_username), "thisshitdoesnotexist");
+        solo.enterText((EditText)solo.getView(R.id.enter_username), "thisdoesnotexist");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "thisshouldfail");
         solo.clickOnButton("Signup");
         solo.waitForActivity(DashboardActivity.class);
@@ -138,9 +162,10 @@ public class SignupLoginTest {
         user.delete();
     }
 
-
-
-
+    /**
+     * handles what happens after tests are done
+     * @throws Exception
+     */
     @After
     public void tearDown() throws Exception{
         solo.finishOpenedActivities();
