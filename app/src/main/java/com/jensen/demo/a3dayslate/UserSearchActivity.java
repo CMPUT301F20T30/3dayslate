@@ -120,6 +120,7 @@ public class UserSearchActivity extends AppCompatActivity {
                 // clear lists from previous search
                 matchedUserStrings.clear();
                 matchedUsers.clear();
+                Log.d("MATCHED USERS", matchedUsers.toString());
 
                 errorMessage.setVisibility(View.INVISIBLE); // ensure error message is not displayed
                 String keyword = searchUser.getText().toString().toLowerCase();
