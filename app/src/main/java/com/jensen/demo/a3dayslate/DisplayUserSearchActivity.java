@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
 
 /* DisplayUserSearchActivity Activity
 
@@ -26,7 +27,6 @@ import android.widget.TextView;
 
 /**
  Displays the profile of the searched user
-
  @author: Anita Ferenc
  @see: Rewrite for .java classes that use it
  @version:1.0.0
