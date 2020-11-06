@@ -50,6 +50,10 @@ public class User implements Serializable {
     private String username;
     private String email;
 
+    /**
+     * Empty constructor for User
+     */
+
     public User(){
         //DON'T DELETE THIS
         // Needed to be able to do methods such as toObject() from the database

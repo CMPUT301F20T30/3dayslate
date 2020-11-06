@@ -12,28 +12,20 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.EmailAuthCredential;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-public class EditProfileDialog extends AppCompatDialogFragment {
-    /* EditProfileDialog
+/* EditProfileDialog
 
    Version 1.0.0
 
@@ -51,14 +43,16 @@ public class EditProfileDialog extends AppCompatDialogFragment {
    limitations under the License.
    */
 
-    /**
-      A dialog that gets input from the user to change their contact information
-      and saves changes information to the database
+/**
+ A dialog that gets input from the user to change their contact information
+ and saves changes information to the database
 
-      @author: Anita Ferenc
-      @see: Rewrite for .java classes that use it
-      @version:1.0.0
-    */
+ @author: Anita Ferenc
+ @see: Rewrite for .java classes that use it
+ @version:1.0.0
+ */
+
+public class EditProfileDialog extends AppCompatDialogFragment {
 
     //declare xml elements
     private TextView username;

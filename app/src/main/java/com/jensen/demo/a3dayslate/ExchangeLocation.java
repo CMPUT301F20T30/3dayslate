@@ -1,7 +1,6 @@
 package com.jensen.demo.a3dayslate;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /* ExchangeLocation Class
 
@@ -42,8 +41,14 @@ public class ExchangeLocation implements Serializable {
     private double latitude;
     private double longitude;
 
+    /**
+     * Empty constructor for ExchangeLocation
+     */
+
     public ExchangeLocation() {
         // Do not delete this!
+        // Needed to be able to do methods such as toObject() from the database
+        // and to put objects directly into the database
     }
 
     public ExchangeLocation(double latitude, double longitude) {
