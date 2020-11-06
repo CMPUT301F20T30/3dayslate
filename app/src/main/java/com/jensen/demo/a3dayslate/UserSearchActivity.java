@@ -12,11 +12,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -50,8 +46,7 @@ import java.util.ArrayList;
  Allows a user to search for other users
 
  @author: Anita Ferenc
- @see: Rewrite for .java classes that use it
- @version:1.2.0
+ @version 1.2.0
  */
 
 public class UserSearchActivity extends AppCompatActivity {

@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -36,7 +35,10 @@ import androidx.fragment.app.DialogFragment;
  */
 
 /**
- * Fragment for hcoosing what requests to view
+ * Fragment for choosing what requests to view
+ * @author Eric Weber
+ * @version 1.0.0
+ * @see DashboardActivity
  */
 public class RequestsFragment extends DialogFragment{
 

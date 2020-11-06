@@ -14,7 +14,7 @@ import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
 
-/* bookCustomList
+/* BookCustomList class
 
    Version 1.0.0
 
@@ -39,10 +39,12 @@ import java.util.ArrayList;
  * This class is an extension of an ArrayAdapter which is used to implement the
  * BookSearchActivity class, it stores an ArrayList of Books and defines the format
  * in which they are displayed (using R.layout.book_list_content XML)
+ * @author Danny Zaiter
+ * @version 1.0.0
+ * @see BookSearchActivity
+ *
  */
 public class BookCustomList extends ArrayAdapter<Book> {
-
-    //@Author Danny Zaiter
 
     //init context
     private ArrayList<Book> books;
@@ -55,7 +57,6 @@ public class BookCustomList extends ArrayAdapter<Book> {
      * @param books
      *        The ArrayList of Book objects to be displayed
      */
-    //constructor implementing super construction from ArrayAdapter
     public BookCustomList(Context context, ArrayList<Book> books){
         super(context,0, books);
         this.books = books;

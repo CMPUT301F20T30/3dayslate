@@ -91,7 +91,7 @@ public class OutgoingRequestsActivity extends AppCompatActivity {
                                 Request newRequest = document.toObject(Request.class);
                                 requestArrayList.add(newRequest);
                             }
-                            requestAdapter = new RequestCustomList(OutgoingRequestsActivity.this, requestArrayList);
+                            requestAdapter = new OutgoingRequestCustomList(OutgoingRequestsActivity.this, requestArrayList);
                             outgoingRequestsList.setAdapter(requestAdapter);
                         }
                     }

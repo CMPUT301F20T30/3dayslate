@@ -28,7 +28,7 @@ package com.jensen.demo.a3dayslate;
  * @see IncomingRequestsActivity
  * @see OutgoingRequestsActivity
  * @see LocationActivity
- * @see RequestCustomList
+ * @see OutgoingRequestCustomList
  * @see IncomingRequestCustomList
  * @see IncomingRequestsBooks
  * @see ReviewLocationActivity

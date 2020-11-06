@@ -28,8 +28,7 @@ import org.w3c.dom.Text;
 /**
  Displays the profile of the searched user
  @author: Anita Ferenc
- @see: Rewrite for .java classes that use it
- @version:1.0.0
+ @version 1.0.0
  */
 
 public class DisplayUserSearchActivity extends AppCompatActivity {

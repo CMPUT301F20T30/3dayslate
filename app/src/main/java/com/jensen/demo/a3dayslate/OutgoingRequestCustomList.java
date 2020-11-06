@@ -12,10 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 
-/* RequestCustomList class
+/* OutgoingRequestCustomList class
 
    Version 1.0.0
 
@@ -40,10 +39,13 @@ import java.util.ArrayList;
 /**
  * This class allows us to make a custom display for each Request object in our OutgoingRequestsActivity
  * Also attaches the listview to the ArrayList of Requests
+ * @author Jensen Khemchandani
+ * @version 1.0.0
+ * @see OutgoingRequestsActivity
  */
 
 
-public class RequestCustomList extends ArrayAdapter<Request> {
+public class OutgoingRequestCustomList extends ArrayAdapter<Request> {
     private ArrayList<Request> requests ;
     private Context context;
 
@@ -55,7 +57,7 @@ public class RequestCustomList extends ArrayAdapter<Request> {
      * The ArrayList of requests to attach the adapter to
      */
 
-    public RequestCustomList(Context context, ArrayList<Request> requests){
+    public OutgoingRequestCustomList(Context context, ArrayList<Request> requests){
         super(context,0, requests);
         this.requests = requests;
         this.context = context;

@@ -3,14 +3,9 @@ package com.jensen.demo.a3dayslate;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.zxing.Result;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.view.View;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -42,8 +37,8 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
  *
  * Contains the basic methods to open the camera, attach it to a view, and scan/return an ISBN code
  *
- * @author: Jensen Khemchandani
- * @version:1.0.0
+ * @author Jensen Khemchandani
+ * @version 1.0.0
  */
 public class BarcodeScannerActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
     ZXingScannerView scannerView;

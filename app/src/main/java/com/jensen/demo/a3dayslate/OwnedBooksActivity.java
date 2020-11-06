@@ -47,7 +47,8 @@ import java.util.ArrayList;
 
 /** This activity displays all books owned by the logged in user
  *  It contains buttons for adding a book, deleting a book, editing a book, and filtering the list (NOT IMPLEMENTED YET)
- * @ author Eric Weber
+ * @author Eric Weber
+ * @version 1.0.0
  */
 public class OwnedBooksActivity extends AppCompatActivity implements Serializable, FilterFragment.OnFilterFragmentInteraction{
 

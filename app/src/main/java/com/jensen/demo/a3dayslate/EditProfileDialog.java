@@ -48,8 +48,8 @@ import androidx.appcompat.app.AppCompatDialogFragment;
  and saves changes information to the database
 
  @author: Anita Ferenc
- @see: Rewrite for .java classes that use it
- @version:1.0.0
+ @see ViewProfileActivity
+ @version 1.0.0
  */
 
 public class EditProfileDialog extends AppCompatDialogFragment {

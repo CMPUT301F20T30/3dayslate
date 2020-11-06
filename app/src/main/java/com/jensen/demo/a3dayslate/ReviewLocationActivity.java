@@ -13,7 +13,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -43,6 +42,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
  * Uses the Google Maps API and functionality with the MapView and GoogleMap objects
  * @author Jensen Khemchandani
  * @version 1.0.0
+ * @see OutgoingRequestsActivity
  */
 
 public class ReviewLocationActivity extends AppCompatActivity implements OnMapReadyCallback {

@@ -45,7 +45,8 @@ import java.util.Arrays;
 /** This activity allows for the editing of a book
  *  It contains edit text field for editing the title and author of a book
  *  and a confirm edit button to finalize edits
- * @ author Eric Weber
+ * @author Eric Weber
+ * @see OwnedBooksActivity
  */
 public class EditBookActivity extends AppCompatActivity implements Serializable {
 

@@ -48,7 +48,6 @@ import java.util.ArrayList;
  * to show individual requests.
  *
  * @author Larissa Zhang
- * @see RequestsFragment
  * @see IncomingRequestsActivity
  * @version 1.0.0
  */

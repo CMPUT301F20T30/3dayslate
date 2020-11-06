@@ -10,10 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.util.ArrayList;
 /* OwnedBooksAdapter
 
@@ -38,6 +34,9 @@ import java.util.ArrayList;
 
 /**
  * Adapter for use with the OwnedBooksActivity
+ * @author Eric Weber
+ * @version 1.0.0
+ * @see OwnedBooksActivity
  */
 public class OwnedBooksAdapter extends ArrayAdapter<Book> {
     private Context mContext;

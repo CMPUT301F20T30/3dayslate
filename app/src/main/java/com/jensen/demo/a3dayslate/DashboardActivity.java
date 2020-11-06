@@ -42,7 +42,8 @@ import java.util.Map;
  */
 
 /** This activity acts as an interface between all activities
- * @ author Eric Weber
+ * @author Eric Weber
+ * @version 1.0.0
  */
 public class DashboardActivity extends AppCompatActivity {
     TextView userDisplay;
