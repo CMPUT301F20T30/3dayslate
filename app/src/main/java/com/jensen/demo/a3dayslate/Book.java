@@ -2,10 +2,7 @@ package com.jensen.demo.a3dayslate;
 
 import android.media.Image;
 
-import com.google.firebase.firestore.auth.User;
-
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /* Book Class
@@ -78,6 +75,10 @@ public class Book implements Serializable {
         this.authorList = authorList;
         this.owner = owner;
     }
+
+    /**
+     * Empty constructor
+     */
 
     public Book() {
         // Do NOT delete this

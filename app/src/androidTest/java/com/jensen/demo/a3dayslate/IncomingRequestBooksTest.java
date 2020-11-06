@@ -1,6 +1,5 @@
 package com.jensen.demo.a3dayslate;
 
-import android.app.Fragment;
 import android.widget.EditText;
 
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -15,11 +14,42 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
+/* IncomingRequestsBooksTest Class
+
+   Version 1.0.0
+
+   November 5 2020
+
+   Copyright [2020] [Larissa Zhang]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+ */
+
+/**Testing class that goes through the activty
+ *  IncomingRequestsBooksTest using robotium
+ *
+ */
+
 public class IncomingRequestBooksTest {
     private Solo solo;
     @Rule
     public ActivityTestRule<MainActivity> rule =
             new ActivityTestRule<>(MainActivity.class, true, true);
+
+    /**Method that runs before all tests and gets solo instance
+     *
+     * @throws Exception
+     */
 
     @Before
     public void setUp() throws Exception{
@@ -72,6 +102,11 @@ public class IncomingRequestBooksTest {
         solo.clickInList(1);
         solo.assertCurrentActivity("Did not change",IncomingRequestsActivity.class);
     }
+
+    /** Runs after each test to close down active activities
+     *
+     * @throws Exception
+     */
 
     @After
     public void tearDown() throws Exception{
