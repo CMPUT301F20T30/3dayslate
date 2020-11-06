@@ -134,8 +134,18 @@ public class BookSearchActivity extends AppCompatActivity implements Serializabl
                         Log.w("BOOK ARRAYLIST:", bookDataList.toString());
 
                         //bookDataList.setAdapter(bookAdapter);
-                        Log.w("BOOK ARRAYLIST:", bookDataList.toString());
 
+                        //display all books at start
+                        Log.w("BOOK ARRAYLIST:", bookDataList.toString());
+                        searchDataList.clear();
+                        for (int i=0; i < bookDataList.size(); i++){
+                            Book book = bookDataList.get(i);
+
+                            searchDataList.add(book);
+                            Log.d("BOOK ADDED", book.getTitle());
+
+                        }
+                        bookAdapter.notifyDataSetChanged();
                     }
 
                 });

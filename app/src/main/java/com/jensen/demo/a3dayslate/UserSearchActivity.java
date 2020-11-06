@@ -106,6 +106,15 @@ public class UserSearchActivity extends AppCompatActivity {
                             Log.w("Users:", "Error getting documents");
                         }
                         Log.w("Users:", allUsers.toString());
+
+                        for (int i=0; i < allUsers.size(); i++){
+                            // go through every user in all user list
+                            User user = allUsers.get(i);
+                            matchedUsers.add(user);
+                            matchedUserStrings.add(user.getUsername());
+                            Log.d("User ADDED", user.getUsername());
+                            userAdapter.notifyDataSetChanged();
+                        }
                     }
                 });
 
