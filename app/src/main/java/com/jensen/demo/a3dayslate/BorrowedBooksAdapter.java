@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
-/* OwnedBooksAdapter
+/* BorrowedBooksAdapter
 
    Version 1.0.0
 
@@ -36,9 +36,10 @@ import java.util.ArrayList;
  * Adapter for use with the OwnedBooksActivity
  * @author Eric Weber
  * @version 1.0.0
- * @see OwnedBooksActivity
+ * @see BorrowedBooksActivity
  */
-public class OwnedBooksAdapter extends ArrayAdapter<Book> {
+
+public class BorrowedBooksAdapter extends ArrayAdapter<Book> {
     private Context mContext;
     private int mResource;
     private String author;
@@ -49,38 +50,27 @@ public class OwnedBooksAdapter extends ArrayAdapter<Book> {
      * @param resource
      * @param books
      */
-    public OwnedBooksAdapter(@NonNull Context context, int resource, ArrayList<Book> books) {
+    public BorrowedBooksAdapter(@NonNull Context context, int resource, ArrayList<Book> books) {
         super(context, resource, books);
         this.mContext = context;
         mResource = resource;
     }
 
-    /** gets the view for the apdapter
+    /** gets the view for the adapter
      *
      * @param position
      * @param convertView
      * @param parent
      * @return convertedView
      */
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         String isbn = getItem(position).getIsbn();
         ArrayList<String> authors = getItem(position).getAuthors();
-        Book.statuses status = getItem(position).getCurrentStatus();
-        String statusString;
-        if(status == Book.statuses.SCANNED) {
-            status = Book.statuses.ACCEPTED;
-            statusString = status.toString();
-        }
-        else {
-            statusString = status.toString();
-        }
         String title = getItem(position).getTitle();
-        String borrowerName = getItem(position).getBorrower();
-        if(borrowerName.equals("")){
-            borrowerName = "No Borrower";
-        }
+        String owner = getItem(position).getOwner();
 
         //make a string for all authors
         for(int i =0; i<authors.size(); i++ ){
@@ -90,26 +80,21 @@ public class OwnedBooksAdapter extends ArrayAdapter<Book> {
                 author = author + ", " + authors.get(i);
             }
         }
-        //TODO implement user class so this can be done
-        // User borrower = getItem(position).getBorrower();
-        // String borrowerName = borrower.getName();
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
 
         //declare textViews
-        TextView bookTitle = convertView.findViewById(R.id.owned_book_title);
-        TextView bookAuthor = convertView.findViewById(R.id.owned_book_author);
-        TextView bookStatus = convertView.findViewById(R.id.owned_book_status);
-        TextView bookIsbn = convertView.findViewById(R.id.owned_book_isbn);
-        TextView bookBorrower = convertView.findViewById(R.id.owned_book_borrower);
+        TextView bookTitle = convertView.findViewById(R.id.borrowed_book_title);
+        TextView bookAuthor = convertView.findViewById(R.id.borrowed_book_author);
+        TextView bookIsbn = convertView.findViewById(R.id.borrowed_book_isbn);
+        TextView bookOwner = convertView.findViewById(R.id.borrowed_book_owner);
 
         //set textViews
         bookTitle.setText(title);
         bookAuthor.setText(author);
-        bookStatus.setText(statusString);
         bookIsbn.setText(isbn);
-        bookBorrower.setText(borrowerName);
+        bookOwner.setText(owner);
 
         return convertView;
     }

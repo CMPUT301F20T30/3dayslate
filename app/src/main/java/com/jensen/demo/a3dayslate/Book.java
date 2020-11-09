@@ -47,6 +47,7 @@ public class Book implements Serializable {
         AVAILABLE,
         REQUESTED,
         ACCEPTED,
+        SCANNED,
         BORROWED
     }
     //on creation will always be considered available

@@ -100,7 +100,7 @@ public class OutgoingRequestCustomList extends ArrayAdapter<Request> {
         if (request.getStatus() == Book.statuses.REQUESTED) {
             requestStatus.setText("Requested...");
         }
-        else if (request.getStatus() == Book.statuses.ACCEPTED) {
+        else if (request.getStatus() == Book.statuses.ACCEPTED || request.getStatus() == Book.statuses.SCANNED) {
             requestStatus.setText("Accepted! -> Long tap to see location!");
         }
         return view;

@@ -40,10 +40,10 @@ import androidx.fragment.app.DialogFragment;
  * @version 1.0.0
  * @see DashboardActivity
  */
+
 public class RequestsFragment extends DialogFragment{
 
     View view;
-
 
     /** Attaches fragment to activity
      *

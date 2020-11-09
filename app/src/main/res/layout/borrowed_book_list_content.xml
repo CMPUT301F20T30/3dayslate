@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="100dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="50">
+
+        <TextView
+            android:id="@+id/borrowed_book_title"
+            android:gravity="left"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="sample_title"
+            android:padding="3dp"
+            android:autoSizeTextType="uniform"
+            >
+        </TextView>
+
+        <TextView
+            android:id="@+id/borrowed_book_author"
+            android:gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="sample_author"
+            android:textSize="20sp"
+            android:padding="3dp"
+
+            >
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="50"
+        >
+
+        <TextView
+            android:id="@+id/borrowed_book_owner"
+            android:gravity="right"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="sample_owner"
+            android:padding="3dp"
+            android:autoSizeTextType="uniform"
+            >
+        </TextView>
+
+        <TextView
+            android:id="@+id/borrowed_book_isbn"
+            android:gravity="right"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="sample_isbn"
+            android:padding="3dp"
+            android:autoSizeTextType="uniform"
+            >
+        </TextView>
+    </LinearLayout>
+</LinearLayout>
