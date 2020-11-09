@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/view_book_scan_button"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/colorSecondary"
+        android:text="View details of book"
+        android:textSize="16sp">
+
+    </Button>
+
+    <Button
+        android:id="@+id/add_book_scan_button"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/colorPrimary"
+        android:text="Add book to owned books"
+        android:textSize="16sp">
+
+    </Button>
+
+    <Button
+        android:id="@+id/borrow_book_scan_button"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/colorSecondary"
+        android:text="Scan in borrow location"
+        android:textSize="16sp">
+
+    </Button>
+
+    <Button
+        android:id="@+id/return_book_scan_button"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/colorPrimary"
+        android:text="Return book in return location"
+        android:textSize="16sp">
+
+    </Button>
+</LinearLayout>

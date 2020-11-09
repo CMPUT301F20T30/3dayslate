@@ -2,6 +2,7 @@ package com.jensen.demo.a3dayslate;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.zxing.Result;
 
@@ -42,9 +43,15 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
  */
 public class BarcodeScannerActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
     ZXingScannerView scannerView;
+
     // Result codes
     int gotBook = 1;
     int badResult = 2;
+
+    // Variables
+    Book book;
+    String requester;
+    String action;
 
     /**
      * Starts the camera and starts scanning for ISBN barcodes
@@ -54,6 +61,17 @@ public class BarcodeScannerActivity extends AppCompatActivity implements ZXingSc
         super.onCreate(savedInstanceState);
         scannerView = new ZXingScannerView(this);
         setContentView(scannerView);
+        Intent intent = getIntent();
+        action = (String) intent.getStringExtra("action");
+        Log.w("ACTION", action);
+        if(action.equals("borrow")) {
+            Log.w("SCAN", "got here1");
+            book = (Book) intent.getSerializableExtra("book");
+            requester = (String) intent.getStringExtra("requester");
+        }
+        else if(action.equals("add")) {
+
+        }
     }
 
     /**
@@ -63,11 +81,23 @@ public class BarcodeScannerActivity extends AppCompatActivity implements ZXingSc
     public void handleResult(Result result) {
         //getBookByISBN.ISBNResult.setText(result.getText());
         Bundle bundle = new Bundle();
-        bundle.putString("ISBN", result.getText().toString());
-        Intent intent = new Intent();
-        intent.putExtra("bundle", bundle);
-        setResult(gotBook, intent);
-        finish();
+        if(action.equals("borrow")) {
+            Log.w("SCAN", "got here2");
+            bundle.putSerializable("book", book);
+            bundle.putString("requester", requester);
+            bundle.putString("ISBN", result.getText().toString());
+            Intent intent = new Intent();
+            intent.putExtra("bundle", bundle);
+            setResult(gotBook, intent);
+            finish();
+        }
+        else {
+            bundle.putString("ISBN", result.getText().toString());
+            Intent intent = new Intent();
+            intent.putExtra("bundle", bundle);
+            setResult(0, intent);
+            finish();
+        }
         //onBackPressed();
     }
 

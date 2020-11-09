@@ -100,7 +100,7 @@ public class IncomingRequestCustomList extends ArrayAdapter<Request> {
         if (request.getStatus() == Book.statuses.REQUESTED) {
             requestStatus.setText("Pending...");
         }
-        else if (request.getStatus() == Book.statuses.ACCEPTED) {
+        else if (request.getStatus() == Book.statuses.ACCEPTED || request.getStatus() == Book.statuses.SCANNED) {
             requestStatus.setText("Accepted!");
         }
 

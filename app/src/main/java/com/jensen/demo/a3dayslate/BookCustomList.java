@@ -105,7 +105,7 @@ public class BookCustomList extends ArrayAdapter<Book> {
         bookISBN.setText(book.getIsbn());
 
         //check each Book ENUM individually to set display string
-        if (book.getCurrentStatus() == Book.statuses.ACCEPTED) {
+        if (book.getCurrentStatus() == Book.statuses.ACCEPTED || book.getCurrentStatus() == Book.statuses.SCANNED) {
             bookStatus.setText("Accepted");
         }
         else if (book.getCurrentStatus() == Book.statuses.AVAILABLE) {

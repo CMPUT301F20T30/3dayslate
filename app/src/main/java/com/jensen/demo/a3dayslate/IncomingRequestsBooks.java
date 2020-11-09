@@ -100,8 +100,8 @@ public class IncomingRequestsBooks extends AppCompatActivity {
                         }
                     }
                 });
-        //when item clicked will take selected book to next activity
 
+        //when item clicked will take selected book to next activity
         listBooks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

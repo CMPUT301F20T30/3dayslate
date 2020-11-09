@@ -67,7 +67,7 @@ import java.util.ArrayList;
     String bodyText;
 
     // Request codes
-    int scanISBNRequestCode = 1;
+    int scanISBNRequestCode = 0;
 
     // Camera stuff
     private static final int REQUEST_CAMERA_PERMISSION = 1144;
@@ -97,7 +97,9 @@ import java.util.ArrayList;
         scan_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(new Intent(getApplicationContext(), BarcodeScannerActivity.class), scanISBNRequestCode);
+                Intent intent = new Intent(getApplicationContext(), BarcodeScannerActivity.class);
+                intent.putExtra("action", "add");
+                startActivityForResult(intent, scanISBNRequestCode);
             }
         });
         enter_button.setOnClickListener(new View.OnClickListener() {

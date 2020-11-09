@@ -149,8 +149,7 @@ public class DashboardActivity extends AppCompatActivity {
         scanISBN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DashboardActivity.this, GetBookByISBN.class);
-                startActivity(intent);
+                new ScanFragment().show(getSupportFragmentManager(), "SCAN");
             }
         });
 
