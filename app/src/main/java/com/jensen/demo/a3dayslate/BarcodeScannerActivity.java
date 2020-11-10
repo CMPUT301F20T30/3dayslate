@@ -69,8 +69,8 @@ public class BarcodeScannerActivity extends AppCompatActivity implements ZXingSc
             book = (Book) intent.getSerializableExtra("book");
             requester = (String) intent.getStringExtra("requester");
         }
-        else if(action.equals("add")) {
-
+        else if(action.equals("return")) {
+            book = (Book) intent.getSerializableExtra("book");
         }
     }
 
@@ -85,6 +85,13 @@ public class BarcodeScannerActivity extends AppCompatActivity implements ZXingSc
             Log.w("SCAN", "got here2");
             bundle.putSerializable("book", book);
             bundle.putString("requester", requester);
+            bundle.putString("ISBN", result.getText().toString());
+            Intent intent = new Intent();
+            intent.putExtra("bundle", bundle);
+            setResult(gotBook, intent);
+            finish();
+        }else if(action.equals("return")){
+            bundle.putSerializable("book", book);
             bundle.putString("ISBN", result.getText().toString());
             Intent intent = new Intent();
             intent.putExtra("bundle", bundle);

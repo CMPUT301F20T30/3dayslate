@@ -21,10 +21,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ScanReturnActivity"></activity>
         <activity
             android:name=".AcceptedRequestsActivity"
             android:label="@string/title_activity_accepted_requests"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".IncomingRequestsBooks">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
