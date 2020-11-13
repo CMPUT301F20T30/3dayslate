@@ -125,4 +125,15 @@
         android:textColor="#C72E2E"
         app:layout_constraintBottom_toTopOf="@+id/edit_book_confirm"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/edit_book_edit_image"
+        android:layout_width="150dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="add/edit image"
+        app:layout_constraintBottom_toTopOf="@+id/edit_book_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_book_image" />
 </androidx.constraintlayout.widget.ConstraintLayout>
