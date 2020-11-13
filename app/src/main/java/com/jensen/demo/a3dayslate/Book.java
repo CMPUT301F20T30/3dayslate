@@ -1,6 +1,11 @@
 package com.jensen.demo.a3dayslate;
 
 import android.media.Image;
+import android.net.Uri;
+
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -57,7 +62,9 @@ public class Book implements Serializable {
     // private final ArrayList<String> authorList;
     private ArrayList<String> authorList;
     //NOTE THAT THIS IS SUBJECT TO CHANGE, I believe we may use the class Drawable to show images in res files or an ImageView
-    private Image image;
+
+    private StorageReference image;
+
     private String owner;
     //on creation will always not be considered having a borrower
     private String borrower = "";
@@ -168,7 +175,7 @@ public class Book implements Serializable {
      * Return the book's image as an Image object
      */
 
-    public Image getImage() {
+    public StorageReference getImage() {
         return image;
     }
 
@@ -178,7 +185,7 @@ public class Book implements Serializable {
      * This is the Image to set
      */
 
-    public void setImage(Image image) {
+    public void setImage(StorageReference image) {
         this.image = image;
     }
 

@@ -1,21 +1,37 @@
 package com.jensen.demo.a3dayslate;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -57,6 +73,13 @@ public class EditBookActivity extends AppCompatActivity implements Serializable 
     final FirebaseFirestore db = FirebaseFirestore.getInstance();
     final FirebaseAuth uAuth = FirebaseAuth.getInstance();
     final FirebaseUser currentUser = uAuth.getCurrentUser();
+    private int PHOTO_GALLERY = 1;
+    ImageView bookImage;
+
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
+    StorageReference imagesRef = storageRef.child("images");
+    StorageReference bookImagesRef;
 
     /** Sets up activity upon creation
      * including all buttons and editTexts
@@ -68,20 +91,26 @@ public class EditBookActivity extends AppCompatActivity implements Serializable 
         setContentView(R.layout.edit_book_activity);
         //declare xml attributes
         Button confirmEdit;
+        Button editImage;
         EditText editTitle;
         EditText editAuthor;
         TextView isbn;
         TextView owner;
         TextView displayError;
         confirmEdit = findViewById(R.id.edit_book_confirm);
+        editImage = findViewById(R.id.edit_book_edit_image);
         editTitle = findViewById(R.id.edit_book_title);
         editAuthor = findViewById(R.id.edit_book_author);
         isbn = findViewById(R.id.edit_book_isbn);
         owner = findViewById(R.id.edit_book_owner);
         displayError = findViewById(R.id.edit_book_error);
+        bookImage = findViewById(R.id.edit_book_image);
+
 
         Intent intent = getIntent();
         book = (Book)intent.getSerializableExtra("book");
+
+
 
         //get a string for all authors
         ArrayList<String> authors = book.getAuthors();
@@ -99,6 +128,15 @@ public class EditBookActivity extends AppCompatActivity implements Serializable 
         isbn.setText(book.getIsbn());
         owner.setText( ownerString);
 
+        editImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                photoPickerIntent.setType("image/*");
+                startActivityForResult(photoPickerIntent, PHOTO_GALLERY);
+            }
+        });
+
         confirmEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,15 +153,6 @@ public class EditBookActivity extends AppCompatActivity implements Serializable 
                     book.setAuthors(newAuthors);
 
                     //put changes in database in all required places
-                    /*
-                    db.collection("users").document(currentUser.getDisplayName()).
-                            collection("books").document(book.getIsbn())
-                            .update("title", newTitle, "authorList", newAuthors);
-                    db.collection("books").document(book.getIsbn())
-                            .update("title", newTitle, "authorList", newAuthors);
-
-                     */
-
                     db.collection("users").document(currentUser.getDisplayName()).collection("books").document(book.getIsbn()).set(book);
                     db.collection("books").document(book.getIsbn()).set(book);
 
@@ -140,6 +169,50 @@ public class EditBookActivity extends AppCompatActivity implements Serializable 
 
             }
         });
+    }
 
+    @Override
+        protected void onActivityResult(int reqCode, int resultCode, Intent data) {
+            super.onActivityResult(reqCode, resultCode, data);
+
+
+        if (resultCode == RESULT_OK) {
+            try {
+                final Uri imageUri = data.getData();
+                final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                bookImage.setImageBitmap(selectedImage);
+                bookImagesRef = imagesRef.child(book.getIsbn());
+                UploadTask uploadTask = bookImagesRef.putFile(imageUri);
+                Log.d("UGHJ", "IobuIBOHPBVJKIJBOPIBJVKBOIHPBJVJBIOPIBJVKBIOPIBJVKKBGUJGBGOHU_");
+                uploadTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle unsuccessful uploads
+                        Log.d("UNSUCCESSFUL UPLOAD", "");
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Log.d("UPLOAD SUCCESSFUL", bookImagesRef.getClass().toString());
+                        book.setImage(bookImagesRef);
+                        Log.d("BOOK IMAGE REFERENCE", book.getImage().toString());
+
+                        //put changes in database in all required places
+                        db.collection("users").document(currentUser.getDisplayName()).collection("books").document(book.getIsbn()).set(book);
+                        db.collection("books").document(book.getIsbn()).set(book);
+
+                        // get download url and put as image field in book and then update book
+                        Log.d("SUCCESSFULUPLOAD", imagesRef.getDownloadUrl().getClass().toString());
+                    }
+                });
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                Log.d("CAUGHT EXCPETION", "try again loser");
+                //Toast.makeText(PostImage.this, "Something went wrong", Toast.LENGTH_LONG).show();
+            }
+
+        }
     }
 }
