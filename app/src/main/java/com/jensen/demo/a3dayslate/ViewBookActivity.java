@@ -1,11 +1,19 @@
 package com.jensen.demo.a3dayslate;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -47,6 +55,13 @@ public class ViewBookActivity extends AppCompatActivity implements Serializable 
     TextView viewAuthor;
     TextView isbn;
     TextView owner;
+    ImageView bookImage;
+
+
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
+    StorageReference imagesRef = storageRef.child("images");
+    StorageReference bookImagesRef;
 
     /** sets up activity upon creation
      * including
@@ -63,9 +78,26 @@ public class ViewBookActivity extends AppCompatActivity implements Serializable 
         viewAuthor = findViewById(R.id.view_book_author);
         isbn = findViewById(R.id.view_book_isbn);
         owner = findViewById(R.id.view_book_owner);
-
+        bookImage = findViewById(R.id.view_book_image);
         Intent intent = getIntent();
         book = (Book)intent.getSerializableExtra("book");
+
+
+        try{
+            bookImagesRef = imagesRef.child(book.getIsbn());
+            final long MBYTE = (4*1024)*(4*1024);
+            bookImagesRef.getBytes(MBYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                @Override
+                public void onSuccess(byte[] bytes) {
+                    Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+
+                    bookImage.setImageBitmap(Bitmap.createScaledBitmap(bmp, bookImage.getWidth(), bookImage.getHeight(), false));
+                }
+            });
+
+        }catch (Exception e){
+            Log.d("ERROR", "e");
+        }
 
         //get a string for all authors
         ArrayList<String> authors = book.getAuthors();

@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -27,6 +28,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StreamDownloadTask;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.FileNotFoundException;
@@ -35,6 +37,8 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import io.grpc.internal.Stream;
 
 
 /* EditBookActivity
@@ -92,6 +96,7 @@ public class EditBookActivity extends AppCompatActivity implements Serializable 
         //declare xml attributes
         Button confirmEdit;
         Button editImage;
+        Button deleteImage;
         EditText editTitle;
         EditText editAuthor;
         TextView isbn;
@@ -105,13 +110,28 @@ public class EditBookActivity extends AppCompatActivity implements Serializable 
         owner = findViewById(R.id.edit_book_owner);
         displayError = findViewById(R.id.edit_book_error);
         bookImage = findViewById(R.id.edit_book_image);
-
+        deleteImage = findViewById(R.id.edit_book_delete_image);
 
         Intent intent = getIntent();
         book = (Book)intent.getSerializableExtra("book");
 
 
+        // display image if book already has images
+        bookImagesRef = imagesRef.child(book.getIsbn());
 
+        try{
+            final long MBYTE = (4*1024)*(4*1024);
+            bookImagesRef.getBytes(MBYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+               @Override
+               public void onSuccess(byte[] bytes) {
+                   Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+
+                   bookImage.setImageBitmap(Bitmap.createScaledBitmap(bmp, bookImage.getWidth(), bookImage.getHeight(), false));
+               }
+           });
+        }catch (Exception e){
+            Log.d("ERROR", "e");
+        }
         //get a string for all authors
         ArrayList<String> authors = book.getAuthors();
         for(int i =0; i<authors.size(); i++ ){
@@ -136,7 +156,19 @@ public class EditBookActivity extends AppCompatActivity implements Serializable 
                 startActivityForResult(photoPickerIntent, PHOTO_GALLERY);
             }
         });
+        deleteImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Delete the file
+                try {
+                    bookImagesRef.delete();
+                    restartActivity();
+                }catch (Exception e){
+                    Log.d("DELETE ERROR", "image couldn't be deleted");
+                }
+            }
 
+        });
         confirmEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -171,9 +203,23 @@ public class EditBookActivity extends AppCompatActivity implements Serializable 
         });
     }
 
+    /**
+     * Restarts activity
+     */
+    private void restartActivity(){
+            this.recreate();
+    }
+
+    /**
+     * handles choosing image from photo gallery
+     *
+     * @param reqCode
+     * @param resultCode
+     * @param data
+     */
     @Override
-        protected void onActivityResult(int reqCode, int resultCode, Intent data) {
-            super.onActivityResult(reqCode, resultCode, data);
+    protected void onActivityResult(int reqCode, int resultCode, Intent data) {
+        super.onActivityResult(reqCode, resultCode, data);
 
 
         if (resultCode == RESULT_OK) {
@@ -183,8 +229,9 @@ public class EditBookActivity extends AppCompatActivity implements Serializable 
                 final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                 bookImage.setImageBitmap(selectedImage);
                 bookImagesRef = imagesRef.child(book.getIsbn());
-                UploadTask uploadTask = bookImagesRef.putFile(imageUri);
                 Log.d("UGHJ", "IobuIBOHPBVJKIJBOPIBJVKBOIHPBJVJBIOPIBJVKBIOPIBJVKKBGUJGBGOHU_");
+                UploadTask uploadTask = bookImagesRef.putFile(imageUri);
+
                 uploadTask.addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
@@ -195,15 +242,16 @@ public class EditBookActivity extends AppCompatActivity implements Serializable 
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         Log.d("UPLOAD SUCCESSFUL", bookImagesRef.getClass().toString());
-                        book.setImage(bookImagesRef);
-                        Log.d("BOOK IMAGE REFERENCE", book.getImage().toString());
+
+
+                        //Log.d("BOOK IMAGE REFERENCE", book.getImage().toString());
+
 
                         //put changes in database in all required places
-                        db.collection("users").document(currentUser.getDisplayName()).collection("books").document(book.getIsbn()).set(book);
-                        db.collection("books").document(book.getIsbn()).set(book);
+
 
                         // get download url and put as image field in book and then update book
-                        Log.d("SUCCESSFULUPLOAD", imagesRef.getDownloadUrl().getClass().toString());
+                        //Log.d("SUCCESSFULUPLOAD", imagesRef.getDownloadUrl().getClass().toString());
                     }
                 });
 
