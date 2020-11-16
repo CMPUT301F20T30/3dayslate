@@ -1,0 +1,125 @@
+package com.jensen.demo.a3dayslate;
+
+import android.widget.EditText;
+import android.widget.ImageView;
+
+import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.rule.ActivityTestRule;
+
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.robotium.solo.Solo;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+
+/**
+ *  Test class for images
+ */
+public class ImageTest {
+
+    private Solo solo;
+
+    @Rule
+    public ActivityTestRule<MainActivity> rule =
+            new ActivityTestRule<>(MainActivity.class, true, true);
+
+
+    /**
+     * Sets up the tests
+     * @throws Exception
+     */
+    @Before
+    public void setUp() throws  Exception{
+        solo = new Solo(InstrumentationRegistry.getInstrumentation(),rule.getActivity());
+    }
+
+    /**
+     *  Test that image appears on book with image
+     */
+    @Test
+    public void checkImage(){
+        // get to edit book
+        solo.assertCurrentActivity("WRONG ACTIVITY", MainActivity.class);
+        solo.enterText((EditText)solo.getView(R.id.enter_email), "test@images.act");
+        solo.enterText((EditText)solo.getView(R.id.enter_password), "testimages");
+        solo.clickOnButton("Login");
+        solo.waitForActivity(DashboardActivity.class);
+        solo.assertCurrentActivity("NOT DASHBOARD", DashboardActivity.class);
+        solo.clickOnButton("My Books");
+        solo.waitForActivity(OwnedBooksActivity.class);
+        solo.assertCurrentActivity("NOT OWNED BOOKS", OwnedBooksActivity.class);
+
+        //wait for books to load in
+        // this test account owns a book titled "TESTIMAGE"
+        solo.waitForText("TESTIMAGE");
+        //click on first book in list
+        solo.clickInList(1);
+        solo.clickOnButton("edit");
+        solo.waitForActivity(EditBookActivity.class);
+        solo.assertCurrentActivity("NOT EDIT BOOK ACTIVITY", EditBookActivity.class);
+
+        //test that image is present
+
+        //image takes small time to load from firebase storage
+        solo.sleep(1000);
+
+        EditBookActivity activity = (EditBookActivity) solo.getCurrentActivity();
+
+
+        // test that imagePresent is true, imagePresent is set to false
+        // when an image is not fetched from firebase storage
+        solo.sleep(1000);
+        assertEquals(true, activity.imagePresent);
+
+    }
+
+    /**
+     * check that no image is shown for book with no image
+     */
+    @Test
+    public void checkNoImage(){
+        // get to edit book
+        solo.assertCurrentActivity("WRONG ACTIVITY", MainActivity.class);
+        solo.enterText((EditText)solo.getView(R.id.enter_email), "test@images.act");
+        solo.enterText((EditText)solo.getView(R.id.enter_password), "testimages");
+        solo.clickOnButton("Login");
+        solo.waitForActivity(DashboardActivity.class);
+        solo.assertCurrentActivity("NOT DASHBOARD", DashboardActivity.class);
+        solo.clickOnButton("My Books");
+        solo.waitForActivity(OwnedBooksActivity.class);
+        solo.assertCurrentActivity("NOT OWNED BOOKS", OwnedBooksActivity.class);
+
+        //wait for books to load in
+        // this test account owns a book titled "TESTIMAGE"
+        solo.waitForText("TESTIMAGE");
+        //click on first book in list
+        solo.clickInList(2);
+        solo.clickOnButton("edit");
+        solo.waitForActivity(EditBookActivity.class);
+        solo.assertCurrentActivity("NOT EDIT BOOK ACTIVITY", EditBookActivity.class);
+
+        //test that image is present
+
+        //image takes small time to load from firebase storage
+        solo.sleep(1000);
+
+        EditBookActivity activity = (EditBookActivity) solo.getCurrentActivity();
+
+        // check that no image was fetched from storage
+
+        assertEquals(false, activity.imagePresent);
+    }
+    /**
+     * handles what happens after tests are done
+     * @throws Exception
+     */
+    @After
+    public void tearDown() throws Exception{
+        solo.finishOpenedActivities();
+    }
+}

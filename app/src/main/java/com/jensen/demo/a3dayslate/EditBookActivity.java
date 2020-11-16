@@ -79,6 +79,7 @@ public class EditBookActivity extends AppCompatActivity implements Serializable 
     final FirebaseUser currentUser = uAuth.getCurrentUser();
     private int PHOTO_GALLERY = 1;
     ImageView bookImage;
+    public Boolean imagePresent = false;
 
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();
@@ -116,16 +117,17 @@ public class EditBookActivity extends AppCompatActivity implements Serializable 
         book = (Book)intent.getSerializableExtra("book");
 
 
-        // display image if book already has images
-        bookImagesRef = imagesRef.child(book.getIsbn());
+
 
         try{
+            // display image if book already has images
+            bookImagesRef = imagesRef.child(book.getIsbn());
             final long MBYTE = (4*1024)*(4*1024);
             bookImagesRef.getBytes(MBYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                @Override
                public void onSuccess(byte[] bytes) {
                    Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-
+                   imagePresent = true;
                    bookImage.setImageBitmap(Bitmap.createScaledBitmap(bmp, bookImage.getWidth(), bookImage.getHeight(), false));
                }
            });
