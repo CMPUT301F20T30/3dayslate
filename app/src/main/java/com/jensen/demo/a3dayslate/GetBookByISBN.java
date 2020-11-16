@@ -8,11 +8,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.mlkit.vision.barcode.BarcodeScanner;
 import com.squareup.okhttp.Callback;
@@ -152,9 +156,20 @@ import java.util.ArrayList;
 
                             Book createdBook = new Book(titleText, isbn, authorList, currentUser.getDisplayName());
                             // Add book to the database here!! -----------------------
-                            Log.w("TAG", "JENSEN" + createdBook.getTitle() + createdBook.getIsbn() + createdBook.getAuthors().get(0) + createdBook.getOwner());
-                            addBook(createdBook);
 
+                            db.collection("users").document(currentUser.getDisplayName()).collection("books").document(createdBook.getIsbn()).get()
+                                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                            if(task.isSuccessful()) {
+                                                DocumentSnapshot document = task.getResult();
+                                                if(!document.exists()) {
+                                                    Log.w("TAG", "JENSEN" + createdBook.getTitle() + createdBook.getIsbn() + createdBook.getAuthors().get(0) + createdBook.getOwner());
+                                                    addBook(createdBook);
+                                                }
+                                            }
+                                        }
+                                    });
                         }
                         // If response not successful, do nothing?
                     }
@@ -202,7 +217,6 @@ import java.util.ArrayList;
                         //Log.w("TAG", "ADD BOOK TEST " + titleText[0]);
                         bodyText = response.body().string();
                         try {
-                            // This code will be refactored later and does not currently accomplish anything
                             JSONObject jsonObject = new JSONObject(bodyText);
                             JSONArray itemsArray = jsonObject.getJSONArray("items");
                             JSONObject items = itemsArray.getJSONObject(0);
@@ -223,8 +237,20 @@ import java.util.ArrayList;
                         Book createdBook = new Book(titleText, isbn, authorList, currentUser.getDisplayName());
                         Log.w("TAG", "JENSEN" + createdBook.getTitle() + createdBook.getIsbn() + createdBook.getAuthors().get(0) + createdBook.getOwner());
                         // Add book to the database here!! -----------------
-                        addBook(createdBook);
-
+                        db.collection("users").document(currentUser.getDisplayName()).collection("books").document(createdBook.getIsbn()).get()
+                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        if(task.isSuccessful()) {
+                                            DocumentSnapshot document = task.getResult();
+                                            Log.w("ADDBOOK", "Got in here");
+                                            if(!document.exists()) {
+                                                Log.w("ADDBOOK", "GOT HERE!");
+                                                addBook(createdBook);
+                                            }
+                                        }
+                                    }
+                                });
                     }
                     // If response not successful, do nothing?
                 }
