@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -143,18 +144,24 @@ public class OwnedBooksActivity extends AppCompatActivity implements Serializabl
             @Override
             public void onClick(View v) {
                 if(clickedBook!=null) {
-                    db.collection("users").document(currentUser.getDisplayName()).
-                            collection("books").
-                            document(clickedBook.getIsbn()).delete();
-                    db.collection("books").document(clickedBook.getIsbn()).delete();
-                    //booksAdapter.notifyDataSetChanged();
+                    if(clickedBook.getCurrentStatus() == Book.statuses.AVAILABLE) {
 
-                    if(clickedBook!=null){
-                        myBooks.remove(clickedBook);
-                        clickedBook = null;
+                        db.collection("users").document(currentUser.getDisplayName()).
+                                collection("books").
+                                document(clickedBook.getIsbn()).delete();
+                        db.collection("books").document(clickedBook.getIsbn()).delete();
+                        //booksAdapter.notifyDataSetChanged();
+
+                        if (clickedBook != null) {
+                            myBooks.remove(clickedBook);
+                            clickedBook = null;
+                        }
+
+                        adapter(ownedBooksList);
                     }
-
-                    adapter(ownedBooksList);
+                    else {
+                        Toast.makeText(OwnedBooksActivity.this, "Cannot delete books with requests!", Toast.LENGTH_SHORT);
+                    }
                 }
             }
         });
@@ -173,9 +180,14 @@ public class OwnedBooksActivity extends AppCompatActivity implements Serializabl
             public void onClick(View v) {
                 // if book is clicked then go to edit activity for it
                 if(clickedBook!=null){
-                    Intent intent = new Intent(v.getContext(), EditBookActivity.class);
-                    intent.putExtra("book", (Serializable) clickedBook);
-                    startActivityForResult(intent, EDIT_BOOK_ACTIVITY);
+                    if(clickedBook.getCurrentStatus() == Book.statuses.AVAILABLE) {
+                        Intent intent = new Intent(v.getContext(), EditBookActivity.class);
+                        intent.putExtra("book", (Serializable) clickedBook);
+                        startActivityForResult(intent, EDIT_BOOK_ACTIVITY);
+                    }
+                    else {
+                        Toast.makeText(OwnedBooksActivity.this, "Cannot edit books with requests!", Toast.LENGTH_SHORT);
+                    }
                 }
             }
         });

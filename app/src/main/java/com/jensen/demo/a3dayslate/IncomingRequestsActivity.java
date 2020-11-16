@@ -122,9 +122,13 @@ public class IncomingRequestsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(clickedRequest != null) {
-                    Intent intent = new Intent(IncomingRequestsActivity.this, LocationActivity.class);
-                    startActivityForResult(intent, LOCATION_ACTIVITY_CODE);
-                    // Set a location here somehow -> Google maps
+                    if(clickedRequest.getStatus() != Book.statuses.ACCEPTED && clickedRequest.getStatus() != Book.statuses.SCANNED) {
+                        Intent intent = new Intent(IncomingRequestsActivity.this, LocationActivity.class);
+                        startActivityForResult(intent, LOCATION_ACTIVITY_CODE);
+                    }
+                    else {
+                        Toast.makeText(IncomingRequestsActivity.this, "This request is already in progress!!", Toast.LENGTH_SHORT);
+                    }
                 }
             }
         });
@@ -135,14 +139,18 @@ public class IncomingRequestsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(clickedRequest != null) {
-                    String key = clickedRequest.getOwner() + clickedRequest.getRequester() + clickedRequest.getBook().getIsbn();
-                    Toast.makeText(IncomingRequestsActivity.this, "Request declined", Toast.LENGTH_SHORT).show();
-                    // Update the database as necessary
-                    db.collection("users").document(clickedRequest.getOwner()).collection("incomingRequests").document(key).delete();
-                    db.collection("users").document(clickedRequest.getRequester()).collection("outgoingRequests").document(key).delete();
-                    requestArrayList.remove(clickedRequest);
-                    clickedRequest = null;
-                    requestAdapter.notifyDataSetChanged();
+                    Log.w("DECLINE", clickedRequest.getStatus().toString());
+                    if(clickedRequest.getStatus() != Book.statuses.ACCEPTED && clickedRequest.getStatus() != Book.statuses.SCANNED) {
+                        Log.w("DECLINE", "Got here!");
+                        String key = clickedRequest.getOwner() + clickedRequest.getRequester() + clickedRequest.getBook().getIsbn();
+                        Toast.makeText(IncomingRequestsActivity.this, "Request declined", Toast.LENGTH_SHORT).show();
+                        // Update the database as necessary
+                        db.collection("users").document(clickedRequest.getOwner()).collection("incomingRequests").document(key).delete();
+                        db.collection("users").document(clickedRequest.getRequester()).collection("outgoingRequests").document(key).delete();
+                        requestArrayList.remove(clickedRequest);
+                        clickedRequest = null;
+                        requestAdapter.notifyDataSetChanged();
+                    }
                 }
             }
         });
