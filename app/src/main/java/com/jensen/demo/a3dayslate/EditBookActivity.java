@@ -18,6 +18,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -68,7 +69,7 @@ import io.grpc.internal.Stream;
  * @author Eric Weber
  * @see OwnedBooksActivity
  */
-public class EditBookActivity extends AppCompatActivity implements Serializable {
+public class EditBookActivity extends AppCompatActivity implements Serializable{
 
     private Book book;
     private String authorString;
@@ -80,6 +81,7 @@ public class EditBookActivity extends AppCompatActivity implements Serializable 
     private int PHOTO_GALLERY = 1;
     ImageView bookImage;
     public Boolean imagePresent = false;
+    private byte[] imageByteArray;
 
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();
@@ -129,6 +131,7 @@ public class EditBookActivity extends AppCompatActivity implements Serializable 
                    Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                    imagePresent = true;
                    bookImage.setImageBitmap(Bitmap.createScaledBitmap(bmp, bookImage.getWidth(), bookImage.getHeight(), false));
+                   imageByteArray = bytes;
                }
            });
         }catch (Exception e){
@@ -149,6 +152,22 @@ public class EditBookActivity extends AppCompatActivity implements Serializable 
         editAuthor.setText(authorString);
         isbn.setText(book.getIsbn());
         owner.setText( ownerString);
+
+        // on click listener for image
+        bookImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //check that image is present
+                if(imagePresent){
+                    //start filter here
+                    Bundle b = new Bundle();
+                    b.putByteArray("image", imageByteArray);
+                    ImageFragment fragment = new ImageFragment();
+                    fragment.setArguments(b);
+                    fragment.show(getSupportFragmentManager(), "IMAGE");
+                }
+            }
+        });
 
         editImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -203,6 +222,8 @@ public class EditBookActivity extends AppCompatActivity implements Serializable 
 
             }
         });
+
+
     }
 
     /**
@@ -244,7 +265,7 @@ public class EditBookActivity extends AppCompatActivity implements Serializable 
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         Log.d("UPLOAD SUCCESSFUL", bookImagesRef.getClass().toString());
-
+                        restartActivity();
 
                         //Log.d("BOOK IMAGE REFERENCE", book.getImage().toString());
 

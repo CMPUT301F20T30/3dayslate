@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -56,6 +57,8 @@ public class ViewBookActivity extends AppCompatActivity implements Serializable 
     TextView isbn;
     TextView owner;
     ImageView bookImage;
+    Boolean imagePresent;
+    private byte[] imageByteArray;
 
 
     FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -90,8 +93,9 @@ public class ViewBookActivity extends AppCompatActivity implements Serializable 
                 @Override
                 public void onSuccess(byte[] bytes) {
                     Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-
+                    imageByteArray = bytes;
                     bookImage.setImageBitmap(Bitmap.createScaledBitmap(bmp, bookImage.getWidth(), bookImage.getHeight(), false));
+                    imagePresent = true;
                 }
             });
 
@@ -117,7 +121,19 @@ public class ViewBookActivity extends AppCompatActivity implements Serializable 
 
 
 
-
+        bookImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(imagePresent){
+                    //start filter here
+                    Bundle b = new Bundle();
+                    b.putByteArray("image", imageByteArray);
+                    ImageFragment fragment = new ImageFragment();
+                    fragment.setArguments(b);
+                    fragment.show(getSupportFragmentManager(), "IMAGE");
+                }
+            }
+        });
     }
 
     /** returns to previous activity in activity stack
