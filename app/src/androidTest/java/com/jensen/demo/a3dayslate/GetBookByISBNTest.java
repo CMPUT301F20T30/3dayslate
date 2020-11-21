@@ -68,6 +68,8 @@ public class GetBookByISBNTest {
         solo.waitForActivity(DashboardActivity.class);
         solo.assertCurrentActivity("NOT DASHBOARD", DashboardActivity.class);
         solo.clickOnButton("Scan ISBN");
+        solo.waitForText("Add book to owned books");
+        solo.clickOnButton("Add book to owned books");
         solo.waitForActivity(GetBookByISBN.class);
         solo.assertCurrentActivity("NOT SCAN ISBN", GetBookByISBN.class);
     }
@@ -85,6 +87,8 @@ public class GetBookByISBNTest {
         solo.waitForActivity(DashboardActivity.class);
         solo.assertCurrentActivity("NOT DASHBOARD", DashboardActivity.class);
         solo.clickOnButton("Scan ISBN");
+        solo.waitForText("Add book to owned books");
+        solo.clickOnButton("Add book to owned books");
         solo.waitForActivity(GetBookByISBN.class);
         solo.assertCurrentActivity("NOT SCAN ISBN", GetBookByISBN.class);
         //add book manually
@@ -94,6 +98,7 @@ public class GetBookByISBNTest {
         solo.waitForActivity(DashboardActivity.class);
         //test that back button goes to proper activity
         solo.assertCurrentActivity("NOT DASHBOARD", DashboardActivity.class);
+        solo.goBack();
         solo.clickOnButton("My Books");
         solo.waitForActivity(OwnedBooksActivity.class);
         //declare activity so its attributes can be accessed

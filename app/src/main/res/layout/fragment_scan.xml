@@ -6,17 +6,6 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/view_book_scan_button"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/colorSecondary"
-        android:text="View details of book"
-        android:textSize="16sp">
-
-    </Button>
-
-    <Button
         android:id="@+id/add_book_scan_button"
         android:layout_width="match_parent"
         android:layout_height="0dp"
