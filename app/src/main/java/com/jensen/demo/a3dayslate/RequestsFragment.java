@@ -94,6 +94,4 @@ public class RequestsFragment extends DialogFragment{
 
 
     }
-
-
 }
