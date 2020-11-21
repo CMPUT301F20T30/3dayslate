@@ -257,8 +257,6 @@ public class BookSearchActivity extends AppCompatActivity implements Serializabl
                                                 bookAdapter.notifyDataSetChanged();
                                                 // Send notification to owner
                                                 sendNotificationToOwner(db, owner, borrower);
-                                            } else {
-                                                //Toast.makeText(BookSearchActivity.this, "You have already requested this book!", Toast.LENGTH_SHORT);
                                             }
                                         }
                                     }

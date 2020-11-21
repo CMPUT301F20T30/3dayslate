@@ -102,7 +102,7 @@ public class BarcodeScannerActivity extends AppCompatActivity implements ZXingSc
             bundle.putString("ISBN", result.getText().toString());
             Intent intent = new Intent();
             intent.putExtra("bundle", bundle);
-            setResult(0, intent);
+            setResult(gotBook, intent);
             finish();
         }
         //onBackPressed();

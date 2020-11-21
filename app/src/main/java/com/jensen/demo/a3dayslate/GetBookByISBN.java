@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -156,7 +157,6 @@ import java.util.ArrayList;
 
                             Book createdBook = new Book(titleText, isbn, authorList, currentUser.getDisplayName());
                             // Add book to the database here!! -----------------------
-
                             db.collection("users").document(currentUser.getDisplayName()).collection("books").document(createdBook.getIsbn()).get()
                                     .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                         @Override
@@ -267,6 +267,7 @@ import java.util.ArrayList;
         db.collection("users").document(currentUser.getDisplayName()).
                 collection("books").document(book.getIsbn()).set(book);
         db.collection("books").document(book.getIsbn()).set(book);
+        Toast.makeText(GetBookByISBN.this, "Book Added", Toast.LENGTH_SHORT).show();
     }
 
 

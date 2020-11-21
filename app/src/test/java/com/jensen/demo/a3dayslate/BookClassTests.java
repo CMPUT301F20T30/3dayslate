@@ -27,8 +27,6 @@ import static org.junit.jupiter.api.Assertions.*;
    limitations under the License.
  */
 
-//TODO need to do image testing when applicable
-
 /**Unit testing for the Books class
  *
  */

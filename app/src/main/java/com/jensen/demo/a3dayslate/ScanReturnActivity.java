@@ -90,9 +90,10 @@ public class ScanReturnActivity extends AppCompatActivity {
 
         // Check to see if the book that was scanned is the correct book!
         if(isbn.equals(book_in_request.getIsbn())) {
-            // Here check if you are the owner or borrower and change stuff as necessary?
+            // Here check if you are the owner or borrower
             if(currentUser.getDisplayName().equals(book_in_request.getOwner())) {
                 // Change the database to denote that the book is available
+                Toast.makeText(ScanReturnActivity.this, "Owner, your book is now available", Toast.LENGTH_SHORT).show();
                 book_in_request.setCurrentStatus(Book.statuses.AVAILABLE);
                 db.collection("users").document(book_in_request.getOwner()).
                         collection("books").document(book_in_request.getIsbn()).set(book_in_request);

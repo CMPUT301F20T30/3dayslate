@@ -160,7 +160,7 @@ public class OwnedBooksActivity extends AppCompatActivity implements Serializabl
                         adapter(ownedBooksList);
                     }
                     else {
-                        Toast.makeText(OwnedBooksActivity.this, "Cannot delete books with requests!", Toast.LENGTH_SHORT);
+                        Toast.makeText(OwnedBooksActivity.this, "Cannot delete books with requests!", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -186,7 +186,7 @@ public class OwnedBooksActivity extends AppCompatActivity implements Serializabl
                         startActivityForResult(intent, EDIT_BOOK_ACTIVITY);
                     }
                     else {
-                        Toast.makeText(OwnedBooksActivity.this, "Cannot edit books with requests!", Toast.LENGTH_SHORT);
+                        Toast.makeText(OwnedBooksActivity.this, "Can only edit available books", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

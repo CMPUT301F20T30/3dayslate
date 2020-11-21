@@ -130,6 +130,7 @@ public class BorrowedBooksActivity extends AppCompatActivity {
         if(isbn.equals(book_in_request.getIsbn())) {
             // Here check if you are the owner or borrower and change stuff as necessary?
             if(currentUser.getDisplayName().equals(book_in_request.getBorrower())) {
+                Toast.makeText(BorrowedBooksActivity.this, "Borrower, your book has been scanned", Toast.LENGTH_SHORT).show();
                 // Change the database to denote that the owner has scanned
                 book_in_request.setCurrentStatus(Book.statuses.SCANNED);
                 db.collection("users").document(book_in_request.getOwner()).

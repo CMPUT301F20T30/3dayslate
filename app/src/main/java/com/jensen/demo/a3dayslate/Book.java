@@ -63,8 +63,6 @@ public class Book implements Serializable {
     private ArrayList<String> authorList;
     //NOTE THAT THIS IS SUBJECT TO CHANGE, I believe we may use the class Drawable to show images in res files or an ImageView
 
-    private Uri image;
-
     private String owner;
     //on creation will always not be considered having a borrower
     private String borrower = "";
@@ -167,26 +165,6 @@ public class Book implements Serializable {
             authorList.set(i, authors.get(i));
         }
          */
-    }
-
-    /**
-     * Gets the Image of the book
-     * @return
-     * Return the book's image as an Image object
-     */
-
-    public Uri getImage() {
-        return image;
-    }
-
-    /**
-     * This sets the image of the book
-     * @param image
-     * This is the Image to set
-     */
-
-    public void setImage(Uri image) {
-        this.image = image;
     }
 
     /**

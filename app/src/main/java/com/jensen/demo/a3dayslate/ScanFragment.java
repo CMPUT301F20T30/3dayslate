@@ -70,17 +70,9 @@ public class ScanFragment extends DialogFragment {
         view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_scan, null);
 
         //declare buttons
-        Button viewButton = view.findViewById(R.id.view_book_scan_button);
         Button addButton = view.findViewById(R.id.add_book_scan_button);
         Button borrowButton = view.findViewById(R.id.borrow_book_scan_button);
         Button returnButton = view.findViewById(R.id.return_book_scan_button);
-
-        // View book button
-        viewButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
 
         // Add book button
         addButton.setOnClickListener(new View.OnClickListener() {
