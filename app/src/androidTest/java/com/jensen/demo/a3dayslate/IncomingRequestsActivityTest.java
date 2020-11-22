@@ -170,7 +170,7 @@ public class IncomingRequestsActivityTest {
      * the request to appear with the testing buddy
      */
 
-    //book must be manually deleted in database as books with requests cannot be deleted
+    //book and requests must be manually deleted in database as books with requests cannot be deleted
 
     @Test
     public void checkAcceptReq(){
@@ -248,8 +248,6 @@ public class IncomingRequestsActivityTest {
         solo.clickOnButton("delete");
     }
 
-    //needs to be manually set up each time
-
     /**Tests that the owner can delete any request made to them
      *
      */
@@ -320,7 +318,7 @@ public class IncomingRequestsActivityTest {
         solo.goBack();
         solo.clickOnButton("My Books");
         solo.waitForActivity(OwnedBooksActivity.class);
-        solo.clickInList(2);
+        solo.clickInList(3);
         solo.clickOnButton("delete");
     }
 
