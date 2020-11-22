@@ -2,8 +2,10 @@ package com.jensen.demo.a3dayslate;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -117,8 +119,6 @@ public class EditBookActivity extends AppCompatActivity implements Serializable{
 
         Intent intent = getIntent();
         book = (Book)intent.getSerializableExtra("book");
-
-
 
 
         try{
