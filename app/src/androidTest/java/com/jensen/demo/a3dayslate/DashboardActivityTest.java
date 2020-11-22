@@ -179,8 +179,18 @@ public class DashboardActivityTest {
         solo.waitForActivity(DashboardActivity.class);
         solo.assertCurrentActivity("NOT DASHBOARD", DashboardActivity.class);
         solo.clickOnButton("Scan ISBN");
+        solo.waitForText("Add book to owned books");
+        solo.clickOnButton("Add book to owned books");
         solo.waitForActivity(GetBookByISBN.class);
         solo.assertCurrentActivity("NOT SCAN ISBN", GetBookByISBN.class);
+        solo.goBack();
+        solo.clickOnButton("Scan in borrow location");
+        solo.waitForActivity(AcceptedRequestsActivity.class);
+        solo.assertCurrentActivity("NOT ACCEPTED REQUESTS ACTIVITY", AcceptedRequestsActivity.class);
+        solo.goBack();
+        solo.clickOnButton("Return book in return location");
+        solo.waitForActivity(ScanReturnActivity.class);
+        solo.assertCurrentActivity("NOT SCAN RETURN ACTIVITY", ScanReturnActivity.class);
     }
 
     /**
