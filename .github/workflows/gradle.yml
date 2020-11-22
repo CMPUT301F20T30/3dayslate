@@ -34,7 +34,7 @@ jobs:
       uses: ReactiveCircus/android-emulator-runner@v2.13.0
       with:
         # API level of the platform and system image - e.g. 23 for Android Marshmallow, 29 for Android 10
-        api-level: 29
+        api-level: 30
         # custom script to run - e.g. `./gradlew connectedCheck`
         script: ./gradlew connectedCheck
     
