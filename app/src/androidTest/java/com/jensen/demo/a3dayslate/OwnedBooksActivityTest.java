@@ -263,6 +263,7 @@ public class OwnedBooksActivityTest {
         // owned books activity uses recreate() which is why its needs to be waited for twice in this case
         solo.waitForActivity(DashboardActivity.class);
         //edit the book to have the proper title and test
+
         solo.clickOnButton("My Books");
         solo.waitForActivity(OwnedBooksActivity.class);
         solo.assertCurrentActivity("NOT OWNED BOOKS", OwnedBooksActivity.class);
