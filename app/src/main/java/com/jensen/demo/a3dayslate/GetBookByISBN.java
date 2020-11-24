@@ -72,7 +72,7 @@ import java.util.ArrayList;
     String bodyText;
 
     // Request codes
-    int scanISBNRequestCode = 0;
+    int scanISBNRequestCode = 1;
 
     // Camera stuff
     private static final int REQUEST_CAMERA_PERMISSION = 1144;
@@ -192,8 +192,9 @@ import java.util.ArrayList;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.w("ERRORLOOK", "TEST" + Boolean.toString(resultCode == scanISBNRequestCode));
         // For receiving information from the barcode-scanner
-        Log.w("JENSEN123", "123123" + resultCode);
+        Log.w("JENSEN123", "123123" + Integer.toString(resultCode));
 
         if(resultCode == scanISBNRequestCode) {
             Log.w("TAG1", "Got here!!!");
@@ -209,6 +210,7 @@ import java.util.ArrayList;
                     .build();
             // Access the google books API to get the relevant information for a book based on it's ISBN
             httpClient.newCall(request).enqueue(new Callback() {
+
                 @Override
                 public void onFailure(Request request, IOException e) {
                     e.printStackTrace();
