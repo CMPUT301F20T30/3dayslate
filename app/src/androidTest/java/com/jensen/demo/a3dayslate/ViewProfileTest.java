@@ -223,8 +223,6 @@ public class ViewProfileTest {
         assertEquals(originalEmail,setEmail);
     }
 
-    //TODO: test if change phone number works
-
     /**
      * Close activity after each test
      * @throws Exception

@@ -74,7 +74,7 @@ public class ViewBookActivity extends AppCompatActivity implements Serializable 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.view_book_activity);
+        setContentView(R.layout.activity_view_book);
 
 
         viewTitle = findViewById(R.id.view_book_title);

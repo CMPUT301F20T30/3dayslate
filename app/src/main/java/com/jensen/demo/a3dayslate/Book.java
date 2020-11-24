@@ -53,16 +53,14 @@ public class Book implements Serializable {
         REQUESTED,
         ACCEPTED,
         SCANNED,
+        RETURNING,
         BORROWED
     }
     //on creation will always be considered available
     private statuses currentStatus = statuses.AVAILABLE;
     private String title;
     private String isbn;
-    // private final ArrayList<String> authorList;
     private ArrayList<String> authorList;
-    //NOTE THAT THIS IS SUBJECT TO CHANGE, I believe we may use the class Drawable to show images in res files or an ImageView
-
     private String owner;
     //on creation will always not be considered having a borrower
     private String borrower = "";
