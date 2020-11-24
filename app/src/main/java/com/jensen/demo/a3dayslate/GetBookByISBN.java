@@ -104,6 +104,7 @@ import java.util.ArrayList;
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), BarcodeScannerActivity.class);
                 intent.putExtra("action", "add");
+               // Log.w("TAG", "ADD BOOK TEST BUTTON");
                 startActivityForResult(intent, scanISBNRequestCode);
             }
         });
@@ -192,7 +193,10 @@ import java.util.ArrayList;
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // For receiving information from the barcode-scanner
+        Log.w("JENSEN123", "123123" + resultCode);
+
         if(resultCode == scanISBNRequestCode) {
+            Log.w("TAG1", "Got here!!!");
             boolean valid = true;
             Bundle bundle = data.getBundleExtra("bundle");
             String isbn = bundle.getString("ISBN");
@@ -208,6 +212,7 @@ import java.util.ArrayList;
                 @Override
                 public void onFailure(Request request, IOException e) {
                     e.printStackTrace();
+                    Log.w("TAG", "ERROR");
                     return;
                 }
 
@@ -231,11 +236,12 @@ import java.util.ArrayList;
                             Log.w("TAG", "ADD BOOK TEST " + titleText + " " + authorList.get(0));
                         } catch (Exception e) {
                             e.printStackTrace();
+                            Log.w("TAG", "ERROR");
                             return;
                         }
                         // Store it to the DB and other fun stuff
                         Book createdBook = new Book(titleText, isbn, authorList, currentUser.getDisplayName());
-                        Log.w("TAG", "JENSEN" + createdBook.getTitle() + createdBook.getIsbn() + createdBook.getAuthors().get(0) + createdBook.getOwner());
+                        Log.w("TAG1", "JENSEN" + createdBook.getTitle() + createdBook.getIsbn() + createdBook.getAuthors().get(0) + createdBook.getOwner());
                         // Add book to the database here!! -----------------
                         db.collection("users").document(currentUser.getDisplayName()).collection("books").document(createdBook.getIsbn()).get()
                                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -245,12 +251,15 @@ import java.util.ArrayList;
                                             DocumentSnapshot document = task.getResult();
                                             Log.w("ADDBOOK", "Got in here");
                                             if(!document.exists()) {
-                                                Log.w("ADDBOOK", "GOT HERE!");
+                                                Log.w("TAG1", "GOT HERE!");
                                                 addBook(createdBook);
                                             }
                                         }
                                     }
                                 });
+                    }
+                    else {
+                        Log.w("TAG", "Response failed!");
                     }
                     // If response not successful, do nothing?
                 }
