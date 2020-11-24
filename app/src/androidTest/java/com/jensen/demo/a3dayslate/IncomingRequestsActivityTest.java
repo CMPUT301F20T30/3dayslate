@@ -18,7 +18,7 @@ import static org.junit.Assert.assertTrue;
 
 /* IncomingRequestsActivityTest Class
 
-   Version 1.0.0
+   Version 1.0.1
 
    October 31 2020
 

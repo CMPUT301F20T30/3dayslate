@@ -84,7 +84,7 @@ public class BookCustomList extends ArrayAdapter<Book> {
 
         //inflate view
         if(view == null){
-            view = LayoutInflater.from(context).inflate(R.layout.book_list_content,parent,false);
+            view = LayoutInflater.from(context).inflate(R.layout.content_book_list,parent,false);
         }
 
         //get necessary Gear from list
@@ -114,7 +114,7 @@ public class BookCustomList extends ArrayAdapter<Book> {
         else if (book.getCurrentStatus() == Book.statuses.REQUESTED) {
             bookStatus.setText("Requested");
         }
-        else if (book.getCurrentStatus() == Book.statuses.BORROWED) {
+        else if (book.getCurrentStatus() == Book.statuses.BORROWED || book.getCurrentStatus() == Book.statuses.RETURNING) {
             bookStatus.setText("Borrowed");
         }
 

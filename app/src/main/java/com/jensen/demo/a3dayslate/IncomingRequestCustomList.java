@@ -84,7 +84,7 @@ public class IncomingRequestCustomList extends ArrayAdapter<Request> {
 
         //inflate view
         if(view == null){
-            view = LayoutInflater.from(context).inflate(R.layout.incoming_requests_content,parent,false);
+            view = LayoutInflater.from(context).inflate(R.layout.content_incoming_requests,parent,false);
         }
 
         Request request = requests.get(position);

@@ -72,13 +72,16 @@ public class OwnedBooksAdapter extends ArrayAdapter<Book> {
         if(status == Book.statuses.SCANNED) {
             status = Book.statuses.ACCEPTED;
             statusString = status.toString();
+        } else if (status == Book.statuses.RETURNING){
+            status = Book.statuses.BORROWED;
+            statusString = status.toString();
         }
         else {
             statusString = status.toString();
         }
         String title = getItem(position).getTitle();
         String borrowerName = getItem(position).getBorrower();
-        if(borrowerName.equals("")){
+        if(borrowerName.equals("") || status == Book.statuses.AVAILABLE){
             borrowerName = "No Borrower";
         }
 
@@ -90,9 +93,6 @@ public class OwnedBooksAdapter extends ArrayAdapter<Book> {
                 author = author + ", " + authors.get(i);
             }
         }
-        //TODO implement user class so this can be done
-        // User borrower = getItem(position).getBorrower();
-        // String borrowerName = borrower.getName();
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);

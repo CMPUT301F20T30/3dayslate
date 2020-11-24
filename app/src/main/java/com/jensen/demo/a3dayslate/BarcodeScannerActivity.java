@@ -37,6 +37,8 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
  * scan ISBN codes from the User's camera.
  *
  * Contains the basic methods to open the camera, attach it to a view, and scan/return an ISBN code
+ * Will return any external information needed if a parent activity requires it
+ *
  *
  * @author Jensen Khemchandani
  * @version 1.0.0
@@ -53,8 +55,12 @@ public class BarcodeScannerActivity extends AppCompatActivity implements ZXingSc
     String requester;
     String action;
 
-    /**
-     * Starts the camera and starts scanning for ISBN barcodes
+    /**Starts the camera and starts scanning for ISBN barcodes.
+     *
+     * Also unbundles any objects if the parent activity requires it
+     * through the action in the bundle.
+     *
+     * @param savedInstanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +80,12 @@ public class BarcodeScannerActivity extends AppCompatActivity implements ZXingSc
         }
     }
 
-    /**
-     * Gets and sends a barcode string when one has been recognized
+    /**Gets and sends a barcode string when one has been recognized.
+     *
+     * Sends back different results depending on which action (parent activity)
+     * called on the activity.
+     *
+     * @param result
      */
     @Override
     public void handleResult(Result result) {
