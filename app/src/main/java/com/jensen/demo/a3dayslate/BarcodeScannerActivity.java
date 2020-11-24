@@ -80,6 +80,7 @@ public class BarcodeScannerActivity extends AppCompatActivity implements ZXingSc
     @Override
     public void handleResult(Result result) {
         //getBookByISBN.ISBNResult.setText(result.getText());
+        Log.w("ACTION", action);
         Bundle bundle = new Bundle();
         if(action.equals("borrow")) {
             Log.w("SCAN", "got here2");
@@ -100,6 +101,7 @@ public class BarcodeScannerActivity extends AppCompatActivity implements ZXingSc
         }
         else {
             bundle.putString("ISBN", result.getText().toString());
+            Log.w("JENSENTESTING", "Hello");
             Intent intent = new Intent();
             intent.putExtra("bundle", bundle);
             setResult(gotBook, intent);

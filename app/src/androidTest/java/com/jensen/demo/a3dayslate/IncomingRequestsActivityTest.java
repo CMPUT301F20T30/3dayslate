@@ -107,8 +107,10 @@ public class IncomingRequestsActivityTest {
         solo.waitForActivity(DashboardActivity.class,10000);
         solo.assertCurrentActivity("Wrong Activity", DashboardActivity.class);
         solo.clickOnButton("Scan ISBN");
+        solo.clickOnButton("Add book to owned books");
         solo.enterText((EditText)solo.getView(R.id.enterISBNCode), "9781484732748");
         solo.clickOnButton("Enter ISBN Code");
+        solo.goBack();
         solo.goBack();
         solo.goBack();
 
@@ -168,6 +170,8 @@ public class IncomingRequestsActivityTest {
      * the request to appear with the testing buddy
      */
 
+    //book and requests must be manually deleted in database as books with requests cannot be deleted
+
     @Test
     public void checkAcceptReq(){
         //adds the book to the test owner
@@ -178,8 +182,10 @@ public class IncomingRequestsActivityTest {
         solo.waitForActivity(DashboardActivity.class,10000);
         solo.assertCurrentActivity("Wrong Activity", DashboardActivity.class);
         solo.clickOnButton("Scan ISBN");
+        solo.clickOnButton("Add book to owned books");
         solo.enterText((EditText)solo.getView(R.id.enterISBNCode), "9781484732748");
         solo.clickOnButton("Enter ISBN Code");
+        solo.goBack();
         solo.goBack();
         solo.goBack();
 
@@ -232,6 +238,7 @@ public class IncomingRequestsActivityTest {
         assertTrue(solo.waitForText("Accepted!",1,2000));
 
         //deletes the book so that it can be redone
+        //doesn't work as books with reqs can't be deleted
         solo.goBack();
         solo.goBack();
         solo.goBack();
@@ -240,8 +247,6 @@ public class IncomingRequestsActivityTest {
         solo.clickInList(2);
         solo.clickOnButton("delete");
     }
-
-    //needs to be manually set up each time
 
     /**Tests that the owner can delete any request made to them
      *
@@ -257,8 +262,10 @@ public class IncomingRequestsActivityTest {
         solo.waitForActivity(DashboardActivity.class,10000);
         solo.assertCurrentActivity("Wrong Activity", DashboardActivity.class);
         solo.clickOnButton("Scan ISBN");
+        solo.clickOnButton("Add book to owned books");
         solo.enterText((EditText)solo.getView(R.id.enterISBNCode), "9781894810647");
         solo.clickOnButton("Enter ISBN Code");
+        solo.goBack();
         solo.goBack();
         solo.goBack();
 
@@ -311,7 +318,7 @@ public class IncomingRequestsActivityTest {
         solo.goBack();
         solo.clickOnButton("My Books");
         solo.waitForActivity(OwnedBooksActivity.class);
-        solo.clickInList(2);
+        solo.clickInList(3);
         solo.clickOnButton("delete");
     }
 
