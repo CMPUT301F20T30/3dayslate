@@ -57,7 +57,7 @@ public class ViewBookActivity extends AppCompatActivity implements Serializable 
     TextView isbn;
     TextView owner;
     ImageView bookImage;
-    Boolean imagePresent;
+    Boolean imagePresent = false;
     private byte[] imageByteArray;
 
 
