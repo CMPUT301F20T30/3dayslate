@@ -86,7 +86,7 @@ public class EditProfileDialog extends AppCompatDialogFragment {
 
         // links to edit_profile_dialog resource file
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.edit_profile_dialog,null);
+        View view = inflater.inflate(R.layout.dialog_edit_profile,null);
 
         // set the ids
         email = view.findViewById(R.id.view_profile_edit_email);

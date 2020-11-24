@@ -39,7 +39,9 @@ import android.widget.Button;
  */
 
 /**
- * A simple fragment that allows a user to select what type of scan to perform. (Borrowing/adding/viewing a book)
+ * A simple fragment that allows a user to select what type of scan to perform.
+ * (Borrowing/adding/viewing a book)
+ *
  * @author Jensen Khemchandani
  * @version 1.0.0
  */

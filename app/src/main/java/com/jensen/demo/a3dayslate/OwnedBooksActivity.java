@@ -70,7 +70,7 @@ public class OwnedBooksActivity extends AppCompatActivity implements Serializabl
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.owned_books_activity);
+        setContentView(R.layout.activity_owned_books);
         //declare xml attributes
         //final ListView ownedBooksList;
         Button addBook;
@@ -223,7 +223,7 @@ public class OwnedBooksActivity extends AppCompatActivity implements Serializabl
         }
         Log.w("DISPLAYED", displayedBooks.toString());
 
-        booksAdapter = new OwnedBooksAdapter(this, R.layout.owned_book_list_content, displayedBooks);
+        booksAdapter = new OwnedBooksAdapter(this, R.layout.content_owned_book_list, displayedBooks);
         ownedBooksList.setAdapter(booksAdapter);
 
     }

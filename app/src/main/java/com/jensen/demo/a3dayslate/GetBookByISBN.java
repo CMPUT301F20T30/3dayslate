@@ -95,10 +95,12 @@ import java.util.ArrayList;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.getbookbyisbnlayout);
+        setContentView(R.layout.activity_get_book_by_isbn);
         scan_button = (Button) findViewById(R.id.scanISBNButton);
         enter_button = (Button) findViewById(R.id.enterISBNButton);
         enter_isbn = (EditText) findViewById(R.id.enterISBNCode);
+
+        //goes to the scan activity when tapped
         scan_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,6 +110,8 @@ import java.util.ArrayList;
                 startActivityForResult(intent, scanISBNRequestCode);
             }
         });
+
+        //processes the given ISBN if inputted
         enter_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -172,7 +176,6 @@ import java.util.ArrayList;
                                         }
                                     });
                         }
-                        // If response not successful, do nothing?
                     }
                 });
                 enter_isbn.setText("");
@@ -204,7 +207,6 @@ import java.util.ArrayList;
             String baseURL = "https://www.googleapis.com/books/v1/volumes?q=ISBN:";
             String url = baseURL + isbn;
             ArrayList<String> authorList = new ArrayList<String>();
-            //Book createdBook = getBook(url, httpClient, isbn);
             Request request = new Request.Builder()
                     .url(url)
                     .build();
@@ -263,7 +265,6 @@ import java.util.ArrayList;
                     else {
                         Log.w("TAG", "Response failed!");
                     }
-                    // If response not successful, do nothing?
                 }
             });
         }
