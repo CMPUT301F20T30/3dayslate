@@ -1,7 +1,6 @@
 package com.jensen.demo.a3dayslate;
 
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
@@ -19,7 +18,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 /* SignupLoginTest
 
@@ -54,8 +52,8 @@ public class SignupLoginTest {
      * @throws Exception
      */
     @Rule
-    public ActivityTestRule<MainActivity> rule =
-            new ActivityTestRule<>(MainActivity.class, true, true);
+    public ActivityTestRule<LoginActivity> rule =
+            new ActivityTestRule<>(LoginActivity.class, true, true);
 
     @Before
     public void setUp() throws  Exception{
@@ -67,7 +65,7 @@ public class SignupLoginTest {
      */
     @Test
     public void checkLoginToDashboard(){
-        solo.assertCurrentActivity("WRONG ACTIVITY", MainActivity.class);
+        solo.assertCurrentActivity("WRONG ACTIVITY", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@dashboard.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "testdashboard");
         solo.clickOnButton("Login");
@@ -80,12 +78,12 @@ public class SignupLoginTest {
      */
     @Test
     public void checkWrongPassword(){
-        solo.assertCurrentActivity("WRONG ACTIVITY", MainActivity.class);
+        solo.assertCurrentActivity("WRONG ACTIVITY", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@dashboard.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "thisshouldfail");
         solo.clickOnButton("Login");
         solo.waitForActivity(DashboardActivity.class);
-        solo.assertCurrentActivity("LOGIN SHOULD FAIL. PASSWORD CHECK IS WRONG", MainActivity.class);
+        solo.assertCurrentActivity("LOGIN SHOULD FAIL. PASSWORD CHECK IS WRONG", LoginActivity.class);
     }
 
     /**
@@ -93,12 +91,12 @@ public class SignupLoginTest {
      */
     @Test
     public void checknonexistentemail(){
-        solo.assertCurrentActivity("WRONG ACTIVITY", MainActivity.class);
+        solo.assertCurrentActivity("WRONG ACTIVITY", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "thisdoesnotexist");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "thisshouldfail");
         solo.clickOnButton("Login");
         solo.waitForActivity(DashboardActivity.class);
-        solo.assertCurrentActivity("NONEXISTANT EMAIL. SHOULD NOT LOG IN", MainActivity.class);
+        solo.assertCurrentActivity("NONEXISTANT EMAIL. SHOULD NOT LOG IN", LoginActivity.class);
     }
 
     /**
@@ -106,13 +104,13 @@ public class SignupLoginTest {
      */
     @Test
     public void checkemailindatabase(){
-        solo.assertCurrentActivity("WRONG ACTIVITY", MainActivity.class);
+        solo.assertCurrentActivity("WRONG ACTIVITY", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@dashboard.act");
         solo.enterText((EditText)solo.getView(R.id.enter_username), "thisdoesnotexist");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "thisshouldfail");
         solo.clickOnButton("Signup");
         solo.waitForActivity(DashboardActivity.class);
-        solo.assertCurrentActivity("EMAIL ALREADY TAKEN. SHOULD NOT SIGNUP", MainActivity.class);
+        solo.assertCurrentActivity("EMAIL ALREADY TAKEN. SHOULD NOT SIGNUP", LoginActivity.class);
     }
 
     /**
@@ -120,13 +118,13 @@ public class SignupLoginTest {
      */
     @Test
     public void checkusernametaken(){
-        solo.assertCurrentActivity("WRONG ACTIVITY", MainActivity.class);
+        solo.assertCurrentActivity("WRONG ACTIVITY", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "testbrandnew@dashboard.act");
         solo.enterText((EditText)solo.getView(R.id.enter_username), "DashboardTest");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "thisshouldfail");
         solo.clickOnButton("Signup");
         solo.waitForActivity(DashboardActivity.class);
-        solo.assertCurrentActivity("USERNAME TAKEN. SHOULD NOT SIGNUP", MainActivity.class);
+        solo.assertCurrentActivity("USERNAME TAKEN. SHOULD NOT SIGNUP", LoginActivity.class);
     }
 
     /**
@@ -134,13 +132,13 @@ public class SignupLoginTest {
      */
     @Test
     public void checkshortpassword(){
-        solo.assertCurrentActivity("WRONG ACTIVITY", MainActivity.class);
+        solo.assertCurrentActivity("WRONG ACTIVITY", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "new@test.com");
         solo.enterText((EditText)solo.getView(R.id.enter_username), "newacc");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "short");
         solo.clickOnButton("Signup");
         solo.waitForActivity(DashboardActivity.class);
-        solo.assertCurrentActivity("INVALID PASSWORD. SHOULD NOT SIGNUP", MainActivity.class);
+        solo.assertCurrentActivity("INVALID PASSWORD. SHOULD NOT SIGNUP", LoginActivity.class);
     }
 
     /**
@@ -148,7 +146,7 @@ public class SignupLoginTest {
      */
     @Test
     public void checkcleansignup(){
-        solo.assertCurrentActivity("WRONG ACTIVITY", MainActivity.class);
+        solo.assertCurrentActivity("WRONG ACTIVITY", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "new@test.com");
         solo.enterText((EditText)solo.getView(R.id.enter_username), "newacc");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "hihihi");

@@ -52,7 +52,7 @@ public class ViewProfileActivity extends AppCompatActivity implements EditProfil
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.view_profile_activity);
+        setContentView(R.layout.activity_view_profile);
 
         // get ids of xml elements
         username = findViewById(R.id.view_profile_username);

@@ -43,8 +43,8 @@ import org.junit.Test;
 public class OutgoingRequestsActivityTest {
     private Solo solo;
     @Rule
-    public ActivityTestRule<MainActivity> rule =
-            new ActivityTestRule<>(MainActivity.class, true, true);
+    public ActivityTestRule<LoginActivity> rule =
+            new ActivityTestRule<>(LoginActivity.class, true, true);
 
     /**Method that runs before all tests and gets solo instance
      *
@@ -64,7 +64,7 @@ public class OutgoingRequestsActivityTest {
 
     @Test
     public void checkList(){
-        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.assertCurrentActivity("Wrong Activity", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@outgoingrequestsactivity.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "123456");
         solo.clickOnButton("Login");
@@ -89,7 +89,7 @@ public class OutgoingRequestsActivityTest {
 
     @Test
     public void checkAcceptedRequest(){
-        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.assertCurrentActivity("Wrong Activity", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@outgoingrequestsactivity.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "123456");
         solo.clickOnButton("Login");
@@ -117,7 +117,7 @@ public class OutgoingRequestsActivityTest {
 
     @Test
     public void checkRegularRequest(){
-        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.assertCurrentActivity("Wrong Activity", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@outgoingrequestsactivity.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "123456");
         solo.clickOnButton("Login");

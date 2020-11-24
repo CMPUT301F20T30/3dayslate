@@ -44,8 +44,8 @@ public class OwnedBooksActivityTest {
     private Solo solo;
 
     @Rule
-    public ActivityTestRule<MainActivity> rule =
-            new ActivityTestRule<>(MainActivity.class, true, true);
+    public ActivityTestRule<LoginActivity> rule =
+            new ActivityTestRule<>(LoginActivity.class, true, true);
 
     /**
      * Sets up the tests
@@ -61,7 +61,7 @@ public class OwnedBooksActivityTest {
      */
     @Test
     public void checkActivity(){
-        solo.assertCurrentActivity("WRONG ACTIVITY", MainActivity.class);
+        solo.assertCurrentActivity("WRONG ACTIVITY", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@ownedbooks.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "testownedbooks");
         solo.clickOnButton("Login");
@@ -78,7 +78,7 @@ public class OwnedBooksActivityTest {
     @Test
     public void checkList(){
         // get to owned books
-        solo.assertCurrentActivity("WRONG ACTIVITY", MainActivity.class);
+        solo.assertCurrentActivity("WRONG ACTIVITY", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@ownedbooks.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "testownedbooks");
         solo.clickOnButton("Login");
@@ -103,7 +103,7 @@ public class OwnedBooksActivityTest {
     @Test
     public void checkAddBook(){
         // get to owned books
-        solo.assertCurrentActivity("WRONG ACTIVITY", MainActivity.class);
+        solo.assertCurrentActivity("WRONG ACTIVITY", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@ownedbooks.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "testownedbooks");
         solo.clickOnButton("Login");
@@ -123,7 +123,7 @@ public class OwnedBooksActivityTest {
     @Test
     public void checkEditBook(){
         // get to owned books
-        solo.assertCurrentActivity("WRONG ACTIVITY", MainActivity.class);
+        solo.assertCurrentActivity("WRONG ACTIVITY", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@ownedbooks.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "testownedbooks");
         solo.clickOnButton("Login");
@@ -151,7 +151,7 @@ public class OwnedBooksActivityTest {
     @Test
     public void checkFilter(){
         // get to owned books
-        solo.assertCurrentActivity("WRONG ACTIVITY", MainActivity.class);
+        solo.assertCurrentActivity("WRONG ACTIVITY", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@ownedbooks.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "testownedbooks");
         solo.clickOnButton("Login");
@@ -222,7 +222,7 @@ public class OwnedBooksActivityTest {
     @Test
     public void checkDeleteEdit(){
         // get to owned books
-        solo.assertCurrentActivity("WRONG ACTIVITY", MainActivity.class);
+        solo.assertCurrentActivity("WRONG ACTIVITY", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@ownedbooks.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "testownedbooks");
         solo.clickOnButton("Login");

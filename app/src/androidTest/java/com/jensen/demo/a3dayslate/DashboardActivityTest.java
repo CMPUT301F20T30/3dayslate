@@ -48,8 +48,8 @@ public class DashboardActivityTest {
      * @throws Exception
      */
     @Rule
-    public ActivityTestRule<MainActivity> rule =
-            new ActivityTestRule<>(MainActivity.class, true, true);
+    public ActivityTestRule<LoginActivity> rule =
+            new ActivityTestRule<>(LoginActivity.class, true, true);
 
     @Before
     public void setUp() throws  Exception{
@@ -61,7 +61,7 @@ public class DashboardActivityTest {
      */
     @Test
     public void checkLoginToDashboard(){
-        solo.assertCurrentActivity("WRONG ACTIVITY", MainActivity.class);
+        solo.assertCurrentActivity("WRONG ACTIVITY", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@dashboard.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "testdashboard");
         solo.clickOnButton("Login");
@@ -74,7 +74,7 @@ public class DashboardActivityTest {
      */
     @Test
     public void checkMesasge(){
-        solo.assertCurrentActivity("WRONG ACTIVITY", MainActivity.class);
+        solo.assertCurrentActivity("WRONG ACTIVITY", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@dashboard.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "testdashboard");
         solo.clickOnButton("Login");
@@ -92,7 +92,7 @@ public class DashboardActivityTest {
      */
     @Test
     public void checkBookSearch(){
-        solo.assertCurrentActivity("WRONG ACTIVITY", MainActivity.class);
+        solo.assertCurrentActivity("WRONG ACTIVITY", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@dashboard.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "testdashboard");
         solo.clickOnButton("Login");
@@ -108,7 +108,7 @@ public class DashboardActivityTest {
      */
     @Test
     public void checkUserSearch(){
-        solo.assertCurrentActivity("WRONG ACTIVITY", MainActivity.class);
+        solo.assertCurrentActivity("WRONG ACTIVITY", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@dashboard.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "testdashboard");
         solo.clickOnButton("Login");
@@ -124,7 +124,7 @@ public class DashboardActivityTest {
      */
     @Test
     public void checkOwnedBooks(){
-        solo.assertCurrentActivity("WRONG ACTIVITY", MainActivity.class);
+        solo.assertCurrentActivity("WRONG ACTIVITY", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@dashboard.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "testdashboard");
         solo.clickOnButton("Login");
@@ -140,7 +140,7 @@ public class DashboardActivityTest {
      */
     @Test
     public void checkBorrowedBooks(){
-        solo.assertCurrentActivity("WRONG ACTIVITY", MainActivity.class);
+        solo.assertCurrentActivity("WRONG ACTIVITY", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@dashboard.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "testdashboard");
         solo.clickOnButton("Login");
@@ -156,7 +156,7 @@ public class DashboardActivityTest {
      */
     @Test
     public void checkMyProfile(){
-        solo.assertCurrentActivity("WRONG ACTIVITY", MainActivity.class);
+        solo.assertCurrentActivity("WRONG ACTIVITY", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@dashboard.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "testdashboard");
         solo.clickOnButton("Login");
@@ -172,7 +172,7 @@ public class DashboardActivityTest {
      */
     @Test
     public void checkScanISBN(){
-        solo.assertCurrentActivity("WRONG ACTIVITY", MainActivity.class);
+        solo.assertCurrentActivity("WRONG ACTIVITY", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@dashboard.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "testdashboard");
         solo.clickOnButton("Login");
@@ -198,7 +198,7 @@ public class DashboardActivityTest {
      */
     @Test
     public void checkIncomingRequests(){
-        solo.assertCurrentActivity("WRONG ACTIVITY", MainActivity.class);
+        solo.assertCurrentActivity("WRONG ACTIVITY", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@dashboard.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "testdashboard");
         solo.clickOnButton("Login");
@@ -216,7 +216,7 @@ public class DashboardActivityTest {
      */
     @Test
     public void checkOutgoingRequests(){
-        solo.assertCurrentActivity("WRONG ACTIVITY", MainActivity.class);
+        solo.assertCurrentActivity("WRONG ACTIVITY", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@dashboard.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "testdashboard");
         solo.clickOnButton("Login");

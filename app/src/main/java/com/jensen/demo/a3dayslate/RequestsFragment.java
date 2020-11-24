@@ -63,7 +63,7 @@ public class RequestsFragment extends DialogFragment{
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
-        view = LayoutInflater.from(getActivity()).inflate(R.layout.requests_fragment, null);
+        view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_requests, null);
 
         //declare buttons
         Button incoming = view.findViewById(R.id.incoming_requests_button);

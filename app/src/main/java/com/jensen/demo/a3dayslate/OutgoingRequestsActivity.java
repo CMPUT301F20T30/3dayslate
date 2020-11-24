@@ -68,7 +68,7 @@ public class OutgoingRequestsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.outgoing_requests_activity);
+        setContentView(R.layout.activity_outgoing_requests);
 
         //declare listView
         ListView outgoingRequestsList;

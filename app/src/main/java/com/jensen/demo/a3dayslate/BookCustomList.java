@@ -84,7 +84,7 @@ public class BookCustomList extends ArrayAdapter<Book> {
 
         //inflate view
         if(view == null){
-            view = LayoutInflater.from(context).inflate(R.layout.book_list_content,parent,false);
+            view = LayoutInflater.from(context).inflate(R.layout.content_book_list,parent,false);
         }
 
         //get necessary Gear from list

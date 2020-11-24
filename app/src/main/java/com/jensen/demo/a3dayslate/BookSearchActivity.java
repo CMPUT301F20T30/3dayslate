@@ -64,6 +64,7 @@ import okhttp3.Response;
  * search implemented in this Activity
  * @author Danny Zaiter
  * @author Eric Weber
+ * @version 1.0.0
  */
 public class BookSearchActivity extends AppCompatActivity implements Serializable{
 
@@ -88,7 +89,7 @@ public class BookSearchActivity extends AppCompatActivity implements Serializabl
         super.onCreate(savedInstanceState);
 
         //set view
-        setContentView(R.layout.book_search_activity);
+        setContentView(R.layout.activity_book_search);
 
         /// database connection
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -152,14 +153,6 @@ public class BookSearchActivity extends AppCompatActivity implements Serializabl
                     }
 
                 });
-
-        //a little test
-        /*ArrayList<String> authors = new ArrayList<>();
-        authors.add("Author1");
-        authors.add("Author2");
-        Book book1 = new Book("BookTitle", "1234567890", authors, "Barry");
-        bookAdapter.add(book1);*/
-        //end test
 
         searchBook.setOnClickListener(new View.OnClickListener() {
             /**

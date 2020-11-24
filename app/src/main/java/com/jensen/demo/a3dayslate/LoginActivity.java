@@ -23,10 +23,6 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-
-import java.util.HashMap;
-import java.util.regex.Pattern;
-
 /* MainActivity (LoginSignupActivity)
 
    Version 1.0.0
@@ -57,7 +53,7 @@ import java.util.regex.Pattern;
  * @version 1.0.0
  */
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     // Declare buttons for login screen
     private Button loginButton;
@@ -80,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
 
         // Connect to FireBase FireStore
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -104,19 +100,19 @@ public class MainActivity extends AppCompatActivity {
                 String userUsername = enterUsername.getText().toString();
                 String userPassword = enterPassword.getText().toString();
                 if (userEmail.length() == 0 || userPassword.length() == 0) {
-                    Toast.makeText(MainActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 // Here, we should check the data with the FireStore DB to check for successful login
                 uAuth.signInWithEmailAndPassword(userEmail, userPassword)
-                        .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                        .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     // Sign in success, set the current user, and navigate to next activity
                                     Log.d("TAG", "signInWithEmail:success");
                                     FirebaseUser user = uAuth.getCurrentUser();
-                                    Toast.makeText(MainActivity.this, "Signed in as: " + user.getDisplayName(),
+                                    Toast.makeText(LoginActivity.this, "Signed in as: " + user.getDisplayName(),
                                             Toast.LENGTH_SHORT).show();
                                     // -> Navigate to a next activity here!
                                     Intent intent = new Intent(view.getContext(), DashboardActivity.class);
@@ -124,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Log.w("TAG", "signInWithEmail:failure", task.getException());
-                                    Toast.makeText(MainActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                                 }
 
                             }
@@ -145,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
                 //HashMap<String, Object> user;
                 final String userPassword = enterPassword.getText().toString();
                 if (userEmail.length() == 0 || userPassword.length() == 0 || userUsername.length() == 0) {
-                    Toast.makeText(MainActivity.this, "Sign-up failed.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Sign-up failed.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -160,11 +156,11 @@ public class MainActivity extends AppCompatActivity {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
                                 Log.d("TAG", "Username is taken!");
-                                Toast.makeText(MainActivity.this, "Username taken.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "Username taken.", Toast.LENGTH_SHORT).show();
                             }
                             else {
                                 uAuth.createUserWithEmailAndPassword(userEmail, userPassword)
-                                        .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                                        .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                                             @Override
                                             public void onComplete(@NonNull final Task<AuthResult> task) {
                                                 if (task.isSuccessful()) {
@@ -202,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
                                                 } else {
                                                     // If sign in fails, display a message to the user?
                                                     Log.e("TAG", "onComplete: Failed=" + task.getException().getMessage());
-                                                    Toast.makeText(MainActivity.this, "Sign-up failed!",
+                                                    Toast.makeText(LoginActivity.this, "Sign-up failed!",
                                                             Toast.LENGTH_SHORT).show();
                                                 }
                                             }

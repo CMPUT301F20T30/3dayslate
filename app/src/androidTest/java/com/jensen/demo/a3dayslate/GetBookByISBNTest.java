@@ -43,8 +43,8 @@ public class GetBookByISBNTest {
     private Solo solo;
 
     @Rule
-    public ActivityTestRule<MainActivity> rule =
-            new ActivityTestRule<>(MainActivity.class, true, true);
+    public ActivityTestRule<LoginActivity> rule =
+            new ActivityTestRule<>(LoginActivity.class, true, true);
 
     /**
      * Sets up the tests
@@ -61,7 +61,7 @@ public class GetBookByISBNTest {
     @Test
     public void checkActivity(){
         // get to owned books
-        solo.assertCurrentActivity("WRONG ACTIVITY", MainActivity.class);
+        solo.assertCurrentActivity("WRONG ACTIVITY", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@getbookbyisbn.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "testgetbookbyisbn");
         solo.clickOnButton("Login");
@@ -80,7 +80,7 @@ public class GetBookByISBNTest {
     @Test
     public void checkAddBook(){
         // get to GetBookByISBN
-        solo.assertCurrentActivity("WRONG ACTIVITY", MainActivity.class);
+        solo.assertCurrentActivity("WRONG ACTIVITY", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@getbookbyisbn.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "testgetbookbyisbn");
         solo.clickOnButton("Login");

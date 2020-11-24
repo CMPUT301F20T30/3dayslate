@@ -43,8 +43,8 @@ import static org.junit.Assert.assertTrue;
 public class IncomingRequestBooksTest {
     private Solo solo;
     @Rule
-    public ActivityTestRule<MainActivity> rule =
-            new ActivityTestRule<>(MainActivity.class, true, true);
+    public ActivityTestRule<LoginActivity> rule =
+            new ActivityTestRule<>(LoginActivity.class, true, true);
 
     /**Method that runs before all tests and gets solo instance
      *
@@ -65,7 +65,7 @@ public class IncomingRequestBooksTest {
 
     @Test
     public void checkList(){
-        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.assertCurrentActivity("Wrong Activity", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@incomingreqsbooks.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "123456");
         solo.clickOnButton("Login");
@@ -86,7 +86,7 @@ public class IncomingRequestBooksTest {
 
     @Test
     public void checkTap(){
-        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.assertCurrentActivity("Wrong Activity", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@incomingreqsbooks.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "123456");
         solo.clickOnButton("Login");

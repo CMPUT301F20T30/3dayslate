@@ -82,7 +82,7 @@ public class IncomingRequestsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.incoming_requests_activity);
+        setContentView(R.layout.activity_incoming_requests);
         //declare xml attributes
         Button accept;
         Button decline;
@@ -94,6 +94,7 @@ public class IncomingRequestsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Book requestedBook = (Book) intent.getSerializableExtra("book");
 
+        //goes through all request and filters depending on if requests relate to book selected
         db.collection("users").document(currentUser.getDisplayName()).
                 collection("incomingRequests")
                 .get()
@@ -127,13 +128,12 @@ public class IncomingRequestsActivity extends AppCompatActivity {
                         startActivityForResult(intent, LOCATION_ACTIVITY_CODE);
                     }
                     else {
-                        Toast.makeText(IncomingRequestsActivity.this, "This request is already in progress!!", Toast.LENGTH_SHORT);
+                        Toast.makeText(IncomingRequestsActivity.this, "This request is already in progress!!", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
         });
 
-        //TODO need to fix issue with declining an accepted request
         //on click listener for decline button
         decline.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,6 +148,13 @@ public class IncomingRequestsActivity extends AppCompatActivity {
                         db.collection("users").document(clickedRequest.getOwner()).collection("incomingRequests").document(key).delete();
                         db.collection("users").document(clickedRequest.getRequester()).collection("outgoingRequests").document(key).delete();
                         requestArrayList.remove(clickedRequest);
+                        //reset status of book to available if no more requests
+                        if (requestArrayList.size()==0){
+                            requestedBook.setCurrentStatus(Book.statuses.AVAILABLE);
+                            db.collection("users").document(currentUser.getDisplayName()).
+                                    collection("books").document(requestedBook.getIsbn()).set(requestedBook);
+                            db.collection("books").document(requestedBook.getIsbn()).set(requestedBook);
+                        }
                         clickedRequest = null;
                         requestAdapter.notifyDataSetChanged();
                     }

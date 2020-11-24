@@ -1,21 +1,13 @@
 package com.jensen.demo.a3dayslate;
 import android.app.Activity;
-import android.app.Fragment;
-import android.content.Intent;
-import android.util.Log;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+
 import static org.junit.Assert.assertEquals;
-import androidx.annotation.NonNull;
+
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.robotium.solo.Solo;
 
@@ -24,7 +16,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertFalse;
@@ -57,8 +48,8 @@ public class ViewProfileTest {
     private String setEmail;
     private FirebaseFirestore db;
     @Rule
-    public ActivityTestRule<MainActivity> rule =
-            new ActivityTestRule<>(MainActivity.class,true,true);
+    public ActivityTestRule<LoginActivity> rule =
+            new ActivityTestRule<>(LoginActivity.class,true,true);
     /**
      * Runs before all tests and creates solo instance.
      * @throws Exception
@@ -69,7 +60,7 @@ public class ViewProfileTest {
         // sign into profile test account
         originalEmail = "profiletest@gmail.com";
         solo = new Solo(InstrumentationRegistry.getInstrumentation(),rule.getActivity());
-        solo.assertCurrentActivity("WRONG ACTIVITY", MainActivity.class);
+        solo.assertCurrentActivity("WRONG ACTIVITY", LoginActivity.class);
 
         // enter email and password to sign in
         solo.enterText((EditText)solo.getView(R.id.enter_email), originalEmail);

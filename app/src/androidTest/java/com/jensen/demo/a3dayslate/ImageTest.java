@@ -1,13 +1,10 @@
 package com.jensen.demo.a3dayslate;
 
 import android.widget.EditText;
-import android.widget.ImageView;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.robotium.solo.Solo;
 
 import org.junit.After;
@@ -17,6 +14,27 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
+/* ImageTest
+
+   Version 1.0.0
+
+   November 22 2020
+
+   Copyright [2020] [Eric Weber]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+ */
+
 /**
  *  Test class for images
  */
@@ -25,8 +43,8 @@ public class ImageTest {
     private Solo solo;
 
     @Rule
-    public ActivityTestRule<MainActivity> rule =
-            new ActivityTestRule<>(MainActivity.class, true, true);
+    public ActivityTestRule<LoginActivity> rule =
+            new ActivityTestRule<>(LoginActivity.class, true, true);
 
 
     /**
@@ -44,7 +62,7 @@ public class ImageTest {
     @Test
     public void checkImage(){
         // get to edit book
-        solo.assertCurrentActivity("WRONG ACTIVITY", MainActivity.class);
+        solo.assertCurrentActivity("WRONG ACTIVITY", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@images.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "testimages");
         solo.clickOnButton("Login");
@@ -84,7 +102,7 @@ public class ImageTest {
     @Test
     public void checkNoImage(){
         // get to edit book
-        solo.assertCurrentActivity("WRONG ACTIVITY", MainActivity.class);
+        solo.assertCurrentActivity("WRONG ACTIVITY", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@images.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "testimages");
         solo.clickOnButton("Login");

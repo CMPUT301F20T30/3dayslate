@@ -74,7 +74,7 @@ public class IncomingRequestsBooks extends AppCompatActivity {
         ArrayList<String> titleBooks = new ArrayList<>();
         ArrayList<Book> reqBooks = new ArrayList<>();
         ArrayList<Request> allRequests = new ArrayList<>();
-        ArrayAdapter reqBooksAdapter = new ArrayAdapter<String>(this, R.layout.incoming_request_book_content,titleBooks);
+        ArrayAdapter reqBooksAdapter = new ArrayAdapter<String>(this, R.layout.content_incoming_request_book,titleBooks);
 
         listBooks.setAdapter(reqBooksAdapter);
         //going through all requests to get the book that have requests

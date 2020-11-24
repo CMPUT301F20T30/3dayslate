@@ -16,8 +16,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import org.w3c.dom.Text;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -69,7 +67,7 @@ public class UserSearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.user_search_activity);
+        setContentView(R.layout.activity_user_search);
 
         // setting up the ids for xml elements
         searchUser = (TextView) findViewById(R.id.user_search_bar);
@@ -81,7 +79,7 @@ public class UserSearchActivity extends AppCompatActivity {
          matchedUsers = new ArrayList<User>(); // contains User objects that match search word
          matchedUserStrings = new ArrayList<String>(); // contains usernames of users that match search word
 
-        ArrayAdapter userAdapter = new ArrayAdapter<String>(this, R.layout.user_search_content,matchedUserStrings);
+        ArrayAdapter userAdapter = new ArrayAdapter<String>(this, R.layout.content_user_search,matchedUserStrings);
         userListView.setAdapter(userAdapter);
 
         // Query database to find all the users

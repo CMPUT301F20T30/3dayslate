@@ -17,7 +17,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -25,7 +24,37 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-//activity that has not been worked on yet
+/* BorrowedBooksActivity Class
+
+   Version 1.0.0
+
+   November 23 2020
+
+   Copyright [2020] [Larissa Zhang/Houston Le]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+ */
+
+/**This activity shows all the books that a user is
+ * currently borrowing, and allows for either viewing or
+ * returning of a book
+ *
+ * @author Larissa Zhang
+ * @author Houston Le
+ * @see ViewBookActivity
+ * @see BarcodeScannerActivity
+ * @version 1.0.0
+ */
 
 public class BorrowedBooksActivity extends AppCompatActivity {
 
@@ -40,10 +69,16 @@ public class BorrowedBooksActivity extends AppCompatActivity {
     final FirebaseAuth uAuth = FirebaseAuth.getInstance();
     final FirebaseUser currentUser = uAuth.getCurrentUser();
 
+    /**Creates a listview and buttons showing all
+     * books that a user owns
+     *
+     * @param savedInstanceState
+     */
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.borrowed_books_activity);
+        setContentView(R.layout.activity_borrowed_books);
 
         //declare listView
         ListView borrowedBooksList;
@@ -73,7 +108,7 @@ public class BorrowedBooksActivity extends AppCompatActivity {
                             Log.w("BOOK:", "Error getting documents");
                         }
                         Log.w("BOOK ARRAYLIST:", myBooks.toString());
-                        booksAdapter = new BorrowedBooksAdapter(BorrowedBooksActivity.this, R.layout.borrowed_book_list_content, myBooks);
+                        booksAdapter = new BorrowedBooksAdapter(BorrowedBooksActivity.this, R.layout.content_borrowed_book_list, myBooks);
                         borrowedBooksList.setAdapter(booksAdapter);
 
                     }
@@ -89,7 +124,7 @@ public class BorrowedBooksActivity extends AppCompatActivity {
             }
         });
 
-        //on click listener for adding books
+        //on click listener for viewing books
         viewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,7 +136,7 @@ public class BorrowedBooksActivity extends AppCompatActivity {
             }
         });
 
-        //on click listener for adding books
+        //on click listener for returning books
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,6 +151,14 @@ public class BorrowedBooksActivity extends AppCompatActivity {
 
 
     }
+
+    /**Handles if the scanned book matched the book user
+     * wanted to return and indicates so
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

@@ -18,7 +18,7 @@ import static org.junit.Assert.assertTrue;
 
 /* IncomingRequestsActivityTest Class
 
-   Version 1.0.0
+   Version 1.0.1
 
    October 31 2020
 
@@ -45,8 +45,8 @@ import static org.junit.Assert.assertTrue;
 public class IncomingRequestsActivityTest {
     private Solo solo;
     @Rule
-    public ActivityTestRule<MainActivity> rule =
-            new ActivityTestRule<>(MainActivity.class, true, true);
+    public ActivityTestRule<LoginActivity> rule =
+            new ActivityTestRule<>(LoginActivity.class, true, true);
 
     /**Method that runs before all tests and gets solo instance
      *
@@ -66,7 +66,7 @@ public class IncomingRequestsActivityTest {
 
     @Test
     public void checkARequest(){
-        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.assertCurrentActivity("Wrong Activity", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@incomingreqsactivity.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "123456");
         solo.clickOnButton("Login");
@@ -100,7 +100,7 @@ public class IncomingRequestsActivityTest {
     @Test
     public void checkLocationAccept(){
         //adds the book to the test owner
-        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.assertCurrentActivity("Wrong Activity", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@incomingreqsactivity.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "123456");
         solo.clickOnButton("Login");
@@ -115,7 +115,7 @@ public class IncomingRequestsActivityTest {
         solo.goBack();
 
         //requests the book with the test borrower
-        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.assertCurrentActivity("Wrong Activity", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@buddyforincoming.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "123456");
         solo.clickOnButton("Login");
@@ -130,7 +130,7 @@ public class IncomingRequestsActivityTest {
         solo.goBack();
 
         //checks the actual request accepting
-        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.assertCurrentActivity("Wrong Activity", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@incomingreqsactivity.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "123456");
         solo.clickOnButton("Login");
@@ -175,7 +175,7 @@ public class IncomingRequestsActivityTest {
     @Test
     public void checkAcceptReq(){
         //adds the book to the test owner
-        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.assertCurrentActivity("Wrong Activity", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@incomingreqsactivity.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "123456");
         solo.clickOnButton("Login");
@@ -190,7 +190,7 @@ public class IncomingRequestsActivityTest {
         solo.goBack();
 
         //requests the book with the test borrower
-        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.assertCurrentActivity("Wrong Activity", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@buddyforincoming.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "123456");
         solo.clickOnButton("Login");
@@ -205,7 +205,7 @@ public class IncomingRequestsActivityTest {
         solo.goBack();
 
         //checks the actual request accepting
-        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.assertCurrentActivity("Wrong Activity", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@incomingreqsactivity.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "123456");
         solo.clickOnButton("Login");
@@ -255,7 +255,7 @@ public class IncomingRequestsActivityTest {
     @Test
     public void checkDelete(){
         //adds the book to the test owner
-        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.assertCurrentActivity("Wrong Activity", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@incomingreqsactivity.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "123456");
         solo.clickOnButton("Login");
@@ -270,7 +270,7 @@ public class IncomingRequestsActivityTest {
         solo.goBack();
 
         //requests the book with the test borrower
-        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.assertCurrentActivity("Wrong Activity", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@buddyforincoming.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "123456");
         solo.clickOnButton("Login");
@@ -285,7 +285,7 @@ public class IncomingRequestsActivityTest {
         solo.goBack();
 
         //checks the deletion of a request
-        solo.assertCurrentActivity("Wrong Activity", MainActivity.class);
+        solo.assertCurrentActivity("Wrong Activity", LoginActivity.class);
         solo.enterText((EditText)solo.getView(R.id.enter_email), "test@incomingreqsactivity.act");
         solo.enterText((EditText)solo.getView(R.id.enter_password), "123456");
         solo.clickOnButton("Login");

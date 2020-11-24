@@ -28,7 +28,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-/* IncomingRequestsBook Class
+/* AcceptedRequestsActivity Class
 
    Version 1.0.0
 
@@ -49,13 +49,15 @@ import java.util.ArrayList;
    limitations under the License.
  */
 
-/** A redirect activity within Incoming requests that
- * allows for a owner to look for requests by book. When
- * book is tapped, will send specific book to IncomingRequestsActivity
- * to show individual requests.
+/** This activity handler both borrower and owner sides
+ * of the process of borrowing a book with an accepted request.
+ * The process allows for both borrower and owner to choose a book
+ * that has been cleared to borrow and will carry out the process,
+ * with the owner going first and the afterwards the borrower.
  *
  * @author Larissa Zhang
- * @see AcceptedRequestsActivity
+ * @author Jensen Khemchandani
+ * @see BarcodeScannerActivity
  * @version 1.0.0
  */
 
@@ -182,6 +184,14 @@ public class AcceptedRequestsActivity extends AppCompatActivity {
         });
     }
 
+    /**Handles the result from the scanner activity, checking if the scanned
+     * book matches the request and who has scanned the book.
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -221,9 +231,6 @@ public class AcceptedRequestsActivity extends AppCompatActivity {
                                 }
                             }
                         });
-                // Book has now been scanned by the owner! -> Redirect back to dashboard?
-                //Intent intent  = new Intent(AcceptedRequestsActivity.this, DashboardActivity.class);
-                //startActivity(intent);
                 finish();
             }
             else {
@@ -246,7 +253,7 @@ public class AcceptedRequestsActivity extends AppCompatActivity {
             }
         }
         else {
-            // The person scanned the wrong book, and we can show an error message or something
+            // The person scanned the wrong book
             Toast.makeText(AcceptedRequestsActivity.this, "Scanned wrong book!", Toast.LENGTH_SHORT).show();
         }
     }
