@@ -1,6 +1,15 @@
 # This workflow will build a Java project with Gradle
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
 
+# Some code for the file was taken from Wojciech Krzywiec's Medium article:
+# https://wkrzywiec.medium.com/github-actions-for-android-first-approach-f616c24aa0f9
+# Date Accessed: Nov 24 2020
+
+#ReactiveCircus's Action was used to run an emulator for CI testing
+#
+# Android Emulator Runner:
+# https://github.com/ReactiveCircus/android-emulator-runner
+
 name: Java CI with Gradle
 
 on:
@@ -40,7 +49,7 @@ jobs:
         # API level of the platform and system image - e.g. 23 for Android Marshmallow, 29 for Android 10
         api-level: 29
         # custom script to run - e.g. `./gradlew connectedCheck`
-        script: ./gradlew connectedCheck
+        script: ./gradlew connectedCheck --stacktrace
     
   build:
 
