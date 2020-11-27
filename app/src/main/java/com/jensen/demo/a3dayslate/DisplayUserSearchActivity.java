@@ -1,6 +1,7 @@
 package com.jensen.demo.a3dayslate;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.TextViewCompat;
 
 import android.os.Bundle;
 import android.widget.TextView;
@@ -56,7 +57,7 @@ public class DisplayUserSearchActivity extends AppCompatActivity {
         user = (User) extras.getSerializable("user");
 
         // set the fields with the searched user information
-        usernameField.setText(user.getUsername());
-        emailField.setText(user.getEmail());
+        usernameField.setText("Username: " + user.getUsername());
+        emailField.setText("Email: " + user.getEmail());
     }
 }
