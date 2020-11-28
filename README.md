@@ -21,3 +21,5 @@ JavaDocs can be found and downloaded in the /doc folder
 The app can currently only host 1 copy of a book throughout the entire system. This means that two people cannot own the same book in the app at the same time. 
 
 Instrumented Testing in GitHub Actions will have some failures in automated testing due to how the CI testing was set up so it is recommended to try some of the failing tests and run them manually.
+
+Testing was not done for the scanner portion of the app since it was hard set up the camera and testing with CI thus extensive manual testing was done for portions of the app that used this feature.
