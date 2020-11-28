@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:text="Email:"
-        android:textSize="30dp"
+        app:autoSizeTextType = "uniform"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_profile_username">
@@ -27,7 +28,8 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:text="Username:"
-        android:textSize="30dp"
+        app:autoSizeTextType = "uniform"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
