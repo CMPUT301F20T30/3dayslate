@@ -162,7 +162,7 @@ import java.util.ArrayList;
 
                             Book createdBook = new Book(titleText, isbn, authorList, currentUser.getDisplayName());
                             // Add book to the database here!! -----------------------
-                            db.collection("users").document(currentUser.getDisplayName()).collection("books").document(createdBook.getIsbn()).get()
+                            db.collection("books").document(createdBook.getIsbn()).get()
                                     .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                         @Override
                                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -171,6 +171,8 @@ import java.util.ArrayList;
                                                 if(!document.exists()) {
                                                     Log.w("TAG", "JENSEN" + createdBook.getTitle() + createdBook.getIsbn() + createdBook.getAuthors().get(0) + createdBook.getOwner());
                                                     addBook(createdBook);
+                                                } else {
+                                                    duplicateBook();
                                                 }
                                             }
                                         }
@@ -247,7 +249,7 @@ import java.util.ArrayList;
                         Book createdBook = new Book(titleText, isbn, authorList, currentUser.getDisplayName());
                         Log.w("TAG1", "JENSEN" + createdBook.getTitle() + createdBook.getIsbn() + createdBook.getAuthors().get(0) + createdBook.getOwner());
                         // Add book to the database here!! -----------------
-                        db.collection("users").document(currentUser.getDisplayName()).collection("books").document(createdBook.getIsbn()).get()
+                        db.collection("books").document(createdBook.getIsbn()).get()
                                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                     @Override
                                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -257,6 +259,8 @@ import java.util.ArrayList;
                                             if(!document.exists()) {
                                                 Log.w("TAG1", "GOT HERE!");
                                                 addBook(createdBook);
+                                            } else {
+                                                duplicateBook();
                                             }
                                         }
                                     }
@@ -282,7 +286,13 @@ import java.util.ArrayList;
         Toast.makeText(GetBookByISBN.this, "Book Added", Toast.LENGTH_SHORT).show();
     }
 
+     /**
+      * Shows the toast message for a book that already exists in system
+      */
 
+    private void duplicateBook(){
+        Toast.makeText(GetBookByISBN.this, "Book already exists", Toast.LENGTH_SHORT).show();
+    }
 
 
 }
