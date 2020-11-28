@@ -48,6 +48,10 @@ jobs:
       with:
         # API level of the platform and system image - e.g. 23 for Android Marshmallow, 29 for Android 10
         api-level: 29
+        # target of the system image - default, google_apis or playstore
+        target: google_apis
+        # command-line options used when launching the emulator - e.g. `-no-window -no-snapshot -camera-back emulated`
+        emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim
         # custom script to run - e.g. `./gradlew connectedCheck`
         script: ./gradlew connectedCheck --stacktrace
     
