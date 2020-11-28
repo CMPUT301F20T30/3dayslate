@@ -45,6 +45,13 @@ import java.util.Random;
  * @author Jensen Khemchandani
  * @version 1.0.0
  */
+
+/* FireBase Notifications by Code sphere (Rajjan Sharma)
+   Youtube Link: https://www.youtube.com/watch?v=lL_HaaPbMF4
+
+   Used video as a reference for setting up notifications
+ */
+
 public class NotificationService extends FirebaseMessagingService {
     private String channel_id = "my_channel";
     /**

@@ -61,7 +61,7 @@ public class BorrowedBooksActivity extends AppCompatActivity {
     private final ArrayList<Book> myBooks = new ArrayList<>();
     private BorrowedBooksAdapter booksAdapter;
     private Book clickedBook = null;
-    private int view_book = 0;
+    private int view_book = -1;
     private int scan_return = 1;
 
     // gets the current user from the database
@@ -167,29 +167,30 @@ public class BorrowedBooksActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Bundle bundle = data.getBundleExtra("bundle");
-        String isbn = bundle.getString("ISBN");
-        Book book_in_request = (Book) bundle.getSerializable("book");
-        Log.w("ARA", "ISBN OF SCANNED BOOK: " + isbn);
-        Log.w("ARA",  "ISBN OF BOOK: " + book_in_request.getIsbn());
+        if (resultCode == scan_return) {
+            Bundle bundle = data.getBundleExtra("bundle");
+            String isbn = bundle.getString("ISBN");
+            Book book_in_request = (Book) bundle.getSerializable("book");
+            Log.w("ARA", "ISBN OF SCANNED BOOK: " + isbn);
+            Log.w("ARA", "ISBN OF BOOK: " + book_in_request.getIsbn());
 
-        // Check to see if the book that was scanned is the correct book!
-        if(isbn.equals(book_in_request.getIsbn())) {
-            // Here check if you are the owner or borrower and change stuff as necessary?
-            if(currentUser.getDisplayName().equals(book_in_request.getBorrower())) {
-                Toast.makeText(BorrowedBooksActivity.this, "Borrower, your book has been scanned", Toast.LENGTH_SHORT).show();
-                // Change the database to denote that the owner has scanned
-                book_in_request.setCurrentStatus(Book.statuses.RETURNING);
-                db.collection("users").document(book_in_request.getOwner()).
-                        collection("books").document(book_in_request.getIsbn()).set(book_in_request);
-                db.collection("books").document(book_in_request.getIsbn()).set(book_in_request);
-                db.collection("users").document(book_in_request.getBorrower()).
-                        collection("borrowedBooks").document(book_in_request.getIsbn()).set(book_in_request);
-                finish();
+            // Check to see if the book that was scanned is the correct book!
+            if (isbn.equals(book_in_request.getIsbn())) {
+                // Here check if you are the owner or borrower and change stuff as necessary?
+                if (currentUser.getDisplayName().equals(book_in_request.getBorrower())) {
+                    Toast.makeText(BorrowedBooksActivity.this, "Borrower, your book has been scanned", Toast.LENGTH_SHORT).show();
+                    // Change the database to denote that the owner has scanned
+                    book_in_request.setCurrentStatus(Book.statuses.RETURNING);
+                    db.collection("users").document(book_in_request.getOwner()).
+                            collection("books").document(book_in_request.getIsbn()).set(book_in_request);
+                    db.collection("books").document(book_in_request.getIsbn()).set(book_in_request);
+                    db.collection("users").document(book_in_request.getBorrower()).
+                            collection("borrowedBooks").document(book_in_request.getIsbn()).set(book_in_request);
+                    finish();
+                }
+            } else {
+                Toast.makeText(BorrowedBooksActivity.this, "Scanned wrong book!", Toast.LENGTH_SHORT).show();
             }
-        }
-        else {
-            Toast.makeText(BorrowedBooksActivity.this, "Scanned wrong book!", Toast.LENGTH_SHORT).show();
         }
     }
 }
