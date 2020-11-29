@@ -10,7 +10,7 @@ This app is a book sharing service where users can lend and request books from o
 
 For more information regarding how the app works, please refer to this video linked here:
 
-Link:
+Link: https://drive.google.com/file/d/1nxr9YhmvDhNg-_iDsYONyMoPHNATfSi_/view
 
 Documentation of development can be found in both the Projects tab and the Wiki tab in the repository.
 
