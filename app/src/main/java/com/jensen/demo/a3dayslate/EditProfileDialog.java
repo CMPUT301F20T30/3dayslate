@@ -143,7 +143,7 @@ public class EditProfileDialog extends AppCompatDialogFragment {
 
                         // wait for the database to have time to update information
                         try {
-                            TimeUnit.SECONDS.sleep(1);
+                            TimeUnit.SECONDS.sleep(2);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
